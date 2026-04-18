@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lupa — Spatial Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:            #0A0908;
+            --bg2:           #0E0D0B;
+            --ink:           #E0DDD5;
+            --amber:         #F0B500;
+            --amber-dim:     rgba(240,181,0,0.22);
+            --amber-faint:   rgba(240,181,0,0.06);
+            --green:         #3DD68C;
+            --red:           #E84040;
+            --border:        rgba(255,255,255,0.07);
+            --border-amber:  rgba(240,181,0,0.25);
+            --muted:         #58544F;
+            --panel:         rgba(255,255,255,0.025);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 400;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.045;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 180px;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 0 60px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(10,9,8,0.94);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--amber);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .nav-logo-icon { display: inline-flex; align-items: center; }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-location {
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .nav-cta {
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--amber);
+            text-decoration: none;
+            padding: 7px 18px;
+            border: 1px solid var(--border-amber);
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .nav-cta:hover { background: var(--amber); color: var(--bg); }
+
+        /* ── Hero ── */
+        #hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 58% 42%;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 72px 80px 80px;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+
+        .hero-left::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, var(--amber) 35%, var(--amber) 65%, transparent);
+            opacity: 0.35;
+        }
+
+        .hero-label {
+            font-size: 9px;
+            letter-spacing: 0.24em;
+            color: var(--amber);
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-label::before { content: '•'; }
+        .hero-label::after {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 1px;
+            background: var(--amber);
+            opacity: 0.35;
+        }
+
+        .hero-headline {
+            font-size: clamp(38px, 5vw, 72px);
+            font-weight: 600;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 32px;
+            text-transform: uppercase;
+        }
+
+        .hero-headline em {
+            font-style: normal;
+            color: var(--amber);
+        }
+
+        .hero-data {
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            padding: 16px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-data-line {
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-data-line::before {
+            content: '>';
+            color: var(--amber);
+            opacity: 0.55;
+            flex-shrink: 0;
+        }
+
+        .hero-data-line .hl { color: var(--green); }
+
+        .hero-sub {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.95;
+            max-width: 420px;
+            margin-bottom: 44px;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--amber);
+            text-decoration: none;
+            padding: 14px 28px;
+            width: fit-content;
+            font-weight: 600;
+            transition: opacity 0.15s;
+        }
+
+        .btn-primary:hover { opacity: 0.85; }
+        .btn-primary:hover svg { transform: translateX(4px); }
+        .btn-primary svg { transition: transform 0.2s; }
+
+        /* ── Map canvas ── */
+        .hero-right {
+            position: relative;
+            background: #070605;
+            overflow: hidden;
+        }
+
+        #scan-canvas { width: 100%; height: 100%; display: block; }
+
+        .scan-overlay-label {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            font-size: 8px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(240,181,0,0.3);
+        }
+
+        .scan-overlay-coords {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 10px;
+            letter-spacing: 0.09em;
+            color: rgba(240,181,0,0.48);
+            text-align: right;
+            line-height: 2;
+        }
+
+        /* ── Stats ── */
+        #stats {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .stat-item {
+            padding: 52px 48px;
+            border-right: 1px solid var(--border);
+        }
+
+        .stat-item:last-child { border-right: none; }
+
+        .stat-dot-label {
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-dot-label::before { content: '•'; color: var(--amber); }
+
+        .stat-number {
+            font-size: clamp(52px, 5.5vw, 78px);
+            font-weight: 600;
+            color: var(--amber);
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-number .unit {
+            color: rgba(240,181,0,0.5);
+            font-size: 0.44em;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        .stat-sublabel {
+            font-size: 10px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.7;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── Sections ── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+
+        .section-eyebrow {
+            font-size: 9px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-eyebrow::before { content: '•'; }
+
+        .section-title {
+            font-size: clamp(26px, 3.2vw, 44px);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        /* ── How it works ── */
+        #how { padding: 120px 0; }
+
+        .layers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 1px solid var(--border);
+        }
+
+        .layer-card {
+            padding: 52px 44px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+        }
+
+        .layer-card:last-child { border-right: none; }
+
+        .layer-num {
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            color: var(--amber);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .layer-num::before { content: '•'; }
+
+        .layer-icon { width: 36px; height: 36px; margin-bottom: 22px; }
+
+        .layer-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .layer-desc {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.95;
+            margin-bottom: 28px;
+            letter-spacing: 0.02em;
+        }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .tag {
+            font-size: 8px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+        }
+
+        /* ── Verticals ── */
+        #verticals {
+            padding: 120px 0;
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .verticals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .vertical-card {
+            padding: 44px 36px;
+            border-right: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: background 0.2s;
+        }
+
+        .vertical-card:last-child { border-right: none; }
+        .vertical-card:hover { background: var(--amber-faint); }
+
+        .vertical-ghost {
+            position: absolute;
+            bottom: -20px;
+            right: -8px;
+            font-size: 140px;
+            font-weight: 600;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(240,181,0,0.06);
+            line-height: 1;
+            pointer-events: none;
+            letter-spacing: -0.04em;
+        }
+
+        .vertical-num {
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            color: var(--amber);
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vertical-num::before { content: '•'; }
+
+        .vertical-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 12px;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+
+        .vertical-desc {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.9;
+            position: relative;
+        }
+
+        /* ── Benchmark ── */
+        #benchmark { padding: 120px 0; }
+
+        .benchmark-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .bench-quote {
+            font-size: clamp(22px, 2.8vw, 38px);
+            font-weight: 600;
+            line-height: 1.25;
+            color: var(--ink);
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .bench-quote strong { color: var(--amber); }
+
+        .bench-body {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.95;
+            margin-bottom: 28px;
+            letter-spacing: 0.02em;
+        }
+
+        .bench-citation {
+            padding: 14px 18px;
+            border-left: 2px solid var(--amber);
+            background: var(--amber-faint);
+        }
+
+        .bench-citation p {
+            font-size: 9px;
+            letter-spacing: 0.04em;
+            line-height: 1.85;
+            color: var(--muted);
+        }
+
+        .bench-table {
+            border-top: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .bench-row {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 20px;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+
+        .bench-config {
+            font-size: 10px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .bench-score {
+            font-size: 11px;
+            color: var(--ink);
+            text-align: right;
+        }
+
+        .bench-row.active .bench-config { color: var(--ink); }
+        .bench-row.active .bench-score  { color: var(--green); font-weight: 600; }
+
+        .badge {
+            font-size: 7px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: var(--amber);
+            color: var(--bg);
+            padding: 2px 6px;
+            font-weight: 600;
+        }
+
+        .bench-meta {
+            font-size: 9px;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        .exits-list { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); }
+
+        .exit-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 10px;
+        }
+
+        .exit-row span:first-child { color: var(--muted); }
+        .exit-row span:last-child  { color: var(--ink); }
+
+        /* ── Buyers ── */
+        #buyers {
+            padding: 120px 0;
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+        }
+
+        .buyers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .buyer-card {
+            padding: 44px 36px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+        }
+
+        .buyer-card:last-child { border-right: none; }
+
+        .buyer-title {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .buyer-desc {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.9;
+            margin-bottom: 24px;
+            letter-spacing: 0.02em;
+        }
+
+        .buyer-price {
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--amber);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .buyer-price::before { content: '•'; }
+
+        /* ── CTA ── */
+        #cta {
+            padding: 160px 0;
+            background: var(--bg2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+        }
+
+        .cta-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(240,181,0,0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(240,181,0,0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        .cta-inner { position: relative; }
+
+        .cta-eyebrow {
+            font-size: 9px;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .cta-eyebrow::before { content: '•'; }
+
+        .cta-headline {
+            font-size: clamp(32px, 4.5vw, 60px);
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .cta-sub {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--muted);
+            margin-bottom: 52px;
+            letter-spacing: 0.04em;
+        }
+
+        .btn-amber {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--amber);
+            color: var(--bg);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 16px 36px;
+            font-weight: 600;
+            transition: opacity 0.15s;
+        }
+
+        .btn-amber:hover { opacity: 0.85; }
+        .btn-amber:hover svg { transform: translateX(4px); }
+        .btn-amber svg { transition: transform 0.2s; }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            padding: 28px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-logo {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--amber);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-right {
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            text-align: right;
+            line-height: 2;
+        }
+
+        /* ── Fade-up ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-up.visible { opacity: 1; transform: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 960px) {
+            nav { padding: 0 20px; }
+            .nav-location { display: none; }
+
+            #hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-left { padding: 88px 24px 56px; }
+            .hero-right { height: 300px; }
+
+            .stats-grid { grid-template-columns: 1fr; }
+            .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 24px; }
+
+            .container { padding: 0 24px; }
+            .layers-grid, .verticals-grid, .buyers-grid { grid-template-columns: 1fr; }
+            .layer-card, .vertical-card, .buyer-card { border-right: none; border-bottom: 1px solid var(--border); }
+            .benchmark-inner { grid-template-columns: 1fr; gap: 48px; }
+
+            #how, #verticals, #benchmark, #buyers { padding: 80px 0; }
+            #cta { padding: 100px 0; }
+            footer { padding: 24px 20px; flex-direction: column; gap: 12px; }
+            .footer-right { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+    <a href="#" class="nav-logo">
+        <span class="nav-logo-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        Lupa
+    </a>
+    <div class="nav-right">
+        <span class="nav-location">Est. 2026 · Spatial Intelligence</span>
+        <a href="mailto:jmunson0711@gmail.com" class="nav-cta">Request Pilot</a>
+    </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+    <div class="hero-left">
+        <div class="hero-label">Spatial Intelligence</div>
+        <h1 class="hero-headline">
+            Lupa sees<br>what <em>field<br>crews can't.</em>
+        </h1>
+        <div class="hero-data">
+            <div class="hero-data-line"><span class="hl">608</span>&nbsp;confirmed illegal dump sites · Jujuy, Argentina</div>
+            <div class="hero-data-line"><span class="hl">14</span>&nbsp;utility anomalies · Colorado Springs, CO</div>
+            <div class="hero-data-line"><span class="hl">92.9%</span>&nbsp;precision · AerialWaste academic benchmark</div>
+        </div>
+        <p class="hero-sub">
+            AI-powered satellite and street-level anomaly detection for cities, utilities, and infrastructure. Continuous. Precise. Verified.
+        </p>
+        <a href="mailto:jmunson0711@gmail.com" class="btn-primary">
+            Request a Pilot Scan
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7H13M13 7L8 2M13 7L8 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </div>
+    <div class="hero-right">
+        <canvas id="scan-canvas"></canvas>
+        <div class="scan-overlay-coords" id="scan-coords">24.1845°S &nbsp;65.3472°W<br>PANNING...</div>
+        <div class="scan-overlay-label">Lupa — Live Coverage Map</div>
+    </div>
+</section>
+
+<!-- ── Stats ── -->
+<section id="stats">
+    <div class="stats-grid">
+        <div class="stat-item fade-up">
+            <div class="stat-dot-label">Confirmed Illegal Dump Sites</div>
+            <div class="stat-number">608</div>
+            <div class="stat-sublabel">Jujuy, Argentina</div>
+        </div>
+        <div class="stat-item fade-up" style="transition-delay:.1s">
+            <div class="stat-dot-label">Utility Corridor Anomalies</div>
+            <div class="stat-number">14</div>
+            <div class="stat-sublabel">Colorado Springs, CO</div>
+        </div>
+        <div class="stat-item fade-up" style="transition-delay:.2s">
+            <div class="stat-dot-label">Precision · Independent Benchmark</div>
+            <div class="stat-number">92<span class="unit">.9%</span></div>
+            <div class="stat-sublabel">AerialWaste academic dataset</div>
+        </div>
+    </div>
+</section>
+
+<!-- ── How it works ── -->
+<section id="how">
+    <div class="container">
+        <div class="section-eyebrow fade-up">How It Works</div>
+        <h2 class="section-title fade-up">Two layers.<br>One continuous picture.</h2>
+        <div class="layers-grid">
+            <div class="layer-card fade-up">
+                <div class="layer-num">Layer 01</div>
+                <svg class="layer-icon" viewBox="0 0 36 36" fill="none">
+                    <rect x="3" y="3" width="30" height="30" rx="1" stroke="#F0B500" stroke-width="0.75"/>
+                    <rect x="8" y="8" width="8" height="8" fill="rgba(240,181,0,0.1)" stroke="#F0B500" stroke-width="0.5"/>
+                    <rect x="20" y="8" width="8" height="8" fill="rgba(240,181,0,0.1)" stroke="#F0B500" stroke-width="0.5"/>
+                    <rect x="8" y="20" width="8" height="8" fill="rgba(240,181,0,0.4)" stroke="#F0B500" stroke-width="0.5"/>
+                    <rect x="20" y="20" width="8" height="8" fill="rgba(240,181,0,0.1)" stroke="#F0B500" stroke-width="0.5"/>
+                    <circle cx="12" cy="24" r="2" fill="#F0B500"/>
+                </svg>
+                <h3 class="layer-title">Satellite Scan</h3>
+                <p class="layer-desc">
+                    Lupa ingests imagery from multiple satellite providers — Sentinel-2 for city-scale coverage, Planet Labs for daily revisit at sub-meter resolution, and commercial feeds for mission-critical cadence. Spectral indices — BSI, NDVI, NDWI — filter for anomalous terrain signatures. Gemini 2.5 Flash classifies each candidate tile with in-domain few-shot examples, achieving 92.9% precision out of the box.
+                </p>
+                <div class="tags">
+                    <span class="tag">Google Earth Engine</span>
+                    <span class="tag">Sentinel-2</span>
+                    <span class="tag">Planet Labs</span>
+                    <span class="tag">Gemini 2.5 Flash</span>
+                    <span class="tag">Daily Revisit</span>
+                </div>
+            </div>
+            <div class="layer-card fade-up" style="transition-delay:.1s">
+                <div class="layer-num">Layer 02</div>
+                <svg class="layer-icon" viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="13" stroke="#F0B500" stroke-width="0.75"/>
+                    <circle cx="18" cy="18" r="7" stroke="#F0B500" stroke-width="0.5" stroke-dasharray="2 2"/>
+                    <circle cx="18" cy="18" r="2" fill="#F0B500"/>
+                    <line x1="18" y1="5" x2="18" y2="0" stroke="#F0B500" stroke-width="0.75"/>
+                    <line x1="31" y1="18" x2="36" y2="18" stroke="#F0B500" stroke-width="0.75"/>
+                    <line x1="18" y1="31" x2="18" y2="36" stroke="#F0B500" stroke-width="0.75"/>
+                    <line x1="5" y1="18" x2="0" y2="18" stroke="#F0B500" stroke-width="0.75"/>
+                </svg>
+                <h3 class="layer-title">Street Coverage</h3>
+                <p class="layer-desc">
+                    360° cameras driven weekly capture ground-truth street-level footage. AI processes every frame to verify satellite detections, track anomaly aging, and surface new issues invisible from orbit. Weekly temporal cadence enables trend analysis and SLA compliance reporting.
+                </p>
+                <div class="tags">
+                    <span class="tag">360° Cameras</span>
+                    <span class="tag">Weekly Cadence</span>
+                    <span class="tag">Temporal Trends</span>
+                    <span class="tag">Ground Truth</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Verticals ── -->
+<section id="verticals">
+    <div class="container">
+        <div class="section-eyebrow fade-up">Verticals</div>
+        <h2 class="section-title fade-up">Built for the hardest<br>monitoring problems.</h2>
+        <div class="verticals-grid">
+            <div class="vertical-card fade-up">
+                <div class="vertical-ghost">01</div>
+                <div class="vertical-num">01</div>
+                <h3 class="vertical-title">Waste &amp; Environment</h3>
+                <p class="vertical-desc">Detect illegal dump sites, microbasurales, and environmental violations across entire municipalities. Proven in Jujuy, Argentina — 608 sites confirmed, zero manual surveys required.</p>
+            </div>
+            <div class="vertical-card fade-up" style="transition-delay:.1s">
+                <div class="vertical-ghost">02</div>
+                <div class="vertical-num">02</div>
+                <h3 class="vertical-title">Utility Infrastructure</h3>
+                <p class="vertical-desc">Monitor power line corridors for vegetation encroachment, soil disturbance, unauthorized construction, flooding near substations, and illegal dumping adjacent to utility assets.</p>
+            </div>
+            <div class="vertical-card fade-up" style="transition-delay:.2s">
+                <div class="vertical-ghost">03</div>
+                <div class="vertical-num">03</div>
+                <h3 class="vertical-title">Municipal Compliance</h3>
+                <p class="vertical-desc">Track permit compliance, encroachment, and code violations at city scale. Continuous satellite + street coverage replaces expensive periodic manual inspection programs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Benchmark ── -->
+<section id="benchmark">
+    <div class="container">
+        <div class="benchmark-inner">
+            <div>
+                <div class="section-eyebrow fade-up">Independent Validation</div>
+                <blockquote class="bench-quote fade-up">
+                    "1 false positive<br>per <strong>14</strong> flagged sites."
+                </blockquote>
+                <p class="bench-body fade-up">
+                    Lupa's classifier was benchmarked against AerialWaste — a peer-reviewed aerial landfill detection dataset published in <em>Nature Scientific Data</em>. 100 images. 50 positive, 50 negative. Professional photo interpreter ground truth. Zero self-reported metrics.
+                </p>
+                <div class="bench-citation fade-up">
+                    <p>Torres, R.N. &amp; Fraternali, P. (2023). AerialWaste dataset for landfill discovery in aerial and satellite images. <em>Scientific Data</em>, 10(1), 63. Nature Publishing Group.</p>
+                </div>
+            </div>
+            <div class="fade-up" style="transition-delay:.12s">
+                <div class="bench-table">
+                    <div class="bench-row">
+                        <div class="bench-config" style="color:var(--muted)">Configuration</div>
+                        <div class="bench-score" style="color:var(--muted);font-size:9px">Precision</div>
+                        <div class="bench-score" style="color:var(--muted);font-size:9px">F1</div>
+                    </div>
+                    <div class="bench-row">
+                        <div class="bench-config">Zero-shot baseline</div>
+                        <div class="bench-score">83.3%</div>
+                        <div class="bench-score">81.6%</div>
+                    </div>
+                    <div class="bench-row active">
+                        <div class="bench-config">
+                            In-domain few-shot
+                            <span class="badge">Production</span>
+                        </div>
+                        <div class="bench-score">92.9%</div>
+                        <div class="bench-score">84.8%</div>
+                    </div>
+                </div>
+                <p class="bench-meta">100 images · 50 positive / 50 negative · seed=42 · reproducible<br>Dataset: AerialWaste testing split · Model: Gemini 2.5 Flash</p>
+
+                <div class="exits-list">
+                    <div class="section-eyebrow" style="margin-bottom:20px">Comparable Companies</div>
+                    <div class="exit-row"><span>Cape Analytics</span><span>~$200–300M exit</span></div>
+                    <div class="exit-row"><span>EagleView</span><span>$650M exit</span></div>
+                    <div class="exit-row" style="border-bottom:none"><span>Nearmap</span><span>$1.1B exit</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Buyers ── -->
+<section id="buyers">
+    <div class="container">
+        <div class="section-eyebrow fade-up">Who Buys Lupa</div>
+        <h2 class="section-title fade-up">The buyers who need<br>continuous eyes.</h2>
+        <div class="buyers-grid">
+            <div class="buyer-card fade-up">
+                <h3 class="buyer-title">Utilities</h3>
+                <p class="buyer-desc">Power, water, and gas utilities with linear infrastructure across large service territories. Right-of-way monitoring, vegetation encroachment, substation flood risk. Pilot underway with Colorado Springs Utilities.</p>
+                <div class="buyer-price">Pilot from $25,000 / month</div>
+            </div>
+            <div class="buyer-card fade-up" style="transition-delay:.1s">
+                <h3 class="buyer-title">Municipal Governments</h3>
+                <p class="buyer-desc">Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. Active in Jujuy, Argentina.</p>
+                <div class="buyer-price">Custom pricing by coverage area</div>
+            </div>
+            <div class="buyer-card fade-up" style="transition-delay:.2s">
+                <h3 class="buyer-title">Development Banks</h3>
+                <p class="buyer-desc">IDB, World Bank, and European Investment Bank-funded projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. EIB active in Jujuy via GIRSU.</p>
+                <div class="buyer-price">Project-based engagement</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta">
+    <div class="cta-grid"></div>
+    <div class="cta-inner container">
+        <div class="cta-eyebrow fade-up">Get Started</div>
+        <h2 class="cta-headline fade-up">Ready to see your city<br>differently?</h2>
+        <p class="cta-sub fade-up">We run a pilot scan of your coverage area. You see what we find.</p>
+        <a href="mailto:jmunson0711@gmail.com" class="btn-amber fade-up">
+            Request a Pilot Scan
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7H13M13 7L8 2M13 7L8 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+    <div class="footer-logo">
+        <span class="nav-logo-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        Lupa
+    </div>
+    <div class="footer-right">
+        Spatial Intelligence Platform<br>
+        © 2026 Lupa
+    </div>
+</footer>
+
+<script>
+// ── Panning City Map ──────────────────────────────────────────────
+const canvas = document.getElementById('scan-canvas');
+const ctx    = canvas.getContext('2d');
+
+const TILE        = 900;
+const PAN_SPEED_X = 0.10;
+const PAN_SPEED_Y = 0.065;
+let panX = 0, panY = 0;
+
+// Street grid (normalized 0–1 within tile)
+const SH = [0, 0.13, 0.27, 0.41, 0.56, 0.70, 0.84, 1.0];
+const SV = [0, 0.11, 0.22, 0.35, 0.50, 0.63, 0.76, 0.89, 1.0];
+
+// Block indices that become parks/open space
+const PARKS = new Set([3, 10, 17, 23, 31, 38]);
+
+// Fixed anomaly markers (normalized 0–1 within tile)
+const ANOMALIES = [
+    {x:0.06,  y:0.08}, {x:0.17,  y:0.34}, {x:0.29,  y:0.19},
+    {x:0.44,  y:0.49}, {x:0.57,  y:0.07}, {x:0.70,  y:0.61},
+    {x:0.83,  y:0.22}, {x:0.08,  y:0.77}, {x:0.38,  y:0.87},
+    {x:0.74,  y:0.79}, {x:0.52,  y:0.71}, {x:0.23,  y:0.59},
+];
+
+// Ring state per anomaly (staggered start so they don't pulse in sync)
+const rings = ANOMALIES.map((_, i) => ({
+    rings: [{ r: (i * 7) % 22, op: 0.4 + (i % 3) * 0.1 }],
+    age: i * 29,
+}));
+
+let tileCanvas = null;
+
+function buildTile() {
+    tileCanvas = document.createElement('canvas');
+    tileCanvas.width  = TILE;
+    tileCanvas.height = TILE;
+    const tc = tileCanvas.getContext('2d');
+
+    // Base
+    tc.fillStyle = '#070605';
+    tc.fillRect(0, 0, TILE, TILE);
+
+    // City blocks
+    let idx = 0;
+    for (let i = 0; i < SH.length - 1; i++) {
+        for (let j = 0; j < SV.length - 1; j++) {
+            const x = SV[j]   * TILE + 1.5;
+            const y = SH[i]   * TILE + 1.5;
+            const w = (SV[j+1] - SV[j]) * TILE - 3;
+            const h = (SH[i+1] - SH[i]) * TILE - 3;
+
+            if (PARKS.has(idx)) {
+                // Green open space
+                tc.fillStyle = 'rgba(61,214,140,0.075)';
+                tc.fillRect(x, y, w, h);
+                tc.strokeStyle = 'rgba(61,214,140,0.03)';
+                tc.lineWidth = 1;
+                for (let py = y + 10; py < y + h - 4; py += 15) {
+                    tc.beginPath(); tc.moveTo(x + 4, py); tc.lineTo(x + w - 4, py); tc.stroke();
+                }
+            } else {
+                // Urban block base
+                tc.fillStyle = 'rgba(255,255,255,0.020)';
+                tc.fillRect(x, y, w, h);
+
+                // Buildings subdivided within block
+                const cols = Math.max(2, Math.round(w / 30));
+                const rows = Math.max(2, Math.round(h / 26));
+                const mg   = 2.5;
+                const bw   = (w - mg * (cols + 1)) / cols;
+                const bh   = (h - mg * (rows + 1)) / rows;
+
+                for (let bi = 0; bi < cols; bi++) {
+                    for (let bj = 0; bj < rows; bj++) {
+                        const bx = x + mg + bi * (bw + mg);
+                        const by = y + mg + bj * (bh + mg);
+                        // Pseudorandom brightness — deterministic, no Math.random()
+                        const s  = Math.abs(Math.sin(idx * 6.37 + bi * 2.71 + bj * 4.19));
+                        const br = 0.022 + s * 0.065;
+                        tc.fillStyle = `rgba(255,255,255,${br.toFixed(3)})`;
+                        tc.fillRect(bx, by, bw, bh);
+                    }
+                }
+            }
+            idx++;
+        }
+    }
+
+    // Horizontal streets
+    for (let i = 1; i < SH.length - 1; i++) {
+        const y    = SH[i] * TILE;
+        const main = i % 2 === 1;
+        tc.strokeStyle = main ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.065)';
+        tc.lineWidth   = main ? 2.5 : 1.5;
+        tc.beginPath(); tc.moveTo(0, y); tc.lineTo(TILE, y); tc.stroke();
+    }
+
+    // Vertical streets
+    for (let j = 1; j < SV.length - 1; j++) {
+        const x    = SV[j] * TILE;
+        const main = j % 2 === 1;
+        tc.strokeStyle = main ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.065)';
+        tc.lineWidth   = main ? 2.5 : 1.5;
+        tc.beginPath(); tc.moveTo(x, 0); tc.lineTo(x, TILE); tc.stroke();
+    }
+}
+
+function resize() {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+}
+
+resize();
+buildTile();
+window.addEventListener('resize', resize);
+
+function draw() {
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Tile the map
+    const ox     = ((panX % TILE) + TILE) % TILE;
+    const oy     = ((panY % TILE) + TILE) % TILE;
+    const tilesX = Math.ceil(W / TILE) + 2;
+    const tilesY = Math.ceil(H / TILE) + 2;
+
+    for (let ix = -1; ix < tilesX; ix++) {
+        for (let iy = -1; iy < tilesY; iy++) {
+            ctx.drawImage(tileCanvas, ix * TILE - ox, iy * TILE - oy);
+        }
+    }
+
+    // Radial vignette — pulls focus to centre
+    const vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.15, W / 2, H / 2, H * 0.8);
+    vg.addColorStop(0, 'transparent');
+    vg.addColorStop(1, 'rgba(7,6,5,0.60)');
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, W, H);
+
+    // Anomaly markers (tiled so they appear across every map copy)
+    for (let ai = 0; ai < ANOMALIES.length; ai++) {
+        const a  = ANOMALIES[ai];
+        const ar = rings[ai];
+
+        for (let ix = -1; ix < tilesX; ix++) {
+            for (let iy = -1; iy < tilesY; iy++) {
+                const px = ix * TILE + a.x * TILE - ox;
+                const py = iy * TILE + a.y * TILE - oy;
+                if (px < -80 || px > W + 80 || py < -80 || py > H + 80) continue;
+
+                // Ping rings
+                for (const ring of ar.rings) {
+                    ctx.beginPath();
+                    ctx.arc(px, py, ring.r, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(240,181,0,${ring.op.toFixed(3)})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+
+                // Amber dot
+                ctx.shadowColor = 'rgba(240,181,0,0.75)';
+                ctx.shadowBlur  = 9;
+                ctx.fillStyle   = '#F0B500';
+                ctx.beginPath(); ctx.arc(px, py, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle   = 'rgba(255,228,80,0.95)';
+                ctx.shadowBlur  = 0;
+                ctx.beginPath(); ctx.arc(px, py, 1.5, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+
+        // Update ring state
+        ar.age++;
+        if (ar.age % 115 === 0) ar.rings.push({ r: 0, op: 0.65 });
+        ar.rings = ar.rings.filter(r => r.op > 0.01);
+        for (const ring of ar.rings) {
+            ring.r  += 0.28;
+            ring.op  = Math.max(0, ring.op - 0.0068);
+        }
+    }
+
+    ctx.shadowBlur = 0;
+
+    // Pan
+    panX += PAN_SPEED_X;
+    panY += PAN_SPEED_Y;
+
+    // Coords overlay
+    const lat = (24.1100 + (panX / TILE * 0.04) % 0.18).toFixed(4);
+    const lng = (65.2040 + (panY / TILE * 0.03) % 0.12).toFixed(4);
+    document.getElementById('scan-coords').innerHTML = `${lat}°S &nbsp;${lng}°W<br>PANNING...`;
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+// ── Scroll animations ─────────────────────────────────────────────
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
