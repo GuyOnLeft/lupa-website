@@ -73,7 +73,7 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 28px;
         }
 
         .nav-loc {
@@ -81,6 +81,21 @@
             color: var(--dim);
             letter-spacing: 0.06em;
         }
+
+        .lang-toggle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--dim);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.15s;
+        }
+
+        .lang-toggle:hover { color: var(--ink); }
 
         .nav-cta {
             font-size: 9px;
@@ -439,7 +454,6 @@
             border-top: 1px solid var(--faint);
         }
 
-        /* Terminal-style table */
         .term-table { margin-bottom: 16px; }
 
         .t-head {
@@ -610,12 +624,6 @@
         .terminal-link::after  { content: '_'; animation: cur 1.1s step-end infinite; }
         .terminal-link:hover { text-decoration: underline; }
 
-        .cmd-note {
-            font-size: 8px;
-            color: var(--dim);
-            letter-spacing: 0.08em;
-        }
-
         /* ── Footer ── */
         footer {
             padding: 22px 52px;
@@ -696,25 +704,26 @@
         Lupa
     </a>
     <div class="nav-right">
-        <span class="nav-loc">Est. 2026 · Spatial Intelligence</span>
-        <a href="mailto:info@lupaintel.com" class="nav-cta">Request Pilot</a>
+        <span class="nav-loc" data-i18n="nav-loc">Est. 2026 · Spatial Intelligence</span>
+        <button class="lang-toggle" id="lang-btn">ES</button>
+        <a href="mailto:info@lupaintel.com" class="nav-cta" data-i18n="nav-cta">Request Pilot</a>
     </div>
 </nav>
 
-<!-- ── Hero — full-bleed canvas with text overlay ── -->
+<!-- ── Hero ── -->
 <section id="hero">
     <canvas id="scan-canvas"></canvas>
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-        <div class="hero-sys">Spatial anomaly detection / active</div>
-        <h1 class="hero-headline">
+        <div class="hero-sys" data-i18n="hero-sys">Spatial anomaly detection / active</div>
+        <h1 class="hero-headline" data-i18n="hero-headline">
             Lupa sees<br>what field<br><em>crews can't.</em>
         </h1>
-        <p class="hero-sub">
+        <p class="hero-sub" data-i18n="hero-sub">
             Continuous, precise anomaly detection for cities, utilities, and infrastructure.
         </p>
-        <a href="mailto:info@lupaintel.com" class="hero-cta">request_pilot_scan</a>
+        <a href="mailto:info@lupaintel.com" class="hero-cta" data-i18n="hero-cta">request_pilot_scan</a>
     </div>
 
     <div class="scan-overlay-coords" id="scan-coords">24.1845°S &nbsp;65.3472°W<br>PANNING...</div>
@@ -724,19 +733,19 @@
 <section id="stats">
     <div class="stats-strip">
         <div class="stat-block fade-up">
-            <div class="stat-label">Confirmed Illegal Dump Sites</div>
+            <div class="stat-label" data-i18n="stat-label-1">Confirmed Illegal Dump Sites</div>
             <div class="stat-num amber">608</div>
-            <div class="stat-sub">Jujuy, Argentina</div>
+            <div class="stat-sub" data-i18n="stat-sub-1">Jujuy, Argentina</div>
         </div>
         <div class="stat-block fade-up" style="transition-delay:.09s">
-            <div class="stat-label">Utility Corridor Anomalies</div>
+            <div class="stat-label" data-i18n="stat-label-2">Utility Corridor Anomalies</div>
             <div class="stat-num">14</div>
-            <div class="stat-sub">Colorado Springs, CO</div>
+            <div class="stat-sub" data-i18n="stat-sub-2">Colorado Springs, CO</div>
         </div>
         <div class="stat-block fade-up" style="transition-delay:.18s">
-            <div class="stat-label">Precision · Independent Benchmark</div>
+            <div class="stat-label" data-i18n="stat-label-3">Precision · Independent Benchmark</div>
             <div class="stat-num">92<sup>.9%</sup></div>
-            <div class="stat-sub">AerialWaste academic dataset</div>
+            <div class="stat-sub" data-i18n="stat-sub-3">AerialWaste academic dataset</div>
         </div>
     </div>
 </section>
@@ -744,17 +753,17 @@
 <!-- ── Detection Pipeline ── -->
 <section id="how">
     <div class="section-wrap">
-        <div class="eyebrow fade-up">How It Works</div>
+        <div class="eyebrow fade-up" data-i18n="how-eyebrow">How It Works</div>
         <div class="pipeline-header fade-up">
-            <div class="pipeline-title">Detection Pipeline</div>
+            <div class="pipeline-title" data-i18n="pipeline-title">Detection Pipeline</div>
             <div class="pipeline-ver">v2.1 / Gemini 2.5 Flash</div>
         </div>
 
         <div class="layer-row fade-up">
             <div class="layer-marker"><span>SAT</span></div>
             <div class="layer-body">
-                <div class="layer-name">Satellite Scan</div>
-                <p class="layer-desc">
+                <div class="layer-name" data-i18n="sat-name">Satellite Scan</div>
+                <p class="layer-desc" data-i18n="sat-desc">
                     Lupa ingests imagery from multiple satellite providers — Sentinel-2 for city-scale coverage, Planet Labs for daily revisit at sub-meter resolution, and commercial feeds for mission-critical cadence. Spectral indices — BSI, NDVI, NDWI — filter for anomalous terrain signatures. Gemini 2.5 Flash classifies each candidate tile with in-domain few-shot examples, achieving 92.9% precision out of the box.
                 </p>
                 <div class="tags">
@@ -770,8 +779,8 @@
         <div class="layer-row fade-up" style="transition-delay:.1s">
             <div class="layer-marker"><span>STR</span></div>
             <div class="layer-body">
-                <div class="layer-name">Street Coverage</div>
-                <p class="layer-desc">
+                <div class="layer-name" data-i18n="str-name">Street Coverage</div>
+                <p class="layer-desc" data-i18n="str-desc">
                     Street-level verification closes the loop on satellite detections — confirming anomaly presence, tracking resolution over time, and surfacing issues invisible from orbit.
                 </p>
                 <div class="tags">
@@ -787,29 +796,29 @@
 <!-- ── Verticals ── -->
 <section id="verticals">
     <div class="section-wrap">
-        <div class="eyebrow fade-up">Verticals</div>
+        <div class="eyebrow fade-up" data-i18n="vert-eyebrow">Verticals</div>
 
         <div class="vert-row fade-up">
             <div class="vert-n">01</div>
             <div class="vert-content">
-                <div class="vert-title">Waste &amp; Environment</div>
-                <p class="vert-desc">Detect illegal dump sites, microbasurales, and environmental violations across entire municipalities. Proven in Jujuy, Argentina — 608 sites confirmed, zero manual surveys required.</p>
+                <div class="vert-title" data-i18n="vert-01-title">Waste &amp; Environment</div>
+                <p class="vert-desc" data-i18n="vert-01-desc">Detect illegal dump sites, microbasurales, and environmental violations across entire municipalities. Proven in Jujuy, Argentina — 608 sites confirmed, zero manual surveys required.</p>
             </div>
         </div>
 
         <div class="vert-row fade-up" style="transition-delay:.08s">
             <div class="vert-n">02</div>
             <div class="vert-content">
-                <div class="vert-title">Utility Infrastructure</div>
-                <p class="vert-desc">Monitor power line corridors for vegetation encroachment, soil disturbance, unauthorized construction, flooding near substations, and illegal dumping adjacent to utility assets.</p>
+                <div class="vert-title" data-i18n="vert-02-title">Utility Infrastructure</div>
+                <p class="vert-desc" data-i18n="vert-02-desc">Monitor power line corridors for vegetation encroachment, soil disturbance, unauthorized construction, flooding near substations, and illegal dumping adjacent to utility assets.</p>
             </div>
         </div>
 
         <div class="vert-row fade-up" style="transition-delay:.16s">
             <div class="vert-n">03</div>
             <div class="vert-content">
-                <div class="vert-title">Municipal Compliance</div>
-                <p class="vert-desc">Track permit compliance, encroachment, and code violations at city scale. Continuous satellite + street coverage replaces expensive periodic manual inspection programs.</p>
+                <div class="vert-title" data-i18n="vert-03-title">Municipal Compliance</div>
+                <p class="vert-desc" data-i18n="vert-03-desc">Track permit compliance, encroachment, and code violations at city scale. Continuous satellite + street coverage replaces expensive periodic manual inspection programs.</p>
             </div>
         </div>
     </div>
@@ -818,13 +827,13 @@
 <!-- ── Benchmark ── -->
 <section id="benchmark">
     <div class="section-wrap">
-        <div class="eyebrow fade-up">Independent Validation</div>
+        <div class="eyebrow fade-up" data-i18n="bench-eyebrow">Independent Validation</div>
         <div class="bench-grid">
             <div>
-                <div class="bench-pull fade-up">
+                <div class="bench-pull fade-up" data-i18n="bench-pull">
                     "1 false positive<br>per <strong>14</strong> flagged sites."
                 </div>
-                <p class="bench-body fade-up">
+                <p class="bench-body fade-up" data-i18n="bench-body">
                     Lupa's classifier was benchmarked against AerialWaste — a peer-reviewed aerial landfill detection dataset published in <em>Nature Scientific Data</em>. 100 images. 50 positive, 50 negative. Professional photo interpreter ground truth. Zero self-reported metrics.
                 </p>
                 <div class="bench-cite fade-up">
@@ -835,31 +844,31 @@
             <div class="fade-up" style="transition-delay:.12s">
                 <div class="term-table">
                     <div class="t-head">
-                        <span>Configuration</span>
-                        <span>Precision</span>
+                        <span data-i18n="th-config">Configuration</span>
+                        <span data-i18n="th-precision">Precision</span>
                         <span>F1</span>
                     </div>
                     <div class="term-row">
-                        <div class="t-cfg">Zero-shot baseline</div>
+                        <div class="t-cfg" data-i18n="tr-zero">Zero-shot baseline</div>
                         <div class="t-val">83.3%</div>
                         <div class="t-val">81.6%</div>
                     </div>
                     <div class="term-row prod">
                         <div class="t-cfg">
-                            In-domain few-shot
+                            <span data-i18n="tr-few">In-domain few-shot</span>
                             <span class="prod-flag">PROD</span>
                         </div>
                         <div class="t-val">92.9%</div>
                         <div class="t-val">84.8%</div>
                     </div>
                 </div>
-                <div class="bench-meta">
+                <div class="bench-meta" data-i18n="bench-meta">
                     100 images · 50 pos / 50 neg · seed=42 · reproducible<br>
                     Dataset: AerialWaste testing split · Model: Gemini 2.5 Flash
                 </div>
 
                 <div class="exits">
-                    <div class="exits-label">Comparable Companies</div>
+                    <div class="exits-label" data-i18n="exits-label">Comparable Companies</div>
                     <div class="exit-row"><span class="co">Cape Analytics</span><span class="val">~$200–300M exit</span></div>
                     <div class="exit-row"><span class="co">EagleView</span><span class="val">$650M exit</span></div>
                     <div class="exit-row"><span class="co">Nearmap</span><span class="val">$1.1B exit</span></div>
@@ -872,38 +881,37 @@
 <!-- ── Buyers ── -->
 <section id="buyers">
     <div class="section-wrap">
-        <div class="eyebrow fade-up">Who Buys Lupa</div>
+        <div class="eyebrow fade-up" data-i18n="buyers-eyebrow">Who Buys Lupa</div>
 
         <div class="buyer-row fade-up">
-            <div class="buyer-name">Utilities</div>
-            <p class="buyer-desc">Power, water, and gas utilities with linear infrastructure across large service territories. Right-of-way monitoring, vegetation encroachment, substation flood risk.</p>
-            <div class="buyer-price">Pilot from $25K / month</div>
+            <div class="buyer-name" data-i18n="buyer-1-name">Utilities</div>
+            <p class="buyer-desc" data-i18n="buyer-1-desc">Power, water, and gas utilities with linear infrastructure across large service territories. Right-of-way monitoring, vegetation encroachment, substation flood risk.</p>
+            <div class="buyer-price" data-i18n="buyer-1-price">Pilot from $25K / month</div>
         </div>
 
         <div class="buyer-row fade-up" style="transition-delay:.08s">
-            <div class="buyer-name">Municipal Governments</div>
-            <p class="buyer-desc">Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. Active in Jujuy, Argentina.</p>
-            <div class="buyer-price">Custom / coverage area</div>
+            <div class="buyer-name" data-i18n="buyer-2-name">Municipal Governments</div>
+            <p class="buyer-desc" data-i18n="buyer-2-desc">Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. Active in Jujuy, Argentina.</p>
+            <div class="buyer-price" data-i18n="buyer-2-price">Custom / coverage area</div>
         </div>
 
         <div class="buyer-row fade-up" style="transition-delay:.16s">
-            <div class="buyer-name">Development Banks</div>
-            <p class="buyer-desc">IDB, World Bank, and European Investment Bank-funded projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. EIB active in Jujuy via GIRSU.</p>
-            <div class="buyer-price">Project-based</div>
+            <div class="buyer-name" data-i18n="buyer-3-name">Development Banks</div>
+            <p class="buyer-desc" data-i18n="buyer-3-desc">IDB, World Bank, and European Investment Bank-funded projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. EIB active in Jujuy via GIRSU.</p>
+            <div class="buyer-price" data-i18n="buyer-3-price">Project-based</div>
         </div>
     </div>
 </section>
 
 <!-- ── CTA ── -->
 <section id="cta">
-    <div class="eyebrow fade-up" style="padding: 0 60px; margin-bottom: 0;"></div>
     <div class="cta-inner fade-up">
         <div>
-            <h2 class="cta-headline">Ready to see your city differently?</h2>
-            <p class="cta-sub">We run a pilot scan of your coverage area. You see what we find.</p>
+            <h2 class="cta-headline" data-i18n="cta-headline">Ready to see your city differently?</h2>
+            <p class="cta-sub" data-i18n="cta-sub">We run a pilot scan of your coverage area. You see what we find.</p>
         </div>
         <div class="cta-cmd">
-            <a href="mailto:info@lupaintel.com" class="terminal-link">request_pilot_scan</a>
+            <a href="mailto:info@lupaintel.com" class="terminal-link" data-i18n="cta-link">request_pilot_scan</a>
         </div>
     </div>
 </section>
@@ -915,12 +923,132 @@
         Lupa
     </div>
     <div class="footer-r">
-        Spatial Intelligence Platform<br>
+        <span data-i18n="footer-tagline">Spatial Intelligence Platform</span><br>
         © 2026 Lupa
     </div>
 </footer>
 
 <script>
+// ── Translations ──────────────────────────────────────────────────
+const T = {
+    en: {
+        'nav-loc':        'Est. 2026 · Spatial Intelligence',
+        'nav-cta':        'Request Pilot',
+        'hero-sys':       'Spatial anomaly detection / active',
+        'hero-headline':  'Lupa sees<br>what field<br><em>crews can\'t.</em>',
+        'hero-sub':       'Continuous, precise anomaly detection for cities, utilities, and infrastructure.',
+        'hero-cta':       'request_pilot_scan',
+        'stat-label-1':   'Confirmed Illegal Dump Sites',
+        'stat-sub-1':     'Jujuy, Argentina',
+        'stat-label-2':   'Utility Corridor Anomalies',
+        'stat-sub-2':     'Colorado Springs, CO',
+        'stat-label-3':   'Precision · Independent Benchmark',
+        'stat-sub-3':     'AerialWaste academic dataset',
+        'how-eyebrow':    'How It Works',
+        'pipeline-title': 'Detection Pipeline',
+        'sat-name':       'Satellite Scan',
+        'sat-desc':       'Lupa ingests imagery from multiple satellite providers — Sentinel-2 for city-scale coverage, Planet Labs for daily revisit at sub-meter resolution, and commercial feeds for mission-critical cadence. Spectral indices — BSI, NDVI, NDWI — filter for anomalous terrain signatures. Gemini 2.5 Flash classifies each candidate tile with in-domain few-shot examples, achieving 92.9% precision out of the box.',
+        'str-name':       'Street Coverage',
+        'str-desc':       'Street-level verification closes the loop on satellite detections — confirming anomaly presence, tracking resolution over time, and surfacing issues invisible from orbit.',
+        'vert-eyebrow':   'Verticals',
+        'vert-01-title':  'Waste &amp; Environment',
+        'vert-01-desc':   'Detect illegal dump sites, microbasurales, and environmental violations across entire municipalities. Proven in Jujuy, Argentina — 608 sites confirmed, zero manual surveys required.',
+        'vert-02-title':  'Utility Infrastructure',
+        'vert-02-desc':   'Monitor power line corridors for vegetation encroachment, soil disturbance, unauthorized construction, flooding near substations, and illegal dumping adjacent to utility assets.',
+        'vert-03-title':  'Municipal Compliance',
+        'vert-03-desc':   'Track permit compliance, encroachment, and code violations at city scale. Continuous satellite + street coverage replaces expensive periodic manual inspection programs.',
+        'bench-eyebrow':  'Independent Validation',
+        'bench-pull':     '"1 false positive<br>per <strong>14</strong> flagged sites."',
+        'bench-body':     'Lupa\'s classifier was benchmarked against AerialWaste — a peer-reviewed aerial landfill detection dataset published in <em>Nature Scientific Data</em>. 100 images. 50 positive, 50 negative. Professional photo interpreter ground truth. Zero self-reported metrics.',
+        'th-config':      'Configuration',
+        'th-precision':   'Precision',
+        'tr-zero':        'Zero-shot baseline',
+        'tr-few':         'In-domain few-shot',
+        'bench-meta':     '100 images · 50 pos / 50 neg · seed=42 · reproducible<br>Dataset: AerialWaste testing split · Model: Gemini 2.5 Flash',
+        'exits-label':    'Comparable Companies',
+        'buyers-eyebrow': 'Who Buys Lupa',
+        'buyer-1-name':   'Utilities',
+        'buyer-1-desc':   'Power, water, and gas utilities with linear infrastructure across large service territories. Right-of-way monitoring, vegetation encroachment, substation flood risk.',
+        'buyer-1-price':  'Pilot from $25K / month',
+        'buyer-2-name':   'Municipal Governments',
+        'buyer-2-desc':   'Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. Active in Jujuy, Argentina.',
+        'buyer-2-price':  'Custom / coverage area',
+        'buyer-3-name':   'Development Banks',
+        'buyer-3-desc':   'IDB, World Bank, and European Investment Bank-funded projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. EIB active in Jujuy via GIRSU.',
+        'buyer-3-price':  'Project-based',
+        'cta-headline':   'Ready to see your city differently?',
+        'cta-sub':        'We run a pilot scan of your coverage area. You see what we find.',
+        'cta-link':       'request_pilot_scan',
+        'footer-tagline': 'Spatial Intelligence Platform',
+    },
+    es: {
+        'nav-loc':        'Est. 2026 · Inteligencia Espacial',
+        'nav-cta':        'Solicitar Piloto',
+        'hero-sys':       'Detección de anomalías espaciales / activo',
+        'hero-headline':  'Lupa ve<br>lo que los equipos<br><em>de campo no ven.</em>',
+        'hero-sub':       'Detección continua y precisa de anomalías para ciudades, servicios públicos e infraestructura.',
+        'hero-cta':       'solicitar_escaneo_piloto',
+        'stat-label-1':   'Sitios de Basura Ilegal Confirmados',
+        'stat-sub-1':     'Jujuy, Argentina',
+        'stat-label-2':   'Anomalías en Corredores de Servicios',
+        'stat-sub-2':     'Colorado Springs, CO',
+        'stat-label-3':   'Precisión · Benchmark Independiente',
+        'stat-sub-3':     'Dataset académico AerialWaste',
+        'how-eyebrow':    'Cómo Funciona',
+        'pipeline-title': 'Pipeline de Detección',
+        'sat-name':       'Escaneo Satelital',
+        'sat-desc':       'Lupa ingesta imágenes de múltiples proveedores satelitales — Sentinel-2 para cobertura a escala de ciudad, Planet Labs para revisita diaria a resolución sub-métrica, y feeds comerciales para cadencia crítica. Índices espectrales — BSI, NDVI, NDWI — filtran firmas de terreno anómalas. Gemini 2.5 Flash clasifica cada tile candidato con ejemplos few-shot en dominio, alcanzando 92.9% de precisión sin ajuste fino.',
+        'str-name':       'Cobertura Terrestre',
+        'str-desc':       'La verificación a nivel de calle cierra el ciclo de las detecciones satelitales — confirmando la presencia de anomalías, siguiendo su resolución en el tiempo y descubriendo problemas invisibles desde órbita.',
+        'vert-eyebrow':   'Verticales',
+        'vert-01-title':  'Residuos y Medio Ambiente',
+        'vert-01-desc':   'Detectá sitios de basura ilegal, microbasurales y violaciones ambientales en municipios enteros. Probado en Jujuy, Argentina — 608 sitios confirmados, sin relevamientos manuales.',
+        'vert-02-title':  'Infraestructura de Servicios',
+        'vert-02-desc':   'Monitoreá corredores de líneas eléctricas por avance de vegetación, perturbación del suelo, construcciones no autorizadas, inundaciones cerca de subestaciones y depósito ilegal de residuos.',
+        'vert-03-title':  'Cumplimiento Municipal',
+        'vert-03-desc':   'Seguí el cumplimiento de permisos, invasiones y violaciones de código a escala de ciudad. La cobertura satelital + terrestre continua reemplaza costosos programas de inspección manual periódica.',
+        'bench-eyebrow':  'Validación Independiente',
+        'bench-pull':     '"1 falso positivo<br>por cada <strong>14</strong> sitios marcados."',
+        'bench-body':     'El clasificador de Lupa fue evaluado contra AerialWaste — un dataset académico de detección de vertederos ilegales publicado en <em>Nature Scientific Data</em>. 100 imágenes. 50 positivas, 50 negativas. Anotaciones de fotointérpretes profesionales. Cero métricas autoinformadas.',
+        'th-config':      'Configuración',
+        'th-precision':   'Precisión',
+        'tr-zero':        'Línea base sin ejemplos',
+        'tr-few':         'Few-shot en dominio',
+        'bench-meta':     '100 imágenes · 50 pos / 50 neg · seed=42 · reproducible<br>Dataset: AerialWaste testing split · Modelo: Gemini 2.5 Flash',
+        'exits-label':    'Empresas Comparables',
+        'buyers-eyebrow': 'Quién Compra Lupa',
+        'buyer-1-name':   'Servicios Públicos',
+        'buyer-1-desc':   'Utilities de electricidad, agua y gas con infraestructura lineal en grandes territorios. Monitoreo de servidumbres, avance de vegetación, riesgo de inundación en subestaciones.',
+        'buyer-1-price':  'Piloto desde $25K / mes',
+        'buyer-2-name':   'Gobiernos Municipales',
+        'buyer-2-desc':   'Ciudades y provincias que gestionan residuos, cumplimiento ambiental e infracciones a escala. Reemplaza ciclos de inspección manual costosos con cobertura de IA continua. Activo en Jujuy, Argentina.',
+        'buyer-2-price':  'A medida / área de cobertura',
+        'buyer-3-name':   'Bancos de Desarrollo',
+        'buyer-3-desc':   'Proyectos financiados por el BID, Banco Mundial y el Banco Europeo de Inversiones que requieren monitoreo ambiental y verificación de cumplimiento en América Latina y mercados emergentes. BEI activo en Jujuy vía GIRSU.',
+        'buyer-3-price':  'Por proyecto',
+        'cta-headline':   '¿Listo para ver tu ciudad de otra manera?',
+        'cta-sub':        'Hacemos un escaneo piloto de tu zona de cobertura. Vos ves lo que encontramos.',
+        'cta-link':       'solicitar_escaneo_piloto',
+        'footer-tagline': 'Plataforma de Inteligencia Espacial',
+    }
+};
+
+// ── Language toggle ───────────────────────────────────────────────
+let lang = 'en';
+const langBtn = document.getElementById('lang-btn');
+
+function applyLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[l][key] !== undefined) el.innerHTML = T[l][key];
+    });
+    langBtn.textContent = l === 'en' ? 'ES' : 'EN';
+}
+
+langBtn.addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
+
 // ── Panning City Map ──────────────────────────────────────────────
 const canvas = document.getElementById('scan-canvas');
 const ctx    = canvas.getContext('2d');
