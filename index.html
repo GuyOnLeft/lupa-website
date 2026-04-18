@@ -9,18 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg:            #0A0908;
-            --bg2:           #0E0D0B;
-            --ink:           #E0DDD5;
-            --amber:         #F0B500;
-            --amber-dim:     rgba(240,181,0,0.22);
-            --amber-faint:   rgba(240,181,0,0.06);
-            --green:         #3DD68C;
-            --red:           #E84040;
-            --border:        rgba(255,255,255,0.07);
-            --border-amber:  rgba(240,181,0,0.25);
-            --muted:         #58544F;
-            --panel:         rgba(255,255,255,0.025);
+            --bg:    #0A0908;
+            --bg2:   #0D0C0A;
+            --ink:   #D8D5CD;
+            --dim:   #6B6760;
+            --faint: #1E1C1A;
+            --amber: #F0B500;
+            --green: #3DD68C;
+            --red:   #E84040;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,17 +31,16 @@
             overflow-x: hidden;
         }
 
-        /* Grain overlay */
         body::after {
             content: '';
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.045;
+            opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             background-repeat: repeat;
-            background-size: 180px;
+            background-size: 200px;
         }
 
         /* ── Nav ── */
@@ -53,20 +48,20 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            padding: 0 60px;
-            height: 52px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(10,9,8,0.94);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
+            padding: 0 52px;
+            background: rgba(10,9,8,0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--faint);
         }
 
         .nav-logo {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.24em;
             text-transform: uppercase;
             color: var(--amber);
             text-decoration: none;
@@ -75,316 +70,281 @@
             gap: 9px;
         }
 
-        .nav-logo-icon { display: inline-flex; align-items: center; }
-
         .nav-right {
             display: flex;
             align-items: center;
             gap: 32px;
         }
 
-        .nav-location {
-            font-size: 10px;
-            letter-spacing: 0.08em;
-            color: var(--muted);
+        .nav-loc {
+            font-size: 9px;
+            color: var(--dim);
+            letter-spacing: 0.06em;
         }
 
         .nav-cta {
-            font-size: 10px;
+            font-size: 9px;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--amber);
+            color: var(--ink);
             text-decoration: none;
-            padding: 7px 18px;
-            border: 1px solid var(--border-amber);
-            transition: background 0.15s, color 0.15s;
+            border-bottom: 1px solid var(--dim);
+            padding-bottom: 1px;
+            transition: color 0.15s, border-color 0.15s;
         }
 
-        .nav-cta:hover { background: var(--amber); color: var(--bg); }
+        .nav-cta:hover { color: var(--amber); border-color: var(--amber); }
 
-        /* ── Hero ── */
+        /* ── Hero — full-bleed canvas ── */
         #hero {
+            position: relative;
             min-height: 100vh;
-            display: grid;
-            grid-template-columns: 58% 42%;
-        }
-
-        .hero-left {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 120px 72px 80px 80px;
-            border-right: 1px solid var(--border);
-            position: relative;
+            justify-content: flex-end;
+            overflow: hidden;
         }
 
-        .hero-left::before {
-            content: '';
+        #scan-canvas {
             position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, transparent, var(--amber) 35%, var(--amber) 65%, transparent);
-            opacity: 0.35;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
-        .hero-label {
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                105deg,
+                rgba(10,9,8,0.95) 0%,
+                rgba(10,9,8,0.82) 42%,
+                rgba(10,9,8,0.15) 78%,
+                rgba(10,9,8,0.05) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 60px 88px;
+        }
+
+        .hero-sys {
             font-size: 9px;
             letter-spacing: 0.24em;
-            color: var(--amber);
+            color: var(--dim);
             text-transform: uppercase;
-            margin-bottom: 32px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            margin-bottom: 36px;
         }
 
-        .hero-label::before { content: '•'; }
-        .hero-label::after {
-            content: '';
-            display: block;
-            width: 32px;
-            height: 1px;
-            background: var(--amber);
-            opacity: 0.35;
-        }
+        .hero-sys::before { content: '// '; color: var(--amber); opacity: 0.7; }
 
-        .hero-headline {
-            font-size: clamp(38px, 5vw, 72px);
+        h1.hero-headline {
+            font-size: clamp(56px, 9vw, 132px);
             font-weight: 600;
-            line-height: 1.05;
-            letter-spacing: -0.02em;
-            color: var(--ink);
-            margin-bottom: 32px;
+            line-height: 0.93;
+            letter-spacing: -0.035em;
             text-transform: uppercase;
+            color: var(--ink);
+            margin-bottom: 40px;
         }
 
-        .hero-headline em {
+        h1.hero-headline em {
             font-style: normal;
             color: var(--amber);
+            display: block;
         }
-
-        .hero-data {
-            margin-bottom: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-            padding: 16px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero-data-line {
-            font-size: 10px;
-            letter-spacing: 0.06em;
-            color: var(--muted);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .hero-data-line::before {
-            content: '>';
-            color: var(--amber);
-            opacity: 0.55;
-            flex-shrink: 0;
-        }
-
-        .hero-data-line .hl { color: var(--green); }
 
         .hero-sub {
             font-size: 11px;
             font-weight: 300;
-            color: var(--muted);
-            line-height: 1.95;
-            max-width: 420px;
-            margin-bottom: 44px;
-            letter-spacing: 0.02em;
+            color: var(--dim);
+            line-height: 2;
+            max-width: 360px;
+            margin-bottom: 56px;
+            padding-left: 18px;
+            border-left: 1px solid var(--faint);
         }
 
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 10px;
+        .hero-cta {
+            display: inline-block;
+            font-size: 11px;
             font-family: 'IBM Plex Mono', monospace;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--bg);
-            background: var(--amber);
+            letter-spacing: 0.1em;
+            color: var(--amber);
             text-decoration: none;
-            padding: 14px 28px;
-            width: fit-content;
-            font-weight: 600;
-            transition: opacity 0.15s;
         }
 
-        .btn-primary:hover { opacity: 0.85; }
-        .btn-primary:hover svg { transform: translateX(4px); }
-        .btn-primary svg { transition: transform 0.2s; }
+        .hero-cta::before { content: '> '; opacity: 0.55; }
+        .hero-cta::after  { content: '_'; animation: cur 1.1s step-end infinite; }
 
-        /* ── Map canvas ── */
-        .hero-right {
-            position: relative;
-            background: #070605;
-            overflow: hidden;
-        }
+        @keyframes cur { 50% { opacity: 0; } }
 
-        #scan-canvas { width: 100%; height: 100%; display: block; }
-
-        .scan-overlay-label {
-            position: absolute;
-            bottom: 24px;
-            left: 24px;
-            font-size: 8px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(240,181,0,0.3);
-        }
+        .hero-cta:hover { text-decoration: underline; }
 
         .scan-overlay-coords {
             position: absolute;
-            top: 24px;
-            right: 24px;
-            font-size: 10px;
-            letter-spacing: 0.09em;
-            color: rgba(240,181,0,0.48);
+            bottom: 32px;
+            right: 44px;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: rgba(240,181,0,0.3);
             text-align: right;
-            line-height: 2;
+            line-height: 2.2;
+            z-index: 2;
         }
 
         /* ── Stats ── */
         #stats {
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
             background: var(--bg2);
+            border-top: 1px solid var(--faint);
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .stat-item {
-            padding: 52px 48px;
-            border-right: 1px solid var(--border);
-        }
-
-        .stat-item:last-child { border-right: none; }
-
-        .stat-dot-label {
-            font-size: 9px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 18px;
+        .stats-strip {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            align-items: stretch;
         }
 
-        .stat-dot-label::before { content: '•'; color: var(--amber); }
+        .stat-block {
+            padding: 60px 60px 52px;
+            border-right: 1px solid var(--faint);
+            flex: 1;
+        }
 
-        .stat-number {
-            font-size: clamp(52px, 5.5vw, 78px);
+        .stat-block:last-child { border-right: none; }
+
+        .stat-label {
+            font-size: 8px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 10px;
+        }
+
+        .stat-label::before { content: '// '; color: var(--faint); }
+
+        .stat-num {
+            font-size: clamp(64px, 8.5vw, 120px);
             font-weight: 600;
-            color: var(--amber);
-            line-height: 1;
-            margin-bottom: 12px;
-            letter-spacing: -0.03em;
+            line-height: 0.9;
+            color: var(--ink);
+            letter-spacing: -0.04em;
+            margin-bottom: 14px;
         }
 
-        .stat-number .unit {
-            color: rgba(240,181,0,0.5);
-            font-size: 0.44em;
+        .stat-num.amber { color: var(--amber); }
+
+        .stat-num sup {
+            font-size: 0.28em;
+            color: var(--dim);
+            vertical-align: super;
             font-weight: 400;
             letter-spacing: 0;
         }
 
-        .stat-sublabel {
-            font-size: 10px;
-            font-weight: 300;
-            color: var(--muted);
-            line-height: 1.7;
-            letter-spacing: 0.04em;
-        }
-
-        /* ── Sections ── */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 80px;
-        }
-
-        .section-eyebrow {
+        .stat-sub {
             font-size: 9px;
-            letter-spacing: 0.24em;
+            color: var(--dim);
+            letter-spacing: 0.07em;
+            line-height: 1.8;
+        }
+
+        /* ── Common section wrapper ── */
+        .section-wrap {
+            padding: 100px 60px;
+        }
+
+        .eyebrow {
+            font-size: 8px;
+            letter-spacing: 0.26em;
             text-transform: uppercase;
-            color: var(--amber);
-            margin-bottom: 20px;
+            color: var(--dim);
+            margin-bottom: 56px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 16px;
         }
 
-        .section-eyebrow::before { content: '•'; }
+        .eyebrow::before { content: '//'; color: var(--faint); letter-spacing: 0; }
+        .eyebrow::after  { content: ''; flex: 1; height: 1px; background: var(--faint); max-width: 100px; }
 
-        .section-title {
-            font-size: clamp(26px, 3.2vw, 44px);
+        /* ── Detection Pipeline ── */
+        #how { background: var(--bg); border-top: 1px solid var(--faint); }
+
+        .pipeline-header {
+            display: flex;
+            align-items: baseline;
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        .pipeline-title {
+            font-size: clamp(18px, 2.2vw, 28px);
             font-weight: 600;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-            margin-bottom: 60px;
             text-transform: uppercase;
+            letter-spacing: -0.01em;
             color: var(--ink);
         }
 
-        /* ── How it works ── */
-        #how { padding: 120px 0; }
-
-        .layers-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border: 1px solid var(--border);
-        }
-
-        .layer-card {
-            padding: 52px 44px;
-            border-right: 1px solid var(--border);
-            background: var(--panel);
-        }
-
-        .layer-card:last-child { border-right: none; }
-
-        .layer-num {
+        .pipeline-ver {
             font-size: 9px;
-            letter-spacing: 0.22em;
-            color: var(--amber);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: var(--dim);
+            letter-spacing: 0.1em;
+            white-space: nowrap;
         }
 
-        .layer-num::before { content: '•'; }
+        .layer-row {
+            display: flex;
+            align-items: stretch;
+            border-top: 1px solid var(--faint);
+        }
 
-        .layer-icon { width: 36px; height: 36px; margin-bottom: 22px; }
+        .layer-row + .layer-row { border-top: 1px solid var(--faint); }
 
-        .layer-title {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 14px;
-            letter-spacing: 0.06em;
+        .layer-marker {
+            padding: 44px 40px 44px 0;
+            width: 90px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: flex-start;
+            padding-top: 46px;
+        }
+
+        .layer-marker span {
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            color: var(--amber);
             text-transform: uppercase;
+            border: 1px solid rgba(240,181,0,0.25);
+            padding: 3px 7px;
+            display: inline-block;
+            line-height: 1.4;
+        }
+
+        .layer-body {
+            border-left: 1px solid var(--faint);
+            padding: 44px 0 44px 48px;
+            flex: 1;
+        }
+
+        .layer-name {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             color: var(--ink);
+            margin-bottom: 16px;
         }
 
         .layer-desc {
             font-size: 11px;
             font-weight: 300;
-            color: var(--muted);
-            line-height: 1.95;
-            margin-bottom: 28px;
-            letter-spacing: 0.02em;
+            color: var(--dim);
+            line-height: 2;
+            max-width: 580px;
+            margin-bottom: 24px;
         }
 
         .tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -393,369 +353,337 @@
             font-size: 8px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--muted);
-            border: 1px solid var(--border);
-            padding: 4px 10px;
+            color: var(--dim);
+            border: 1px solid var(--faint);
+            padding: 3px 10px;
         }
 
         /* ── Verticals ── */
-        #verticals {
-            padding: 120px 0;
-            background: var(--bg2);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
+        #verticals { background: var(--bg2); border-top: 1px solid var(--faint); }
 
-        .verticals-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            border: 1px solid var(--border);
-            margin-top: 60px;
-        }
-
-        .vertical-card {
-            padding: 44px 36px;
-            border-right: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            transition: background 0.2s;
-        }
-
-        .vertical-card:last-child { border-right: none; }
-        .vertical-card:hover { background: var(--amber-faint); }
-
-        .vertical-ghost {
-            position: absolute;
-            bottom: -20px;
-            right: -8px;
-            font-size: 140px;
-            font-weight: 600;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(240,181,0,0.06);
-            line-height: 1;
-            pointer-events: none;
-            letter-spacing: -0.04em;
-        }
-
-        .vertical-num {
-            font-size: 9px;
-            letter-spacing: 0.22em;
-            color: var(--amber);
-            margin-bottom: 22px;
+        .vert-row {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            align-items: baseline;
+            gap: 52px;
+            padding: 44px 0;
+            border-top: 1px solid var(--faint);
         }
 
-        .vertical-num::before { content: '•'; }
+        .vert-row:last-child { border-bottom: 1px solid var(--faint); }
 
-        .vertical-title {
+        .vert-n {
+            font-size: clamp(40px, 5vw, 68px);
+            font-weight: 600;
+            color: var(--faint);
+            line-height: 1;
+            letter-spacing: -0.04em;
+            flex-shrink: 0;
+            width: 72px;
+            user-select: none;
+        }
+
+        .vert-content { flex: 1; }
+
+        .vert-title {
             font-size: 12px;
             font-weight: 600;
-            color: var(--ink);
-            margin-bottom: 12px;
-            letter-spacing: 0.07em;
             text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink);
+            margin-bottom: 10px;
         }
 
-        .vertical-desc {
+        .vert-desc {
             font-size: 11px;
             font-weight: 300;
-            color: var(--muted);
-            line-height: 1.9;
-            position: relative;
+            color: var(--dim);
+            line-height: 2;
+            max-width: 560px;
         }
 
         /* ── Benchmark ── */
-        #benchmark { padding: 120px 0; }
+        #benchmark { background: var(--bg); border-top: 1px solid var(--faint); }
 
-        .benchmark-inner {
+        .bench-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
             align-items: start;
         }
 
-        .bench-quote {
-            font-size: clamp(22px, 2.8vw, 38px);
+        .bench-pull {
+            font-size: clamp(26px, 3vw, 40px);
             font-weight: 600;
-            line-height: 1.25;
+            line-height: 1.2;
             color: var(--ink);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             letter-spacing: -0.01em;
         }
 
-        .bench-quote strong { color: var(--amber); }
+        .bench-pull strong { color: var(--amber); }
 
         .bench-body {
             font-size: 11px;
             font-weight: 300;
-            color: var(--muted);
-            line-height: 1.95;
-            margin-bottom: 28px;
-            letter-spacing: 0.02em;
+            color: var(--dim);
+            line-height: 2;
+            margin-bottom: 24px;
+            max-width: 420px;
         }
 
-        .bench-citation {
-            padding: 14px 18px;
-            border-left: 2px solid var(--amber);
-            background: var(--amber-faint);
-        }
-
-        .bench-citation p {
+        .bench-cite {
             font-size: 9px;
-            letter-spacing: 0.04em;
-            line-height: 1.85;
-            color: var(--muted);
+            color: var(--dim);
+            line-height: 2;
+            padding: 14px 0;
+            border-top: 1px solid var(--faint);
         }
 
-        .bench-table {
-            border-top: 1px solid var(--border);
-            margin-bottom: 20px;
-        }
+        /* Terminal-style table */
+        .term-table { margin-bottom: 16px; }
 
-        .bench-row {
+        .t-head {
             display: grid;
-            grid-template-columns: 1fr auto auto;
-            gap: 20px;
-            padding: 13px 0;
-            border-bottom: 1px solid var(--border);
-            align-items: center;
+            grid-template-columns: 1fr 88px 72px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--faint);
+            font-size: 8px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--dim);
         }
 
-        .bench-config {
+        .t-head span:not(:first-child) { text-align: right; }
+
+        .term-row {
+            display: grid;
+            grid-template-columns: 1fr 88px 72px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--faint);
+            align-items: center;
             font-size: 10px;
-            color: var(--muted);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
         }
 
-        .bench-score {
-            font-size: 11px;
-            color: var(--ink);
-            text-align: right;
+        .term-row.prod {
+            background: rgba(240,181,0,0.055);
+            border-left: 2px solid var(--amber);
+            padding-left: 10px;
+            margin-left: -12px;
+            border-bottom-color: var(--faint);
         }
 
-        .bench-row.active .bench-config { color: var(--ink); }
-        .bench-row.active .bench-score  { color: var(--green); font-weight: 600; }
+        .term-row.prod .t-cfg { color: var(--ink); }
+        .term-row.prod .t-val { color: var(--green); font-weight: 600; }
 
-        .badge {
+        .t-cfg { color: var(--dim); display: flex; align-items: center; gap: 9px; }
+        .t-val { color: var(--ink); text-align: right; }
+
+        .prod-flag {
             font-size: 7px;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             background: var(--amber);
             color: var(--bg);
-            padding: 2px 6px;
+            padding: 2px 5px;
             font-weight: 600;
         }
 
         .bench-meta {
-            font-size: 9px;
-            letter-spacing: 0.05em;
-            color: var(--muted);
-            line-height: 1.9;
+            font-size: 8px;
+            color: var(--dim);
+            line-height: 2.1;
+            margin-bottom: 44px;
         }
 
-        .exits-list { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); }
+        .exits { border-top: 1px solid var(--faint); padding-top: 32px; }
+
+        .exits-label {
+            font-size: 8px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 16px;
+        }
+
+        .exits-label::before { content: '// '; color: var(--faint); }
 
         .exit-row {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
+            padding: 9px 0;
+            border-bottom: 1px solid var(--faint);
             font-size: 10px;
         }
 
-        .exit-row span:first-child { color: var(--muted); }
-        .exit-row span:last-child  { color: var(--ink); }
+        .exit-row:last-child { border-bottom: none; }
+        .exit-row .co  { color: var(--dim); }
+        .exit-row .val { color: var(--ink); }
 
         /* ── Buyers ── */
-        #buyers {
-            padding: 120px 0;
-            background: var(--bg2);
-            border-top: 1px solid var(--border);
-        }
+        #buyers { background: var(--bg2); border-top: 1px solid var(--faint); }
 
-        .buyers-grid {
+        .buyer-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            border: 1px solid var(--border);
-            margin-top: 60px;
+            grid-template-columns: 180px 1fr auto;
+            gap: 52px;
+            align-items: start;
+            padding: 40px 0;
+            border-top: 1px solid var(--faint);
         }
 
-        .buyer-card {
-            padding: 44px 36px;
-            border-right: 1px solid var(--border);
-            background: var(--panel);
-        }
+        .buyer-row:last-child { border-bottom: 1px solid var(--faint); }
 
-        .buyer-card:last-child { border-right: none; }
-
-        .buyer-title {
-            font-size: 12px;
+        .buyer-name {
+            font-size: 11px;
             font-weight: 600;
-            margin-bottom: 12px;
-            letter-spacing: 0.07em;
             text-transform: uppercase;
+            letter-spacing: 0.1em;
             color: var(--ink);
+            padding-top: 2px;
         }
 
         .buyer-desc {
             font-size: 11px;
             font-weight: 300;
-            color: var(--muted);
-            line-height: 1.9;
-            margin-bottom: 24px;
-            letter-spacing: 0.02em;
+            color: var(--dim);
+            line-height: 2;
         }
 
         .buyer-price {
             font-size: 9px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
             color: var(--amber);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+            padding-top: 2px;
         }
-
-        .buyer-price::before { content: '•'; }
 
         /* ── CTA ── */
         #cta {
-            padding: 160px 0;
-            background: var(--bg2);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border-top: 1px solid var(--border);
+            background: var(--bg);
+            border-top: 1px solid var(--faint);
+            padding: 120px 60px;
         }
 
-        .cta-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(240,181,0,0.035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(240,181,0,0.035) 1px, transparent 1px);
-            background-size: 48px 48px;
-        }
-
-        .cta-inner { position: relative; }
-
-        .cta-eyebrow {
-            font-size: 9px;
-            letter-spacing: 0.26em;
-            text-transform: uppercase;
-            color: var(--amber);
-            margin-bottom: 32px;
+        .cta-inner {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 60px;
         }
-
-        .cta-eyebrow::before { content: '•'; }
 
         .cta-headline {
-            font-size: clamp(32px, 4.5vw, 60px);
+            font-size: clamp(28px, 4vw, 56px);
             font-weight: 600;
-            color: var(--ink);
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 20px;
             text-transform: uppercase;
+            letter-spacing: -0.025em;
+            line-height: 1.05;
+            color: var(--ink);
+            margin-bottom: 20px;
+            max-width: 540px;
         }
 
         .cta-sub {
             font-size: 11px;
             font-weight: 300;
-            color: var(--muted);
-            margin-bottom: 52px;
-            letter-spacing: 0.04em;
+            color: var(--dim);
+            line-height: 2;
+            max-width: 380px;
         }
 
-        .btn-amber {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            background: var(--amber);
-            color: var(--bg);
+        .cta-cmd {
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .terminal-link {
+            display: block;
+            font-size: 13px;
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--amber);
             text-decoration: none;
-            padding: 16px 36px;
-            font-weight: 600;
-            transition: opacity 0.15s;
+            line-height: 1.6;
+            margin-bottom: 6px;
         }
 
-        .btn-amber:hover { opacity: 0.85; }
-        .btn-amber:hover svg { transform: translateX(4px); }
-        .btn-amber svg { transition: transform 0.2s; }
+        .terminal-link::before { content: '> '; opacity: 0.45; }
+        .terminal-link::after  { content: '_'; animation: cur 1.1s step-end infinite; }
+        .terminal-link:hover { text-decoration: underline; }
+
+        .cmd-note {
+            font-size: 8px;
+            color: var(--dim);
+            letter-spacing: 0.08em;
+        }
 
         /* ── Footer ── */
         footer {
-            background: var(--bg);
-            border-top: 1px solid var(--border);
-            padding: 28px 80px;
+            padding: 22px 52px;
+            border-top: 1px solid var(--faint);
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         .footer-logo {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            color: var(--amber);
             letter-spacing: 0.22em;
             text-transform: uppercase;
+            color: var(--amber);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .footer-right {
-            font-size: 9px;
-            letter-spacing: 0.08em;
-            color: var(--muted);
-            text-align: right;
+        .footer-r {
+            font-size: 8px;
+            color: var(--dim);
+            letter-spacing: 0.06em;
             line-height: 2;
+            text-align: right;
         }
 
         /* ── Fade-up ── */
         .fade-up {
             opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(14px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
         }
 
         .fade-up.visible { opacity: 1; transform: none; }
 
         /* ── Responsive ── */
-        @media (max-width: 960px) {
+        @media (max-width: 900px) {
             nav { padding: 0 20px; }
-            .nav-location { display: none; }
+            .nav-loc { display: none; }
 
-            #hero { grid-template-columns: 1fr; min-height: auto; }
-            .hero-left { padding: 88px 24px 56px; }
-            .hero-right { height: 300px; }
+            .hero-content { padding: 0 24px 72px; }
+            .scan-overlay-coords { display: none; }
+            h1.hero-headline { font-size: clamp(48px, 13vw, 80px); }
 
-            .stats-grid { grid-template-columns: 1fr; }
-            .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 24px; }
+            .stats-strip { flex-direction: column; }
+            .stat-block { border-right: none; border-bottom: 1px solid var(--faint); padding: 44px 24px; }
 
-            .container { padding: 0 24px; }
-            .layers-grid, .verticals-grid, .buyers-grid { grid-template-columns: 1fr; }
-            .layer-card, .vertical-card, .buyer-card { border-right: none; border-bottom: 1px solid var(--border); }
-            .benchmark-inner { grid-template-columns: 1fr; gap: 48px; }
+            .section-wrap { padding: 80px 24px; }
 
-            #how, #verticals, #benchmark, #buyers { padding: 80px 0; }
-            #cta { padding: 100px 0; }
-            footer { padding: 24px 20px; flex-direction: column; gap: 12px; }
-            .footer-right { text-align: center; }
+            .pipeline-header { flex-direction: column; gap: 6px; margin-bottom: 44px; }
+            .layer-marker { width: 60px; padding-right: 20px; }
+            .layer-body { padding-left: 24px; }
+
+            .bench-grid { grid-template-columns: 1fr; gap: 52px; }
+
+            .vert-row { gap: 24px; }
+            .vert-n { width: 52px; }
+
+            .buyer-row { grid-template-columns: 1fr; gap: 10px; }
+            .buyer-price { padding-top: 0; }
+
+            .cta-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
+            .cta-cmd { text-align: left; }
+
+            footer { padding: 20px 24px; flex-direction: column; gap: 10px; text-align: center; }
+            .footer-r { text-align: center; }
         }
     </style>
 </head>
@@ -764,82 +692,68 @@
 <!-- ── Nav ── -->
 <nav>
     <a href="#" class="nav-logo">
-        <span class="nav-logo-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
         Lupa
     </a>
     <div class="nav-right">
-        <span class="nav-location">Est. 2026 · Spatial Intelligence</span>
-        <a href="mailto:jmunson0711@gmail.com" class="nav-cta">Request Pilot</a>
+        <span class="nav-loc">Est. 2026 · Spatial Intelligence</span>
+        <a href="mailto:info@lupaintel.com" class="nav-cta">Request Pilot</a>
     </div>
 </nav>
 
-<!-- ── Hero ── -->
+<!-- ── Hero — full-bleed canvas with text overlay ── -->
 <section id="hero">
-    <div class="hero-left">
-        <div class="hero-label">Spatial Intelligence</div>
+    <canvas id="scan-canvas"></canvas>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <div class="hero-sys">Spatial anomaly detection / active</div>
         <h1 class="hero-headline">
-            Lupa sees<br>what <em>field<br>crews can't.</em>
+            Lupa sees<br>what field<br><em>crews can't.</em>
         </h1>
-        <div class="hero-data">
-            <div class="hero-data-line"><span class="hl">608</span>&nbsp;confirmed illegal dump sites · Jujuy, Argentina</div>
-            <div class="hero-data-line"><span class="hl">14</span>&nbsp;utility anomalies · Colorado Springs, CO</div>
-            <div class="hero-data-line"><span class="hl">92.9%</span>&nbsp;precision · AerialWaste academic benchmark</div>
-        </div>
         <p class="hero-sub">
-            AI-powered satellite and street-level anomaly detection for cities, utilities, and infrastructure. Continuous. Precise. Verified.
+            Continuous, precise anomaly detection for cities, utilities, and infrastructure.
         </p>
-        <a href="mailto:jmunson0711@gmail.com" class="btn-primary">
-            Request a Pilot Scan
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M1 7H13M13 7L8 2M13 7L8 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
+        <a href="mailto:info@lupaintel.com" class="hero-cta">request_pilot_scan</a>
     </div>
-    <div class="hero-right">
-        <canvas id="scan-canvas"></canvas>
-        <div class="scan-overlay-coords" id="scan-coords">24.1845°S &nbsp;65.3472°W<br>PANNING...</div>
-        <div class="scan-overlay-label">Lupa — Live Coverage Map</div>
-    </div>
+
+    <div class="scan-overlay-coords" id="scan-coords">24.1845°S &nbsp;65.3472°W<br>PANNING...</div>
 </section>
 
 <!-- ── Stats ── -->
 <section id="stats">
-    <div class="stats-grid">
-        <div class="stat-item fade-up">
-            <div class="stat-dot-label">Confirmed Illegal Dump Sites</div>
-            <div class="stat-number">608</div>
-            <div class="stat-sublabel">Jujuy, Argentina</div>
+    <div class="stats-strip">
+        <div class="stat-block fade-up">
+            <div class="stat-label">Confirmed Illegal Dump Sites</div>
+            <div class="stat-num amber">608</div>
+            <div class="stat-sub">Jujuy, Argentina</div>
         </div>
-        <div class="stat-item fade-up" style="transition-delay:.1s">
-            <div class="stat-dot-label">Utility Corridor Anomalies</div>
-            <div class="stat-number">14</div>
-            <div class="stat-sublabel">Colorado Springs, CO</div>
+        <div class="stat-block fade-up" style="transition-delay:.09s">
+            <div class="stat-label">Utility Corridor Anomalies</div>
+            <div class="stat-num">14</div>
+            <div class="stat-sub">Colorado Springs, CO</div>
         </div>
-        <div class="stat-item fade-up" style="transition-delay:.2s">
-            <div class="stat-dot-label">Precision · Independent Benchmark</div>
-            <div class="stat-number">92<span class="unit">.9%</span></div>
-            <div class="stat-sublabel">AerialWaste academic dataset</div>
+        <div class="stat-block fade-up" style="transition-delay:.18s">
+            <div class="stat-label">Precision · Independent Benchmark</div>
+            <div class="stat-num">92<sup>.9%</sup></div>
+            <div class="stat-sub">AerialWaste academic dataset</div>
         </div>
     </div>
 </section>
 
-<!-- ── How it works ── -->
+<!-- ── Detection Pipeline ── -->
 <section id="how">
-    <div class="container">
-        <div class="section-eyebrow fade-up">How It Works</div>
-        <h2 class="section-title fade-up">Two layers.<br>One continuous picture.</h2>
-        <div class="layers-grid">
-            <div class="layer-card fade-up">
-                <div class="layer-num">Layer 01</div>
-                <svg class="layer-icon" viewBox="0 0 36 36" fill="none">
-                    <rect x="3" y="3" width="30" height="30" rx="1" stroke="#F0B500" stroke-width="0.75"/>
-                    <rect x="8" y="8" width="8" height="8" fill="rgba(240,181,0,0.1)" stroke="#F0B500" stroke-width="0.5"/>
-                    <rect x="20" y="8" width="8" height="8" fill="rgba(240,181,0,0.1)" stroke="#F0B500" stroke-width="0.5"/>
-                    <rect x="8" y="20" width="8" height="8" fill="rgba(240,181,0,0.4)" stroke="#F0B500" stroke-width="0.5"/>
-                    <rect x="20" y="20" width="8" height="8" fill="rgba(240,181,0,0.1)" stroke="#F0B500" stroke-width="0.5"/>
-                    <circle cx="12" cy="24" r="2" fill="#F0B500"/>
-                </svg>
-                <h3 class="layer-title">Satellite Scan</h3>
+    <div class="section-wrap">
+        <div class="eyebrow fade-up">How It Works</div>
+        <div class="pipeline-header fade-up">
+            <div class="pipeline-title">Detection Pipeline</div>
+            <div class="pipeline-ver">v2.1 / Gemini 2.5 Flash</div>
+        </div>
+
+        <div class="layer-row fade-up">
+            <div class="layer-marker"><span>SAT</span></div>
+            <div class="layer-body">
+                <div class="layer-name">Satellite Scan</div>
                 <p class="layer-desc">
                     Lupa ingests imagery from multiple satellite providers — Sentinel-2 for city-scale coverage, Planet Labs for daily revisit at sub-meter resolution, and commercial feeds for mission-critical cadence. Spectral indices — BSI, NDVI, NDWI — filter for anomalous terrain signatures. Gemini 2.5 Flash classifies each candidate tile with in-domain few-shot examples, achieving 92.9% precision out of the box.
                 </p>
@@ -851,26 +765,19 @@
                     <span class="tag">Daily Revisit</span>
                 </div>
             </div>
-            <div class="layer-card fade-up" style="transition-delay:.1s">
-                <div class="layer-num">Layer 02</div>
-                <svg class="layer-icon" viewBox="0 0 36 36" fill="none">
-                    <circle cx="18" cy="18" r="13" stroke="#F0B500" stroke-width="0.75"/>
-                    <circle cx="18" cy="18" r="7" stroke="#F0B500" stroke-width="0.5" stroke-dasharray="2 2"/>
-                    <circle cx="18" cy="18" r="2" fill="#F0B500"/>
-                    <line x1="18" y1="5" x2="18" y2="0" stroke="#F0B500" stroke-width="0.75"/>
-                    <line x1="31" y1="18" x2="36" y2="18" stroke="#F0B500" stroke-width="0.75"/>
-                    <line x1="18" y1="31" x2="18" y2="36" stroke="#F0B500" stroke-width="0.75"/>
-                    <line x1="5" y1="18" x2="0" y2="18" stroke="#F0B500" stroke-width="0.75"/>
-                </svg>
-                <h3 class="layer-title">Street Coverage</h3>
+        </div>
+
+        <div class="layer-row fade-up" style="transition-delay:.1s">
+            <div class="layer-marker"><span>STR</span></div>
+            <div class="layer-body">
+                <div class="layer-name">Street Coverage</div>
                 <p class="layer-desc">
-                    360° cameras driven weekly capture ground-truth street-level footage. AI processes every frame to verify satellite detections, track anomaly aging, and surface new issues invisible from orbit. Weekly temporal cadence enables trend analysis and SLA compliance reporting.
+                    Street-level verification closes the loop on satellite detections — confirming anomaly presence, tracking resolution over time, and surfacing issues invisible from orbit.
                 </p>
                 <div class="tags">
                     <span class="tag">360° Cameras</span>
-                    <span class="tag">Weekly Cadence</span>
-                    <span class="tag">Temporal Trends</span>
                     <span class="tag">Ground Truth</span>
+                    <span class="tag">Temporal Trends</span>
                 </div>
             </div>
         </div>
@@ -879,27 +786,30 @@
 
 <!-- ── Verticals ── -->
 <section id="verticals">
-    <div class="container">
-        <div class="section-eyebrow fade-up">Verticals</div>
-        <h2 class="section-title fade-up">Built for the hardest<br>monitoring problems.</h2>
-        <div class="verticals-grid">
-            <div class="vertical-card fade-up">
-                <div class="vertical-ghost">01</div>
-                <div class="vertical-num">01</div>
-                <h3 class="vertical-title">Waste &amp; Environment</h3>
-                <p class="vertical-desc">Detect illegal dump sites, microbasurales, and environmental violations across entire municipalities. Proven in Jujuy, Argentina — 608 sites confirmed, zero manual surveys required.</p>
+    <div class="section-wrap">
+        <div class="eyebrow fade-up">Verticals</div>
+
+        <div class="vert-row fade-up">
+            <div class="vert-n">01</div>
+            <div class="vert-content">
+                <div class="vert-title">Waste &amp; Environment</div>
+                <p class="vert-desc">Detect illegal dump sites, microbasurales, and environmental violations across entire municipalities. Proven in Jujuy, Argentina — 608 sites confirmed, zero manual surveys required.</p>
             </div>
-            <div class="vertical-card fade-up" style="transition-delay:.1s">
-                <div class="vertical-ghost">02</div>
-                <div class="vertical-num">02</div>
-                <h3 class="vertical-title">Utility Infrastructure</h3>
-                <p class="vertical-desc">Monitor power line corridors for vegetation encroachment, soil disturbance, unauthorized construction, flooding near substations, and illegal dumping adjacent to utility assets.</p>
+        </div>
+
+        <div class="vert-row fade-up" style="transition-delay:.08s">
+            <div class="vert-n">02</div>
+            <div class="vert-content">
+                <div class="vert-title">Utility Infrastructure</div>
+                <p class="vert-desc">Monitor power line corridors for vegetation encroachment, soil disturbance, unauthorized construction, flooding near substations, and illegal dumping adjacent to utility assets.</p>
             </div>
-            <div class="vertical-card fade-up" style="transition-delay:.2s">
-                <div class="vertical-ghost">03</div>
-                <div class="vertical-num">03</div>
-                <h3 class="vertical-title">Municipal Compliance</h3>
-                <p class="vertical-desc">Track permit compliance, encroachment, and code violations at city scale. Continuous satellite + street coverage replaces expensive periodic manual inspection programs.</p>
+        </div>
+
+        <div class="vert-row fade-up" style="transition-delay:.16s">
+            <div class="vert-n">03</div>
+            <div class="vert-content">
+                <div class="vert-title">Municipal Compliance</div>
+                <p class="vert-desc">Track permit compliance, encroachment, and code violations at city scale. Continuous satellite + street coverage replaces expensive periodic manual inspection programs.</p>
             </div>
         </div>
     </div>
@@ -907,48 +817,52 @@
 
 <!-- ── Benchmark ── -->
 <section id="benchmark">
-    <div class="container">
-        <div class="benchmark-inner">
+    <div class="section-wrap">
+        <div class="eyebrow fade-up">Independent Validation</div>
+        <div class="bench-grid">
             <div>
-                <div class="section-eyebrow fade-up">Independent Validation</div>
-                <blockquote class="bench-quote fade-up">
+                <div class="bench-pull fade-up">
                     "1 false positive<br>per <strong>14</strong> flagged sites."
-                </blockquote>
+                </div>
                 <p class="bench-body fade-up">
                     Lupa's classifier was benchmarked against AerialWaste — a peer-reviewed aerial landfill detection dataset published in <em>Nature Scientific Data</em>. 100 images. 50 positive, 50 negative. Professional photo interpreter ground truth. Zero self-reported metrics.
                 </p>
-                <div class="bench-citation fade-up">
-                    <p>Torres, R.N. &amp; Fraternali, P. (2023). AerialWaste dataset for landfill discovery in aerial and satellite images. <em>Scientific Data</em>, 10(1), 63. Nature Publishing Group.</p>
+                <div class="bench-cite fade-up">
+                    Torres, R.N. &amp; Fraternali, P. (2023). AerialWaste dataset for landfill discovery in aerial and satellite images. <em>Scientific Data</em>, 10(1), 63. Nature Publishing Group.
                 </div>
             </div>
+
             <div class="fade-up" style="transition-delay:.12s">
-                <div class="bench-table">
-                    <div class="bench-row">
-                        <div class="bench-config" style="color:var(--muted)">Configuration</div>
-                        <div class="bench-score" style="color:var(--muted);font-size:9px">Precision</div>
-                        <div class="bench-score" style="color:var(--muted);font-size:9px">F1</div>
+                <div class="term-table">
+                    <div class="t-head">
+                        <span>Configuration</span>
+                        <span>Precision</span>
+                        <span>F1</span>
                     </div>
-                    <div class="bench-row">
-                        <div class="bench-config">Zero-shot baseline</div>
-                        <div class="bench-score">83.3%</div>
-                        <div class="bench-score">81.6%</div>
+                    <div class="term-row">
+                        <div class="t-cfg">Zero-shot baseline</div>
+                        <div class="t-val">83.3%</div>
+                        <div class="t-val">81.6%</div>
                     </div>
-                    <div class="bench-row active">
-                        <div class="bench-config">
+                    <div class="term-row prod">
+                        <div class="t-cfg">
                             In-domain few-shot
-                            <span class="badge">Production</span>
+                            <span class="prod-flag">PROD</span>
                         </div>
-                        <div class="bench-score">92.9%</div>
-                        <div class="bench-score">84.8%</div>
+                        <div class="t-val">92.9%</div>
+                        <div class="t-val">84.8%</div>
                     </div>
                 </div>
-                <p class="bench-meta">100 images · 50 positive / 50 negative · seed=42 · reproducible<br>Dataset: AerialWaste testing split · Model: Gemini 2.5 Flash</p>
+                <div class="bench-meta">
+                    100 images · 50 pos / 50 neg · seed=42 · reproducible<br>
+                    Dataset: AerialWaste testing split · Model: Gemini 2.5 Flash
+                </div>
 
-                <div class="exits-list">
-                    <div class="section-eyebrow" style="margin-bottom:20px">Comparable Companies</div>
-                    <div class="exit-row"><span>Cape Analytics</span><span>~$200–300M exit</span></div>
-                    <div class="exit-row"><span>EagleView</span><span>$650M exit</span></div>
-                    <div class="exit-row" style="border-bottom:none"><span>Nearmap</span><span>$1.1B exit</span></div>
+                <div class="exits">
+                    <div class="exits-label">Comparable Companies</div>
+                    <div class="exit-row"><span class="co">Cape Analytics</span><span class="val">~$200–300M exit</span></div>
+                    <div class="exit-row"><span class="co">EagleView</span><span class="val">$650M exit</span></div>
+                    <div class="exit-row"><span class="co">Nearmap</span><span class="val">$1.1B exit</span></div>
                 </div>
             </div>
         </div>
@@ -957,52 +871,50 @@
 
 <!-- ── Buyers ── -->
 <section id="buyers">
-    <div class="container">
-        <div class="section-eyebrow fade-up">Who Buys Lupa</div>
-        <h2 class="section-title fade-up">The buyers who need<br>continuous eyes.</h2>
-        <div class="buyers-grid">
-            <div class="buyer-card fade-up">
-                <h3 class="buyer-title">Utilities</h3>
-                <p class="buyer-desc">Power, water, and gas utilities with linear infrastructure across large service territories. Right-of-way monitoring, vegetation encroachment, substation flood risk. Pilot underway with Colorado Springs Utilities.</p>
-                <div class="buyer-price">Pilot from $25,000 / month</div>
-            </div>
-            <div class="buyer-card fade-up" style="transition-delay:.1s">
-                <h3 class="buyer-title">Municipal Governments</h3>
-                <p class="buyer-desc">Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. Active in Jujuy, Argentina.</p>
-                <div class="buyer-price">Custom pricing by coverage area</div>
-            </div>
-            <div class="buyer-card fade-up" style="transition-delay:.2s">
-                <h3 class="buyer-title">Development Banks</h3>
-                <p class="buyer-desc">IDB, World Bank, and European Investment Bank-funded projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. EIB active in Jujuy via GIRSU.</p>
-                <div class="buyer-price">Project-based engagement</div>
-            </div>
+    <div class="section-wrap">
+        <div class="eyebrow fade-up">Who Buys Lupa</div>
+
+        <div class="buyer-row fade-up">
+            <div class="buyer-name">Utilities</div>
+            <p class="buyer-desc">Power, water, and gas utilities with linear infrastructure across large service territories. Right-of-way monitoring, vegetation encroachment, substation flood risk.</p>
+            <div class="buyer-price">Pilot from $25K / month</div>
+        </div>
+
+        <div class="buyer-row fade-up" style="transition-delay:.08s">
+            <div class="buyer-name">Municipal Governments</div>
+            <p class="buyer-desc">Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. Active in Jujuy, Argentina.</p>
+            <div class="buyer-price">Custom / coverage area</div>
+        </div>
+
+        <div class="buyer-row fade-up" style="transition-delay:.16s">
+            <div class="buyer-name">Development Banks</div>
+            <p class="buyer-desc">IDB, World Bank, and European Investment Bank-funded projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. EIB active in Jujuy via GIRSU.</p>
+            <div class="buyer-price">Project-based</div>
         </div>
     </div>
 </section>
 
 <!-- ── CTA ── -->
 <section id="cta">
-    <div class="cta-grid"></div>
-    <div class="cta-inner container">
-        <div class="cta-eyebrow fade-up">Get Started</div>
-        <h2 class="cta-headline fade-up">Ready to see your city<br>differently?</h2>
-        <p class="cta-sub fade-up">We run a pilot scan of your coverage area. You see what we find.</p>
-        <a href="mailto:jmunson0711@gmail.com" class="btn-amber fade-up">
-            Request a Pilot Scan
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M1 7H13M13 7L8 2M13 7L8 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
+    <div class="eyebrow fade-up" style="padding: 0 60px; margin-bottom: 0;"></div>
+    <div class="cta-inner fade-up">
+        <div>
+            <h2 class="cta-headline">Ready to see your city differently?</h2>
+            <p class="cta-sub">We run a pilot scan of your coverage area. You see what we find.</p>
+        </div>
+        <div class="cta-cmd">
+            <a href="mailto:info@lupaintel.com" class="terminal-link">request_pilot_scan</a>
+        </div>
     </div>
 </section>
 
 <!-- ── Footer ── -->
 <footer>
     <div class="footer-logo">
-        <span class="nav-logo-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
         Lupa
     </div>
-    <div class="footer-right">
+    <div class="footer-r">
         Spatial Intelligence Platform<br>
         © 2026 Lupa
     </div>
@@ -1018,14 +930,11 @@ const PAN_SPEED_X = 0.10;
 const PAN_SPEED_Y = 0.065;
 let panX = 0, panY = 0;
 
-// Street grid (normalized 0–1 within tile)
 const SH = [0, 0.13, 0.27, 0.41, 0.56, 0.70, 0.84, 1.0];
 const SV = [0, 0.11, 0.22, 0.35, 0.50, 0.63, 0.76, 0.89, 1.0];
 
-// Block indices that become parks/open space
 const PARKS = new Set([3, 10, 17, 23, 31, 38]);
 
-// Fixed anomaly markers (normalized 0–1 within tile)
 const ANOMALIES = [
     {x:0.06,  y:0.08}, {x:0.17,  y:0.34}, {x:0.29,  y:0.19},
     {x:0.44,  y:0.49}, {x:0.57,  y:0.07}, {x:0.70,  y:0.61},
@@ -1033,7 +942,6 @@ const ANOMALIES = [
     {x:0.74,  y:0.79}, {x:0.52,  y:0.71}, {x:0.23,  y:0.59},
 ];
 
-// Ring state per anomaly (staggered start so they don't pulse in sync)
 const rings = ANOMALIES.map((_, i) => ({
     rings: [{ r: (i * 7) % 22, op: 0.4 + (i % 3) * 0.1 }],
     age: i * 29,
@@ -1047,11 +955,9 @@ function buildTile() {
     tileCanvas.height = TILE;
     const tc = tileCanvas.getContext('2d');
 
-    // Base
     tc.fillStyle = '#070605';
     tc.fillRect(0, 0, TILE, TILE);
 
-    // City blocks
     let idx = 0;
     for (let i = 0; i < SH.length - 1; i++) {
         for (let j = 0; j < SV.length - 1; j++) {
@@ -1061,7 +967,6 @@ function buildTile() {
             const h = (SH[i+1] - SH[i]) * TILE - 3;
 
             if (PARKS.has(idx)) {
-                // Green open space
                 tc.fillStyle = 'rgba(61,214,140,0.075)';
                 tc.fillRect(x, y, w, h);
                 tc.strokeStyle = 'rgba(61,214,140,0.03)';
@@ -1070,11 +975,9 @@ function buildTile() {
                     tc.beginPath(); tc.moveTo(x + 4, py); tc.lineTo(x + w - 4, py); tc.stroke();
                 }
             } else {
-                // Urban block base
                 tc.fillStyle = 'rgba(255,255,255,0.020)';
                 tc.fillRect(x, y, w, h);
 
-                // Buildings subdivided within block
                 const cols = Math.max(2, Math.round(w / 30));
                 const rows = Math.max(2, Math.round(h / 26));
                 const mg   = 2.5;
@@ -1085,7 +988,6 @@ function buildTile() {
                     for (let bj = 0; bj < rows; bj++) {
                         const bx = x + mg + bi * (bw + mg);
                         const by = y + mg + bj * (bh + mg);
-                        // Pseudorandom brightness — deterministic, no Math.random()
                         const s  = Math.abs(Math.sin(idx * 6.37 + bi * 2.71 + bj * 4.19));
                         const br = 0.022 + s * 0.065;
                         tc.fillStyle = `rgba(255,255,255,${br.toFixed(3)})`;
@@ -1097,7 +999,6 @@ function buildTile() {
         }
     }
 
-    // Horizontal streets
     for (let i = 1; i < SH.length - 1; i++) {
         const y    = SH[i] * TILE;
         const main = i % 2 === 1;
@@ -1106,7 +1007,6 @@ function buildTile() {
         tc.beginPath(); tc.moveTo(0, y); tc.lineTo(TILE, y); tc.stroke();
     }
 
-    // Vertical streets
     for (let j = 1; j < SV.length - 1; j++) {
         const x    = SV[j] * TILE;
         const main = j % 2 === 1;
@@ -1129,7 +1029,6 @@ function draw() {
     const W = canvas.width, H = canvas.height;
     ctx.clearRect(0, 0, W, H);
 
-    // Tile the map
     const ox     = ((panX % TILE) + TILE) % TILE;
     const oy     = ((panY % TILE) + TILE) % TILE;
     const tilesX = Math.ceil(W / TILE) + 2;
@@ -1141,14 +1040,12 @@ function draw() {
         }
     }
 
-    // Radial vignette — pulls focus to centre
     const vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.15, W / 2, H / 2, H * 0.8);
     vg.addColorStop(0, 'transparent');
-    vg.addColorStop(1, 'rgba(7,6,5,0.60)');
+    vg.addColorStop(1, 'rgba(7,6,5,0.55)');
     ctx.fillStyle = vg;
     ctx.fillRect(0, 0, W, H);
 
-    // Anomaly markers (tiled so they appear across every map copy)
     for (let ai = 0; ai < ANOMALIES.length; ai++) {
         const a  = ANOMALIES[ai];
         const ar = rings[ai];
@@ -1159,7 +1056,6 @@ function draw() {
                 const py = iy * TILE + a.y * TILE - oy;
                 if (px < -80 || px > W + 80 || py < -80 || py > H + 80) continue;
 
-                // Ping rings
                 for (const ring of ar.rings) {
                     ctx.beginPath();
                     ctx.arc(px, py, ring.r, 0, Math.PI * 2);
@@ -1168,7 +1064,6 @@ function draw() {
                     ctx.stroke();
                 }
 
-                // Amber dot
                 ctx.shadowColor = 'rgba(240,181,0,0.75)';
                 ctx.shadowBlur  = 9;
                 ctx.fillStyle   = '#F0B500';
@@ -1179,7 +1074,6 @@ function draw() {
             }
         }
 
-        // Update ring state
         ar.age++;
         if (ar.age % 115 === 0) ar.rings.push({ r: 0, op: 0.65 });
         ar.rings = ar.rings.filter(r => r.op > 0.01);
@@ -1191,11 +1085,9 @@ function draw() {
 
     ctx.shadowBlur = 0;
 
-    // Pan
     panX += PAN_SPEED_X;
     panY += PAN_SPEED_Y;
 
-    // Coords overlay
     const lat = (24.1100 + (panX / TILE * 0.04) % 0.18).toFixed(4);
     const lng = (65.2040 + (panY / TILE * 0.03) % 0.12).toFixed(4);
     document.getElementById('scan-coords').innerHTML = `${lat}°S &nbsp;${lng}°W<br>PANNING...`;
