@@ -925,7 +925,9 @@
     </div>
 </footer>
 
-<script>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+
+<script type="module">
 // ── Translations ──────────────────────────────────────────────────
 const T = {
     en: {
@@ -1046,178 +1048,229 @@ function applyLang(l) {
 
 langBtn.addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
 
-// ── Panning City Map ──────────────────────────────────────────────
+// ── Globe (Three.js) ──────────────────────────────────────────────
+import * as THREE from 'three';
+
 const canvas = document.getElementById('scan-canvas');
-const ctx    = canvas.getContext('2d');
 
-const TILE        = 900;
-const PAN_SPEED_X = 0.10;
-const PAN_SPEED_Y = 0.065;
-let panX = 0, panY = 0;
+// ── Globe (Three.js) ──────────────────────────────────────────────
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 0);
 
-const SH = [0, 0.13, 0.27, 0.41, 0.56, 0.70, 0.84, 1.0];
-const SV = [0, 0.11, 0.22, 0.35, 0.50, 0.63, 0.76, 0.89, 1.0];
-
-const PARKS = new Set([3, 10, 17, 23, 31, 38]);
-
-const ANOMALIES = [
-    {x:0.06,  y:0.08}, {x:0.17,  y:0.34}, {x:0.29,  y:0.19},
-    {x:0.44,  y:0.49}, {x:0.57,  y:0.07}, {x:0.70,  y:0.61},
-    {x:0.83,  y:0.22}, {x:0.08,  y:0.77}, {x:0.38,  y:0.87},
-    {x:0.74,  y:0.79}, {x:0.52,  y:0.71}, {x:0.23,  y:0.59},
-];
-
-const rings = ANOMALIES.map((_, i) => ({
-    rings: [{ r: (i * 7) % 22, op: 0.4 + (i % 3) * 0.1 }],
-    age: i * 29,
-}));
-
-let tileCanvas = null;
-
-function buildTile() {
-    tileCanvas = document.createElement('canvas');
-    tileCanvas.width  = TILE;
-    tileCanvas.height = TILE;
-    const tc = tileCanvas.getContext('2d');
-
-    tc.fillStyle = '#070605';
-    tc.fillRect(0, 0, TILE, TILE);
-
-    let idx = 0;
-    for (let i = 0; i < SH.length - 1; i++) {
-        for (let j = 0; j < SV.length - 1; j++) {
-            const x = SV[j]   * TILE + 1.5;
-            const y = SH[i]   * TILE + 1.5;
-            const w = (SV[j+1] - SV[j]) * TILE - 3;
-            const h = (SH[i+1] - SH[i]) * TILE - 3;
-
-            if (PARKS.has(idx)) {
-                tc.fillStyle = 'rgba(61,214,140,0.075)';
-                tc.fillRect(x, y, w, h);
-                tc.strokeStyle = 'rgba(61,214,140,0.03)';
-                tc.lineWidth = 1;
-                for (let py = y + 10; py < y + h - 4; py += 15) {
-                    tc.beginPath(); tc.moveTo(x + 4, py); tc.lineTo(x + w - 4, py); tc.stroke();
-                }
-            } else {
-                tc.fillStyle = 'rgba(255,255,255,0.020)';
-                tc.fillRect(x, y, w, h);
-
-                const cols = Math.max(2, Math.round(w / 30));
-                const rows = Math.max(2, Math.round(h / 26));
-                const mg   = 2.5;
-                const bw   = (w - mg * (cols + 1)) / cols;
-                const bh   = (h - mg * (rows + 1)) / rows;
-
-                for (let bi = 0; bi < cols; bi++) {
-                    for (let bj = 0; bj < rows; bj++) {
-                        const bx = x + mg + bi * (bw + mg);
-                        const by = y + mg + bj * (bh + mg);
-                        const s  = Math.abs(Math.sin(idx * 6.37 + bi * 2.71 + bj * 4.19));
-                        const br = 0.022 + s * 0.065;
-                        tc.fillStyle = `rgba(255,255,255,${br.toFixed(3)})`;
-                        tc.fillRect(bx, by, bw, bh);
-                    }
-                }
-            }
-            idx++;
-        }
-    }
-
-    for (let i = 1; i < SH.length - 1; i++) {
-        const y    = SH[i] * TILE;
-        const main = i % 2 === 1;
-        tc.strokeStyle = main ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.065)';
-        tc.lineWidth   = main ? 2.5 : 1.5;
-        tc.beginPath(); tc.moveTo(0, y); tc.lineTo(TILE, y); tc.stroke();
-    }
-
-    for (let j = 1; j < SV.length - 1; j++) {
-        const x    = SV[j] * TILE;
-        const main = j % 2 === 1;
-        tc.strokeStyle = main ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.065)';
-        tc.lineWidth   = main ? 2.5 : 1.5;
-        tc.beginPath(); tc.moveTo(x, 0); tc.lineTo(x, TILE); tc.stroke();
-    }
-}
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+camera.position.z = 3;
 
 function resize() {
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    const w = window.innerWidth, h = window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
 }
-
 resize();
-buildTile();
 window.addEventListener('resize', resize);
 
+// Earth sphere
+const earthGeo = new THREE.SphereGeometry(1, 64, 64);
+const earthMat = new THREE.MeshPhongMaterial({ specular: new THREE.Color(0x112233), shininess: 14 });
+const earth    = new THREE.Mesh(earthGeo, earthMat);
+earth.position.x = 1.1;
+scene.add(earth);
+
+// Atmosphere shell
+const atmoMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(1.04, 64, 64),
+    new THREE.MeshPhongMaterial({ color: 0x4499cc, transparent: true, opacity: 0.05, depthWrite: false })
+);
+atmoMesh.position.x = 1.1;
+scene.add(atmoMesh);
+
+// Outer glow
+const haloMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(1.18, 64, 64),
+    new THREE.MeshBasicMaterial({
+        color: 0x1a4466, transparent: true, opacity: 0.1,
+        side: THREE.BackSide, blending: THREE.AdditiveBlending, depthWrite: false
+    })
+);
+haloMesh.position.x = 1.1;
+scene.add(haloMesh);
+
+// Lighting
+const sun = new THREE.DirectionalLight(0xfff8f0, 1.6);
+sun.position.set(4, 2, 5);
+scene.add(sun);
+scene.add(new THREE.AmbientLight(0x223344, 0.75));
+
+// Texture — try NASA via threejs.org, fall back to procedural
+function buildFallbackTexture() {
+    const W = 2048, H = 1024;
+    const cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const c = cv.getContext('2d');
+    const og = c.createLinearGradient(0, 0, 0, H);
+    og.addColorStop(0, '#0b2e4e'); og.addColorStop(.5, '#0f3d62'); og.addColorStop(1, '#0b2e4e');
+    c.fillStyle = og; c.fillRect(0, 0, W, H);
+    function poly(pts, fill) {
+        c.beginPath();
+        pts.forEach(([lo, la], i) => {
+            const x = (lo + 180) / 360 * W, y = (90 - la) / 180 * H;
+            i === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
+        });
+        c.closePath(); c.fillStyle = fill; c.fill();
+    }
+    const land = '#3d6b2a', dry = '#7a7040', trop = '#2d6020', ice = '#d4e8f0';
+    poly([[-168,72],[-130,70],[-100,68],[-85,50],[-83,46],[-70,44],[-67,47],[-56,47],[-60,46],[-64,44],[-70,42],[-75,38],[-77,35],[-80,32],[-81,25],[-90,16],[-87,14],[-83,10],[-77,8],[-65,10],[-58,12],[-62,10],[-53,4],[-70,12],[-86,16],[-90,18],[-105,20],[-110,24],[-118,32],[-120,34],[-124,38],[-124,48],[-130,55],[-140,60],[-150,61],[-160,60],[-170,63],[-168,72]], land);
+    poly([[-44,84],[-20,77],[-18,64],[-44,60],[-52,62],[-56,70],[-44,84]], '#4a7a3a');
+    poly([[-81,8],[-77,8],[-65,10],[-53,4],[-50,2],[-36,-4],[-35,-10],[-38,-18],[-42,-22],[-52,-32],[-68,-54],[-74,-52],[-80,-40],[-80,-20],[-78,-2],[-80,2],[-81,8]], trop);
+    poly([[-10,36],[0,37],[8,37],[14,37],[20,37],[26,38],[32,40],[34,42],[30,46],[28,48],[20,48],[16,48],[14,50],[10,54],[8,58],[4,58],[-2,54],[-4,48],[-8,44],[-10,36]], land);
+    poly([[10,54],[14,54],[18,56],[20,58],[16,60],[12,58],[10,54]], land);
+    poly([[16,56],[18,58],[22,64],[24,68],[28,72],[30,70],[26,64],[22,58],[18,56]], land);
+    poly([[-5,50],[-2,50],[2,52],[-1,54],[-4,56],[-2,58],[-4,60],[-6,58],[-5,52],[-5,50]], land);
+    poly([[-18,16],[-17,14],[-15,10],[-8,4],[-2,4],[2,4],[8,2],[14,-2],[18,-18],[22,-34],[28,-36],[34,-26],[38,-12],[40,0],[42,10],[44,12],[42,14],[38,18],[34,22],[32,32],[28,34],[22,36],[16,38],[8,36],[2,36],[-2,36],[-6,32],[-10,28],[-16,22],[-18,16]], land);
+    poly([[32,32],[38,30],[50,28],[58,22],[58,12],[48,12],[44,12],[42,14],[38,18],[34,22],[32,32]], dry);
+    poly([[28,70],[40,72],[60,74],[80,72],[80,52],[60,50],[50,44],[40,42],[36,42],[28,48],[28,58],[28,70]], land);
+    poly([[80,72],[100,74],[120,72],[140,70],[160,64],[170,60],[166,54],[156,52],[140,46],[130,44],[120,50],[100,52],[80,52],[80,72]], land);
+    poly([[50,44],[60,50],[80,52],[80,44],[72,38],[62,36],[50,38],[50,44]], dry);
+    poly([[66,24],[68,28],[72,34],[76,36],[80,28],[78,20],[76,10],[72,8],[68,8],[66,14],[66,24]], land);
+    poly([[100,22],[106,24],[110,22],[116,24],[118,20],[114,4],[106,2],[102,4],[100,8],[100,22]], trop);
+    poly([[76,38],[82,28],[88,28],[92,28],[96,26],[100,22],[106,24],[110,22],[118,26],[120,32],[122,38],[120,44],[114,42],[110,38],[106,36],[100,36],[94,38],[86,34],[80,28],[76,38]], land);
+    poly([[120,32],[126,34],[130,36],[132,40],[128,40],[124,36],[120,32]], land);
+    poly([[130,32],[132,34],[138,40],[142,42],[144,40],[140,36],[136,34],[130,32]], land);
+    poly([[114,-22],[118,-20],[126,-14],[132,-12],[136,-12],[140,-14],[142,-16],[148,-20],[152,-24],[152,-30],[148,-38],[140,-38],[130,-36],[118,-34],[114,-26],[114,-22]], '#7a8038');
+    c.fillStyle = ice; c.fillRect(0, H * .86, W, H * .14);
+    const ag = c.createLinearGradient(0, 0, 0, H * .08);
+    ag.addColorStop(0, 'rgba(210,230,245,0.85)'); ag.addColorStop(1, 'rgba(210,230,245,0)');
+    c.fillStyle = ag; c.fillRect(0, 0, W, H * .08);
+    return new THREE.CanvasTexture(cv);
+}
+
+const texLoader = new THREE.TextureLoader();
+texLoader.crossOrigin = 'anonymous';
+texLoader.load(
+    'https://threejs.org/examples/textures/land_ocean_ice_cloud_2048.jpg',
+    tex  => { earthMat.map = tex; earthMat.needsUpdate = true; },
+    undefined,
+    _err => { earthMat.map = buildFallbackTexture(); earthMat.needsUpdate = true; }
+);
+
+// Sprite textures for anomaly markers
+function makeRingTex(size = 128) {
+    const cv = document.createElement('canvas'); cv.width = cv.height = size;
+    const c = cv.getContext('2d'), m = size / 2;
+    c.strokeStyle = '#F0B500'; c.lineWidth = size * 0.055;
+    c.shadowColor = '#F0B500'; c.shadowBlur  = size * 0.15;
+    c.beginPath(); c.arc(m, m, m * 0.62, 0, Math.PI * 2); c.stroke();
+    return new THREE.CanvasTexture(cv);
+}
+function makeDotTex(size = 64) {
+    const cv = document.createElement('canvas'); cv.width = cv.height = size;
+    const c = cv.getContext('2d'), m = size / 2;
+    c.fillStyle = '#F0B500'; c.shadowColor = '#F0B500'; c.shadowBlur = size * 0.4;
+    c.beginPath(); c.arc(m, m, m * 0.38, 0, Math.PI * 2); c.fill();
+    return new THREE.CanvasTexture(cv);
+}
+const ringTex = makeRingTex();
+const dotTex  = makeDotTex();
+
+// Convert lat/lon to local 3D position — matches SphereGeometry UV layout
+function latLonTo3D(lat, lon, r = 1) {
+    const phi   = (90 - lat)  * (Math.PI / 180);
+    const theta = (lon + 180) * (Math.PI / 180);
+    return new THREE.Vector3(
+        -r * Math.sin(phi) * Math.cos(theta),
+         r * Math.cos(phi),
+         r * Math.sin(phi) * Math.sin(theta)
+    );
+}
+
+// Start with US East Coast (lon ≈ -77) facing camera.
+// At rotation.y=0, lon=-90 faces forward; shift by -13° to bring -77 forward.
+const INITIAL_ROT = -13 * (Math.PI / 180);
+
+// Anomaly sites
+const SITES = [
+    { lat:  40.71, lon:  -74.0,  label: 'NYC',          coords: ['40.7128°N', '74.0060°W']  },
+    { lat:  37.78, lon: -122.4,  label: 'SFO',          coords: ['37.7749°N', '122.4194°W'] },
+    { lat:  51.50, lon:   -0.12, label: 'LONDON',       coords: ['51.5074°N', '0.1278°W']   },
+    { lat:  35.68, lon:  139.7,  label: 'TOKYO',        coords: ['35.6762°N', '139.6503°E'] },
+    { lat: -24.18, lon:  -65.35, label: 'JUJUY',        coords: ['24.1845°S', '65.3472°W']  },
+    { lat: -34.60, lon:  -58.40, label: 'BUENOS AIRES', coords: ['34.6037°S', '58.3816°W']  },
+    { lat: -22.91, lon:  -43.17, label: 'RIO',          coords: ['22.9068°S', '43.1729°W']  },
+    { lat: -33.45, lon:  -70.67, label: 'SANTIAGO',     coords: ['33.4489°S', '70.6693°W']  },
+];
+
+// Sprites at r=1.05 so depthTest correctly occludes them behind the sphere
+const SURF_R = 1.05;
+
+const siteObjs = SITES.map(site => {
+    const pos = latLonTo3D(site.lat, site.lon, SURF_R);
+
+    const dot = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: dotTex, transparent: true, opacity: 0.95,
+        depthTest: true, depthWrite: false,
+    }));
+    dot.position.copy(pos);
+    dot.scale.setScalar(0.06);
+    dot.renderOrder = 2;
+    earth.add(dot);
+
+    const rings = [0, 0.5].map(offset => {
+        const sp = new THREE.Sprite(new THREE.SpriteMaterial({
+            map: ringTex, transparent: true, opacity: 0,
+            depthTest: true, depthWrite: false,
+            blending: THREE.AdditiveBlending,
+        }));
+        sp.position.copy(pos);
+        sp.userData.phase = offset;
+        sp.renderOrder = 2;
+        earth.add(sp);
+        return sp;
+    });
+
+    return { site, dot, rings };
+});
+
+// HUD coords cycling
+let coordIdx = 0;
+setInterval(() => {
+    coordIdx = (coordIdx + 1) % SITES.length;
+    const s = SITES[coordIdx];
+    document.getElementById('scan-coords').innerHTML =
+        `${s.coords[0]}&nbsp;&nbsp;${s.coords[1]}<br>SCANNING... ${s.label}`;
+}, 2500);
+
+// Animation
+const camDir    = new THREE.Vector3();
+const earthWPos = new THREE.Vector3();
+const siteWPos  = new THREE.Vector3();
+let   globeT    = 0;
+
 function draw() {
-    const W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-
-    const ox     = ((panX % TILE) + TILE) % TILE;
-    const oy     = ((panY % TILE) + TILE) % TILE;
-    const tilesX = Math.ceil(W / TILE) + 2;
-    const tilesY = Math.ceil(H / TILE) + 2;
-
-    for (let ix = -1; ix < tilesX; ix++) {
-        for (let iy = -1; iy < tilesY; iy++) {
-            ctx.drawImage(tileCanvas, ix * TILE - ox, iy * TILE - oy);
-        }
-    }
-
-    const vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.15, W / 2, H / 2, H * 0.8);
-    vg.addColorStop(0, 'transparent');
-    vg.addColorStop(1, 'rgba(7,6,5,0.55)');
-    ctx.fillStyle = vg;
-    ctx.fillRect(0, 0, W, H);
-
-    for (let ai = 0; ai < ANOMALIES.length; ai++) {
-        const a  = ANOMALIES[ai];
-        const ar = rings[ai];
-
-        for (let ix = -1; ix < tilesX; ix++) {
-            for (let iy = -1; iy < tilesY; iy++) {
-                const px = ix * TILE + a.x * TILE - ox;
-                const py = iy * TILE + a.y * TILE - oy;
-                if (px < -80 || px > W + 80 || py < -80 || py > H + 80) continue;
-
-                for (const ring of ar.rings) {
-                    ctx.beginPath();
-                    ctx.arc(px, py, ring.r, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(240,181,0,${ring.op.toFixed(3)})`;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-
-                ctx.shadowColor = 'rgba(240,181,0,0.75)';
-                ctx.shadowBlur  = 9;
-                ctx.fillStyle   = '#F0B500';
-                ctx.beginPath(); ctx.arc(px, py, 3.5, 0, Math.PI * 2); ctx.fill();
-                ctx.fillStyle   = 'rgba(255,228,80,0.95)';
-                ctx.shadowBlur  = 0;
-                ctx.beginPath(); ctx.arc(px, py, 1.5, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-
-        ar.age++;
-        if (ar.age % 115 === 0) ar.rings.push({ r: 0, op: 0.65 });
-        ar.rings = ar.rings.filter(r => r.op > 0.01);
-        for (const ring of ar.rings) {
-            ring.r  += 0.28;
-            ring.op  = Math.max(0, ring.op - 0.0068);
-        }
-    }
-
-    ctx.shadowBlur = 0;
-
-    panX += PAN_SPEED_X;
-    panY += PAN_SPEED_Y;
-
-    const lat = (24.1100 + (panX / TILE * 0.04) % 0.18).toFixed(4);
-    const lng = (65.2040 + (panY / TILE * 0.03) % 0.12).toFixed(4);
-    document.getElementById('scan-coords').innerHTML = `${lat}°S &nbsp;${lng}°W<br>PANNING...`;
-
     requestAnimationFrame(draw);
+    globeT++;
+
+    earth.rotation.y = INITIAL_ROT + globeT * 0.0015;
+
+    camera.getWorldDirection(camDir);
+    earth.getWorldPosition(earthWPos);
+
+    siteObjs.forEach(({ dot, rings }) => {
+        dot.getWorldPosition(siteWPos);
+        const toSite  = siteWPos.clone().sub(earthWPos).normalize();
+        const facing  = toSite.dot(camDir.clone().negate());
+        const vis     = Math.max(0, Math.min(1, (facing - 0.05) / 0.2));
+
+        dot.material.opacity = 0.95 * vis;
+        rings.forEach(ring => {
+            const p = (globeT * 0.007 + ring.userData.phase) % 1;
+            ring.scale.setScalar(0.06 + p * 0.22);
+            ring.material.opacity = Math.pow(1 - p, 2) * 0.85 * vis;
+        });
+    });
+
+    renderer.render(scene, camera);
 }
 
 draw();
