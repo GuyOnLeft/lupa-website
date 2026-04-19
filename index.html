@@ -1209,9 +1209,8 @@ function latLonTo3D(lat, lon, r = 1) {
     );
 }
 
-// Start with US East Coast (lon ≈ -77) facing camera.
-// At rotation.y=0, lon=-90 faces forward; shift by -13° to bring -77 forward.
-const INITIAL_ROT = -13 * (Math.PI / 180);
+// Start with Europe (lon ≈ 0°) facing camera so dots are visible on load.
+const INITIAL_ROT = -90 * (Math.PI / 180);
 
 // Anomaly sites
 const SITES = [
