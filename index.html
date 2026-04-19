@@ -939,6 +939,8 @@
 <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
 
 <script type="module">
+import * as THREE from 'three';
+
 // ── Translations ──────────────────────────────────────────────────
 const T = {
     en: {
@@ -1060,8 +1062,6 @@ function applyLang(l) {
 langBtn.addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
 
 // ── Globe (Three.js) ──────────────────────────────────────────────
-import * as THREE from 'three';
-
 const canvas = document.getElementById('scan-canvas');
 
 // ── Globe (Three.js) ──────────────────────────────────────────────
