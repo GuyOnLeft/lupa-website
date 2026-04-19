@@ -1078,15 +1078,19 @@ function resize() {
     renderer.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+}
+
+function applyLayout() {
     // Mobile: center globe so it fills the frame behind text
-    const mobile = w < 900;
-    earth.position.x   = mobile ? 0    : 1.1;
+    const mobile = window.innerWidth < 900;
+    earth.position.x    = mobile ? 0   : 1.1;
     atmoMesh.position.x = mobile ? 0   : 1.1;
     haloMesh.position.x = mobile ? 0   : 1.1;
     camera.position.z   = mobile ? 2.6 : 3;
 }
+
 resize();
-window.addEventListener('resize', resize);
+window.addEventListener('resize', () => { resize(); applyLayout(); });
 
 // Earth sphere
 const earthGeo = new THREE.SphereGeometry(1, 64, 64);
@@ -1113,6 +1117,9 @@ const haloMesh = new THREE.Mesh(
 );
 haloMesh.position.x = 1.1;
 scene.add(haloMesh);
+
+// Apply correct positions for current screen size now that meshes exist
+applyLayout();
 
 // Lighting
 const sun = new THREE.DirectionalLight(0xfff8f0, 1.6);
