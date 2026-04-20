@@ -664,6 +664,600 @@
 
         .fade-up.visible { opacity: 1; transform: none; }
 
+        /* ── Demo Section ── */
+        #demo {
+            background: var(--bg);
+            border-top: 1px solid var(--faint);
+            border-bottom: 1px solid var(--faint);
+            padding: 120px 0 0;
+        }
+
+        #demo .section-wrap { padding-bottom: 0; }
+
+        .demo-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            line-height: 1.1;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 72px;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 80px 60px 0;
+            align-items: start;
+        }
+
+        /* ── Sticky visual stays left, locked in viewport until all steps done ── */
+        .demo-visual-wrapper {
+            position: sticky;
+            top: calc(50vh - 260px);
+            height: 520px;
+        }
+
+        .demo-visual {
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--faint);
+            background: var(--bg2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* scanline on the panel */
+        .demo-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg, transparent, transparent 3px,
+                rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
+            );
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .visual-stage {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .visual-layer {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            transition: opacity 0.7s ease;
+        }
+
+        /* ── Panel status bar ── */
+        .panel-statusbar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 32px;
+            background: rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--faint);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 20;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            color: var(--dim);
+            text-transform: uppercase;
+        }
+
+        .statusbar-stage {
+            color: var(--amber);
+            transition: opacity 0.4s ease;
+        }
+
+        .statusbar-coords { opacity: 0.5; }
+
+        /* ── Layer 1: Satellite / spectral ── */
+        .sat-view { background: #080704; }
+
+        .sat-map {
+            width: 100%;
+            flex: 1;
+            position: relative;
+            margin-top: 32px;
+            overflow: hidden;
+        }
+
+        .sat-tiles {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            width: 100%;
+            height: 100%;
+            gap: 2px;
+        }
+
+        .sat-tile {
+            background: rgba(58, 46, 30, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sat-tile::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                rgba(80,65,42,0.5) 0%,
+                rgba(55,44,28,0.5) 100%
+            );
+        }
+
+        .sat-tile.anomaly {
+            background: rgba(90,60,10,0.9);
+            box-shadow: 0 0 0 1px var(--amber);
+        }
+        .sat-tile.anomaly::before {
+            background: linear-gradient(135deg, rgba(240,181,0,0.25) 0%, rgba(200,140,0,0.15) 100%);
+            animation: sat-pulse 2.5s ease-in-out infinite;
+        }
+        @keyframes sat-pulse {
+            0%,100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* horizontal scan line sweeping down */
+        .sat-scan-line {
+            position: absolute;
+            left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(240,181,0,0.6), transparent);
+            top: 0;
+            animation: scan-sweep 3s linear infinite;
+            z-index: 5;
+        }
+        @keyframes scan-sweep {
+            0% { top: 32px; opacity: 1; }
+            90% { opacity: 0.4; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* BSI legend */
+        .sat-legend {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-size: 8px;
+            color: var(--dim);
+            letter-spacing: 0.1em;
+            text-align: right;
+            line-height: 1.8;
+            z-index: 10;
+        }
+        .sat-legend span { color: var(--amber); }
+
+        /* coord overlay */
+        .sat-coords {
+            position: absolute;
+            top: 40px;
+            left: 12px;
+            font-size: 8px;
+            color: rgba(240,181,0,0.5);
+            letter-spacing: 0.08em;
+            line-height: 1.8;
+            z-index: 10;
+        }
+
+        /* ── Layer 2: Road sampling ── */
+        .road-view { background: #060606; }
+
+        .road-canvas-wrap {
+            width: 100%;
+            flex: 1;
+            margin-top: 32px;
+            position: relative;
+        }
+
+        #road-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* ── Layer 3: Street-level ── */
+        .street-view-layer { background: #050505; }
+
+        .sv-frame-outer {
+            width: 90%;
+            max-width: 340px;
+            aspect-ratio: 16/9;
+            position: relative;
+            border: 1px solid rgba(240,181,0,0.4);
+            overflow: hidden;
+            background: #111;
+        }
+
+        .sv-scene {
+            width: 100%; height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* sky gradient */
+        .sv-sky {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 45%;
+            background: linear-gradient(to bottom, #4a6278 0%, #8aa5b8 100%);
+        }
+
+        /* distant terrain */
+        .sv-mountains {
+            position: absolute;
+            bottom: 55%;
+            left: 0; right: 0;
+            height: 30%;
+        }
+
+        .sv-mountains::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 80%;
+            background: linear-gradient(to bottom, rgba(90,75,60,0.8), rgba(120,100,80,0.9));
+            clip-path: polygon(0% 100%, 8% 20%, 18% 50%, 30% 5%, 42% 40%, 55% 15%, 68% 45%, 80% 10%, 90% 35%, 100% 0%, 100% 100%);
+        }
+
+        /* ground */
+        .sv-ground {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 55%;
+            background: linear-gradient(to bottom, #9c8568 0%, #7a6650 100%);
+        }
+
+        /* road stripe */
+        .sv-road {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35%;
+            height: 55%;
+            background: linear-gradient(to bottom, #4a4040, #2a2020);
+        }
+
+        /* debris pile (the anomaly) */
+        .sv-debris {
+            position: absolute;
+            bottom: 28%;
+            left: 20%;
+            width: 22%;
+            height: 18%;
+            background: linear-gradient(135deg, #6b5a3a, #4a3c24);
+            border-radius: 2px 4px 0 0;
+            opacity: 0.9;
+        }
+        .sv-debris::after {
+            content: '';
+            position: absolute;
+            top: 20%; left: 10%;
+            width: 60%; height: 60%;
+            background: rgba(80,65,40,0.7);
+            border-radius: 2px;
+        }
+
+        /* detection overlay */
+        .sv-detect {
+            position: absolute;
+            bottom: 24%;
+            left: 17%;
+            width: 28%;
+            height: 26%;
+            border: 1.5px solid var(--green);
+            animation: detect-blink 1.8s ease-in-out infinite;
+        }
+        /* corner brackets */
+        .sv-detect::before, .sv-detect::after {
+            content: '';
+            position: absolute;
+            width: 8px; height: 8px;
+            border-color: var(--green);
+            border-style: solid;
+        }
+        .sv-detect::before {
+            top: -1px; left: -1px;
+            border-width: 2px 0 0 2px;
+        }
+        .sv-detect::after {
+            bottom: -1px; right: -1px;
+            border-width: 0 2px 2px 0;
+        }
+        @keyframes detect-blink {
+            0%,100% { box-shadow: 0 0 6px rgba(61,214,140,0.3); }
+            50% { box-shadow: 0 0 14px rgba(61,214,140,0.6); }
+        }
+
+        /* HUD label */
+        .sv-hud {
+            position: absolute;
+            top: 6px; left: 6px;
+            font-size: 7px;
+            color: rgba(61,214,140,0.7);
+            letter-spacing: 0.1em;
+        }
+
+        /* camera icon beneath */
+        .sv-meta {
+            margin-top: 14px;
+            font-size: 9px;
+            color: var(--dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* ── Layer 4: AI classification terminal ── */
+        .ai-view { background: #050505; }
+
+        .ai-terminal {
+            width: 90%;
+            max-width: 340px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid var(--faint);
+            padding: 20px;
+            font-size: 10px;
+            line-height: 2;
+            color: var(--dim);
+            letter-spacing: 0.06em;
+        }
+
+        .ai-terminal .t-label { color: var(--amber); }
+        .ai-terminal .t-val   { color: var(--ink); }
+        .ai-terminal .t-green { color: var(--green); }
+        .ai-terminal .t-thinking {
+            color: var(--dim);
+            opacity: 0.6;
+            animation: thinking-dots 1.4s steps(3, end) infinite;
+        }
+        @keyframes thinking-dots {
+            0%   { content: 'analyzing.'; }
+            33%  { content: 'analyzing..'; }
+            66%  { content: 'analyzing...'; }
+        }
+
+        /* ── Layer 5: Confidence ── */
+        .conf-view { background: #050505; }
+
+        .conf-readout {
+            width: 90%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .conf-main {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .conf-big {
+            font-size: 72px;
+            font-weight: 600;
+            color: var(--amber);
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .conf-unit {
+            font-size: 18px;
+            color: var(--dim);
+            padding-bottom: 10px;
+        }
+
+        .conf-bands {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .conf-band {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--dim);
+            text-transform: uppercase;
+        }
+
+        .conf-band-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .conf-band.active .conf-band-dot { background: var(--amber); }
+        .conf-band.active { color: var(--ink); }
+        .conf-band.inactive .conf-band-dot { background: var(--faint); }
+        .conf-band.inactive { opacity: 0.4; }
+
+        .conf-bar-wrap {
+            height: 3px;
+            background: var(--faint);
+            overflow: hidden;
+        }
+        .conf-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green), var(--amber));
+            width: 0%;
+            transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ── Layer 6: Result ── */
+        .result-view-new { background: #050505; }
+
+        .result-card {
+            width: 90%;
+            max-width: 320px;
+            border: 1px solid rgba(61,214,140,0.3);
+            background: rgba(61,214,140,0.04);
+            padding: 24px;
+        }
+
+        .result-card-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--faint);
+        }
+
+        .result-check {
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .result-card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--green);
+            letter-spacing: -0.01em;
+        }
+
+        .result-card-sub {
+            font-size: 9px;
+            color: var(--dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .result-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .result-field {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            letter-spacing: 0.06em;
+        }
+
+        .result-field .rf-key { color: var(--dim); }
+        .result-field .rf-val { color: var(--ink); }
+        .result-field .rf-amber { color: var(--amber); }
+        .result-field .rf-green { color: var(--green); }
+
+        /* ── Timeline ── */
+        .demo-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding-top: 50vh;
+            padding-bottom: 50vh;
+            position: relative;
+        }
+
+        .demo-timeline::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: calc(50vh + 20px);
+            bottom: 50vh;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--faint) 10%, var(--faint) 90%, transparent);
+            pointer-events: none;
+        }
+
+        .timeline-step {
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            padding: 60px 0 60px 56px;
+            min-height: 45vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .timeline-step.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-step.active .step-marker {
+            border-color: var(--amber);
+            background: rgba(240,181,0,0.08);
+            box-shadow: 0 0 20px rgba(240,181,0,0.25);
+        }
+
+        .timeline-step.active .step-number { color: var(--amber); }
+        .timeline-step.active .step-title  { color: var(--ink); }
+
+        .step-marker {
+            position: absolute;
+            left: 0; top: 60px;
+            width: 40px; height: 40px;
+            border: 1px solid var(--faint);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            transition: all 0.4s ease;
+        }
+
+        .step-number {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--faint);
+            transition: color 0.4s ease;
+        }
+
+        .step-content { padding-top: 4px; }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dim);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+            transition: color 0.4s ease;
+        }
+
+        .step-desc {
+            font-size: 11px;
+            color: var(--dim);
+            line-height: 1.8;
+            margin-bottom: 10px;
+            max-width: 340px;
+        }
+
+        .step-meta {
+            font-size: 9px;
+            color: var(--faint);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
         /* ── Responsive ── */
         @media (max-width: 900px) {
             nav { padding: 0 20px; }
@@ -689,7 +1283,8 @@
             h1.hero-headline { font-size: clamp(48px, 13vw, 80px); }
 
             .stats-strip { flex-direction: column; }
-            .stat-block { border-right: none; border-bottom: 1px solid var(--faint); padding: 44px 24px; }
+            .stat-block { border-right: none; border-bottom: 1px solid var(--faint); padding: 44px 24px; text-align: center; }
+            .stat-label::before { content: ''; }
 
             .section-wrap { padding: 80px 24px; }
 
@@ -707,6 +1302,29 @@
 
             .cta-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
             .cta-cmd { text-align: left; }
+
+            /* Demo responsive */
+            #demo { padding: 60px 0 0; }
+            .demo-container { grid-template-columns: 1fr; gap: 0; padding: 0; }
+            .demo-visual-wrapper {
+                position: sticky;
+                top: 48px;
+                height: 44vh;
+                transform: none;
+                z-index: 10;
+            }
+            .demo-timeline {
+                position: relative;
+                z-index: 1;
+                padding: 0 24px 50vh;
+                background: var(--bg);
+            }
+            .demo-timeline::before { display: none; }
+            .timeline-step {
+                padding: 40px 0 40px 48px;
+                opacity: 1 !important;
+                transform: none !important;
+            }
 
             footer { padding: 20px 24px; flex-direction: column; gap: 10px; text-align: center; }
             .footer-r { text-align: center; }
@@ -811,6 +1429,176 @@
     </div>
 </section>
 
+<!-- ── Scroll Demo ── -->
+<section id="demo">
+    <div class="section-wrap">
+        <div class="eyebrow fade-up">See It In Action</div>
+        <div class="demo-title fade-up">From orbit to output.</div>
+    </div>
+
+    <div class="demo-container">
+        <!-- Sticky Visual Panel (left) -->
+        <div class="demo-visual-wrapper">
+            <div class="demo-visual">
+                <div class="panel-statusbar">
+                    <span class="statusbar-stage" id="sb-stage">INITIALIZING...</span>
+                    <span class="statusbar-coords">24.1845°S · 65.3472°W</span>
+                </div>
+                <div class="visual-stage" id="visual-stage">
+
+                    <!-- Layer 1: Satellite spectral scan -->
+                    <div class="visual-layer sat-view" id="layer-sat">
+                        <div class="sat-map">
+                            <div class="sat-tiles">
+                                <div class="sat-tile"></div><div class="sat-tile"></div><div class="sat-tile"></div><div class="sat-tile"></div><div class="sat-tile"></div>
+                                <div class="sat-tile"></div><div class="sat-tile"></div><div class="sat-tile anomaly"></div><div class="sat-tile"></div><div class="sat-tile"></div>
+                                <div class="sat-tile"></div><div class="sat-tile anomaly"></div><div class="sat-tile anomaly"></div><div class="sat-tile anomaly"></div><div class="sat-tile"></div>
+                                <div class="sat-tile"></div><div class="sat-tile"></div><div class="sat-tile anomaly"></div><div class="sat-tile"></div><div class="sat-tile"></div>
+                            </div>
+                            <div class="sat-scan-line"></div>
+                            <div class="sat-coords">24.18°S 65.34°W<br>spectral analysis</div>
+                            <div class="sat-legend">anomaly score <span>▓</span><br>vegetation index <span>▓</span><br>flagged cluster</div>
+                        </div>
+                    </div>
+
+                    <!-- Layer 2: Road sampling (canvas) -->
+                    <div class="visual-layer road-view" id="layer-road" style="opacity:0;">
+                        <div class="road-canvas-wrap">
+                            <canvas id="road-canvas"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Layer 3: Street-level -->
+                    <div class="visual-layer street-view-layer" id="layer-street" style="opacity:0; padding: 28px 28px 16px;">
+                        <div class="sv-frame-outer">
+                            <div class="sv-scene">
+                                <div class="sv-sky"></div>
+                                <div class="sv-mountains"></div>
+                                <div class="sv-ground"></div>
+                                <div class="sv-road"></div>
+                                <div class="sv-debris"></div>
+                                <div class="sv-detect"></div>
+                                <div class="sv-hud">360° · FWD · 0°</div>
+                            </div>
+                        </div>
+                        <div class="sv-meta">street-level · waste site confirmed</div>
+                    </div>
+
+                    <!-- Layer 4: AI terminal -->
+                    <div class="visual-layer ai-view" id="layer-ai" style="opacity:0;">
+                        <div class="ai-terminal">
+                            <div><span class="t-label">input</span>   <span class="t-val">multi-angle imagery</span></div>
+                            <div><span class="t-label">context</span> <span class="t-val">domain-trained model</span></div>
+                            <div style="margin-top:6px"><span class="t-label">status</span>  <span class="t-thinking">analyzing...</span></div>
+                            <div style="margin-top:6px"><span class="t-label">finding</span>     <span class="t-green">construction debris</span></div>
+                            <div><span class="t-label">severity</span>    <span class="t-green">high</span></div>
+                            <div><span class="t-label">confidence</span>  <span class="t-green">0.87</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Layer 5: Confidence readout -->
+                    <div class="visual-layer conf-view" id="layer-confidence" style="opacity:0;">
+                        <div class="conf-readout">
+                            <div class="conf-main">
+                                <div class="conf-big" id="conf-big">0</div>
+                                <div class="conf-unit">%</div>
+                            </div>
+                            <div class="conf-bar-wrap"><div class="conf-bar-fill" id="conf-fill"></div></div>
+                            <div class="conf-bands">
+                                <div class="conf-band active">
+                                    <div class="conf-band-dot"></div>
+                                    AUTO-CONFIRMED  · conf &gt; 75%
+                                </div>
+                                <div class="conf-band inactive">
+                                    <div class="conf-band-dot"></div>
+                                    NEEDS REVIEW    · 25–75%
+                                </div>
+                                <div class="conf-band inactive">
+                                    <div class="conf-band-dot"></div>
+                                    REJECTED        · &lt; 25%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layer 6: Result card -->
+                    <div class="visual-layer result-view-new" id="layer-result" style="opacity:0;">
+                        <div class="result-card">
+                            <div class="result-card-head">
+                                <div class="result-check">✓</div>
+                                <div>
+                                    <div class="result-card-title">Site Confirmed</div>
+                                    <div class="result-card-sub">Auto-confirmed · confidence 0.87</div>
+                                </div>
+                            </div>
+                            <div class="result-fields">
+                                <div class="result-field"><span class="rf-key">coordinates</span><span class="rf-val">24.1845°S 65.3472°W</span></div>
+                                <div class="result-field"><span class="rf-key">severity</span><span class="rf-amber">HIGH</span></div>
+                                <div class="result-field"><span class="rf-key">waste_type</span><span class="rf-val">construction debris</span></div>
+                                <div class="result-field"><span class="rf-key">source</span><span class="rf-val">satellite + street</span></div>
+                                <div class="result-field"><span class="rf-key">status</span><span class="rf-green">published to map</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Steps (right, drives scroll) -->
+        <div class="demo-timeline">
+            <div class="timeline-step" id="step-1">
+                <div class="step-marker"><div class="step-number">1</div></div>
+                <div class="step-content">
+                    <div class="step-title">Scan from orbit</div>
+                    <p class="step-desc">Lupa begins with satellite imagery. Spectral analysis flags terrain anomalies across the entire city — bare soil, disturbed ground, unusual signatures — in minutes, with no field work required.</p>
+                    <div class="step-meta">City-wide coverage · automated</div>
+                </div>
+            </div>
+            <div class="timeline-step" id="step-2">
+                <div class="step-marker"><div class="step-number">2</div></div>
+                <div class="step-content">
+                    <div class="step-title">Map the ground</div>
+                    <p class="step-desc">Flagged zones are cross-referenced against road coverage. Only locations accessible for street-level verification move forward — dramatically reducing noise before any imagery is captured.</p>
+                    <div class="step-meta">Automated triage · no manual input</div>
+                </div>
+            </div>
+            <div class="timeline-step" id="step-3">
+                <div class="step-marker"><div class="step-number">3</div></div>
+                <div class="step-content">
+                    <div class="step-title">Verify on the ground</div>
+                    <p class="step-desc">Street-level imagery confirms what the satellite detected. Multiple angles, multiple passes. Lupa filters poor-quality captures automatically before any AI analysis runs.</p>
+                    <div class="step-meta">360° coverage · dual-angle verification</div>
+                </div>
+            </div>
+            <div class="timeline-step" id="step-4">
+                <div class="step-marker"><div class="step-number">4</div></div>
+                <div class="step-content">
+                    <div class="step-title">AI analysis</div>
+                    <p class="step-desc">Each site is analyzed by a domain-trained model built on thousands of real detections. It returns a finding, severity rating, and a plain-language evidence summary — not just a flag.</p>
+                    <div class="step-meta">High precision · explainable output</div>
+                </div>
+            </div>
+            <div class="timeline-step" id="step-5">
+                <div class="step-marker"><div class="step-number">5</div></div>
+                <div class="step-content">
+                    <div class="step-title">Scored and routed</div>
+                    <p class="step-desc">High-confidence sites confirm automatically. Lower-confidence detections go to human review. Nothing falls through — the system is tuned for recall, not just precision.</p>
+                    <div class="step-meta">92.9% precision · independent benchmark</div>
+                </div>
+            </div>
+            <div class="timeline-step" id="step-6">
+                <div class="step-marker"><div class="step-number">6</div></div>
+                <div class="step-content">
+                    <div class="step-title">Delivered, ready to act</div>
+                    <p class="step-desc">Confirmed sites appear on your map within the week — coordinates, severity, evidence imagery, and AI reasoning included. Updated on every scan cycle, no dashboard to maintain.</p>
+                    <div class="step-meta">Weekly cadence · zero manual effort</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ── Verticals ── -->
 <section id="verticals">
     <div class="section-wrap">
@@ -903,17 +1691,17 @@
 
         <div class="buyer-row fade-up">
             <div class="buyer-name" data-i18n="buyer-1-name">Utilities</div>
-            <p class="buyer-desc" data-i18n="buyer-1-desc">Power, water, and gas utilities with linear infrastructure across large service territories. Right-of-way monitoring, vegetation encroachment, substation flood risk.</p>
+            <p class="buyer-desc" data-i18n="buyer-1-desc">Power, water, and gas utilities with linear infrastructure across large service territories. Right-of-way monitoring, vegetation encroachment, and substation flood risk — continuously, without field crews.</p>
         </div>
 
         <div class="buyer-row fade-up" style="transition-delay:.08s">
             <div class="buyer-name" data-i18n="buyer-2-name">Municipal Governments</div>
-            <p class="buyer-desc" data-i18n="buyer-2-desc">Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. Active in Jujuy, Argentina.</p>
+            <p class="buyer-desc" data-i18n="buyer-2-desc">Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. In use in Jujuy, Argentina.</p>
         </div>
 
         <div class="buyer-row fade-up" style="transition-delay:.16s">
-            <div class="buyer-name" data-i18n="buyer-3-name">Development Banks</div>
-            <p class="buyer-desc" data-i18n="buyer-3-desc">IDB, World Bank, and European Investment Bank-funded projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. EIB active in Jujuy via GIRSU.</p>
+            <div class="buyer-name" data-i18n="buyer-3-name">Development Finance</div>
+            <p class="buyer-desc" data-i18n="buyer-3-desc">Projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. Puna Foundation uses Lupa to track waste and land-use conditions in Jujuy.</p>
         </div>
     </div>
 </section>
@@ -992,8 +1780,8 @@ const T = {
         'buyer-2-name':   'Municipal Governments',
         'buyer-2-desc':   'Cities and provinces managing waste, environmental compliance, and code violations at scale. Replaces costly manual inspection cycles with continuous AI coverage. Active in Jujuy, Argentina.',
         'buyer-2-price':  'Custom / coverage area',
-        'buyer-3-name':   'Development Banks',
-        'buyer-3-desc':   'IDB, World Bank, and European Investment Bank-funded projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. EIB active in Jujuy via GIRSU.',
+        'buyer-3-name':   'Development Finance',
+        'buyer-3-desc':   'Projects requiring environmental monitoring and compliance verification across LatAm and emerging markets. Puna Foundation uses Lupa to track waste and land-use conditions in Jujuy.',
         'buyer-3-price':  'Project-based',
         'cta-headline':   'Ready to see your city differently?',
         'cta-sub':        'We run a pilot scan of your coverage area. You see what we find.',
@@ -1042,8 +1830,8 @@ const T = {
         'buyer-2-name':   'Gobiernos Municipales',
         'buyer-2-desc':   'Ciudades y provincias que gestionan residuos, cumplimiento ambiental e infracciones a escala. Reemplaza ciclos de inspección manual costosos con cobertura de IA continua. Activo en Jujuy, Argentina.',
         'buyer-2-price':  'A medida / área de cobertura',
-        'buyer-3-name':   'Bancos de Desarrollo',
-        'buyer-3-desc':   'Proyectos financiados por el BID, Banco Mundial y el Banco Europeo de Inversiones que requieren monitoreo ambiental y verificación de cumplimiento en América Latina y mercados emergentes. BEI activo en Jujuy vía GIRSU.',
+        'buyer-3-name':   'Finanzas para el Desarrollo',
+        'buyer-3-desc':   'Proyectos que requieren monitoreo ambiental y verificación de cumplimiento en América Latina y mercados emergentes. Puna Foundation usa Lupa para seguimiento de residuos y condiciones de uso del suelo en Jujuy.',
         'buyer-3-price':  'Por proyecto',
         'cta-headline':   '¿Listo para ver tu ciudad de otra manera?',
         'cta-sub':        'Hacemos un escaneo piloto de tu zona de cobertura. Vos ves lo que encontramos.',
@@ -1311,6 +2099,190 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+// ── Demo scroll controller ───────────────────────────────────────────
+(function() {
+    const demoSection = document.getElementById('demo');
+    if (!demoSection) return;
+
+    const steps = Array.from(document.querySelectorAll('.timeline-step'));
+    const layers = [
+        document.getElementById('layer-sat'),
+        document.getElementById('layer-road'),
+        document.getElementById('layer-street'),
+        document.getElementById('layer-ai'),
+        document.getElementById('layer-confidence'),
+        document.getElementById('layer-result')
+    ];
+    const sbStage = document.getElementById('sb-stage');
+    const stageLabels = [
+        'SCANNING · ORBIT',
+        'MAPPING · GROUND COVERAGE',
+        'VERIFYING · STREET LEVEL',
+        'ANALYZING · AI REVIEW',
+        'SCORING · CONFIDENCE',
+        'CONFIRMED · DELIVERED'
+    ];
+
+    let confAnimated = false;
+    let roadDrawn   = false;
+
+    // one-time road canvas draw
+    function drawRoadCanvas() {
+        const canvas = document.getElementById('road-canvas');
+        if (!canvas) return;
+        const wrap = canvas.parentElement;
+        canvas.width  = wrap.offsetWidth  || 400;
+        canvas.height = wrap.offsetHeight || 380;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const W = canvas.width, H = canvas.height;
+        ctx.strokeStyle = 'rgba(240,181,0,0.18)';
+        ctx.lineWidth = 1;
+
+        // horizontal roads
+        [0.25, 0.42, 0.6, 0.78].forEach(y => {
+            ctx.beginPath();
+            ctx.moveTo(0, y * H);
+            ctx.lineTo(W, y * H);
+            ctx.stroke();
+        });
+        // vertical roads
+        [0.2, 0.38, 0.55, 0.72, 0.88].forEach(x => {
+            ctx.beginPath();
+            ctx.moveTo(x * W, 0);
+            ctx.lineTo(x * W, H);
+            ctx.stroke();
+        });
+
+        // sample dots along roads – most grey, suspect amber
+        const pts = [];
+        [0.25, 0.42, 0.6, 0.78].forEach(y => {
+            for (let x = 0.05; x < 1; x += 0.085) pts.push({ x, y, suspect: false });
+        });
+        [0.2, 0.38, 0.55, 0.72, 0.88].forEach(x => {
+            for (let y = 0.07; y < 1; y += 0.1) pts.push({ x, y, suspect: false });
+        });
+
+        // mark cluster as suspect
+        pts.forEach(p => {
+            if (p.x > 0.33 && p.x < 0.6 && p.y > 0.38 && p.y < 0.65) p.suspect = true;
+        });
+
+        pts.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x * W, p.y * H, p.suspect ? 3.5 : 2, 0, Math.PI * 2);
+            ctx.fillStyle = p.suspect ? 'rgba(240,181,0,0.85)' : 'rgba(180,170,155,0.25)';
+            ctx.fill();
+        });
+
+        // cluster outline
+        ctx.strokeStyle = 'rgba(240,181,0,0.4)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+        ctx.strokeRect(0.33 * W, 0.38 * H, 0.27 * W, 0.27 * H);
+        ctx.setLineDash([]);
+
+        // label
+        ctx.fillStyle = 'rgba(240,181,0,0.45)';
+        ctx.font = '9px IBM Plex Mono, monospace';
+        ctx.letterSpacing = '0.1em';
+        ctx.fillText('flagged zone', 0.34 * W, 0.37 * H - 4);
+    }
+
+    window.addEventListener('scroll', onDemoScroll);
+    window.addEventListener('resize', onDemoScroll);
+    function onDemoScroll() {
+        const vh = window.innerHeight;
+        const scroll = window.scrollY;
+        // Bias the activation line above center so steps fire slightly before reaching middle
+        const viewportCenter = scroll + vh * 0.4;
+
+        // Find each step's document-space center and distance from viewport center
+        const stepCenters = steps.map(s => {
+            const r = s.getBoundingClientRect();
+            return r.top + r.height / 2 + scroll;
+        });
+
+        // which step's center is closest to viewport center?
+        let activeIdx = 0;
+        let minDist = Infinity;
+        stepCenters.forEach((c, i) => {
+            const d = Math.abs(c - viewportCenter);
+            if (d < minDist) { minDist = d; activeIdx = i; }
+        });
+
+        // Continuous progress (0..steps.length-1) for crossfading layers
+        let stepFloat = activeIdx;
+        const activeCenter = stepCenters[activeIdx];
+        if (viewportCenter >= activeCenter && activeIdx < steps.length - 1) {
+            const span = stepCenters[activeIdx + 1] - activeCenter;
+            if (span > 0) stepFloat = activeIdx + (viewportCenter - activeCenter) / span;
+        } else if (viewportCenter < activeCenter && activeIdx > 0) {
+            const span = activeCenter - stepCenters[activeIdx - 1];
+            if (span > 0) stepFloat = activeIdx - (activeCenter - viewportCenter) / span;
+        }
+
+        // Only apply when demo is in play
+        const firstC = stepCenters[0];
+        const lastC  = stepCenters[steps.length - 1];
+        const inDemo = viewportCenter > firstC - vh * 0.6 && viewportCenter < lastC + vh * 0.6;
+
+        // reveal + active class
+        steps.forEach((s, i) => {
+            if (i <= activeIdx) s.classList.add('visible');
+            s.classList.toggle('active', inDemo && i === activeIdx);
+        });
+
+        if (!inDemo) return;
+
+        // cross-fade layers
+        layers.forEach((layer, i) => {
+            if (!layer) return;
+            const dist = Math.abs(stepFloat - i);
+            layer.style.opacity = Math.max(0, 1 - Math.max(0, dist - 0.6) * 8);
+        });
+
+        // status bar
+        if (sbStage) sbStage.textContent = stageLabels[activeIdx] || '';
+
+        // draw road canvas once
+        if (activeIdx >= 1 && !roadDrawn) {
+            roadDrawn = true;
+            drawRoadCanvas();
+        }
+
+        // confidence counter
+        const confOpacity = layers[4] ? parseFloat(layers[4].style.opacity) || 0 : 0;
+        if (confOpacity > 0.4 && !confAnimated) {
+            confAnimated = true;
+            animateConf();
+        } else if (confOpacity < 0.1) {
+            confAnimated = false;
+        }
+    }
+
+    function animateConf() {
+        const fill = document.getElementById('conf-fill');
+        const big  = document.getElementById('conf-big');
+        if (!fill || !big) return;
+        fill.style.width = '0%';
+        big.textContent  = '0';
+        setTimeout(() => {
+            fill.style.width = '87%';
+            let v = 0;
+            const t = setInterval(() => {
+                v = Math.min(87, v + 2);
+                big.textContent = v;
+                if (v >= 87) clearInterval(t);
+            }, 18);
+        }, 120);
+    }
+
+    // Initial pass so state is correct on load
+    requestAnimationFrame(onDemoScroll);
+})();
 </script>
 </body>
 </html>
