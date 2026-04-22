@@ -183,7 +183,7 @@ Add styles for:
 - `.products-secondary` — Tier 2 wrapper, smaller padding
 - `.products-more` — Tier 3 line, `var(--dim)` color, top border `var(--faint)`, small top margin
 - `.anim-panels` — flex row, gap 24px, align-items center
-- `.anim-panel` — terminal record card, border `1px solid var(--faint)`, padding 16px, opacity 0, transform translateX(±20px), transition opacity 0.4s + transform 0.4s
+- `.anim-panel` — card style: `background: var(--bg2)`, `border: 1px solid var(--faint)`, `border-radius: 6px`, padding 20px 24px, opacity 0, transform translateX(±20px), transition opacity 0.4s + transform 0.4s. Values use `var(--ink)` (not `var(--dim)`) so text reads clearly against the card background. Labels in `var(--amber)` but at 70% opacity to soften the contrast.
 - `.anim-connector` — horizontal amber line, height 1px, background `var(--amber)`, flex 1, width 0, transition width 0.4s
 - `.anim-status` — amber status line below panels, opacity 0, transition opacity 0.4s
 - `.anim-play .anim-panel--left` — opacity 1, transform none, delay 0ms
