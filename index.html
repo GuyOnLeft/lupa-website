@@ -575,38 +575,50 @@
     <div class="section-wrap">
         <div class="eyebrow fade-up" data-i18n="how-eyebrow">How It Works</div>
         <div class="pipeline-header fade-up">
-            <div class="pipeline-title" data-i18n="pipeline-title">Detection Pipeline</div>
-            <div class="pipeline-ver">v2.1 / Gemini 2.5 Flash</div>
+            <div class="pipeline-title" data-i18n="pipeline-title">Intelligence Pipeline</div>
         </div>
 
         <div class="layer-row fade-up">
-            <div class="layer-marker"><span>SAT</span></div>
+            <div class="layer-marker"><span>01</span></div>
             <div class="layer-body">
-                <div class="layer-name" data-i18n="sat-name">Satellite Scan</div>
+                <div class="layer-name" data-i18n="sat-name">Ingest</div>
                 <p class="layer-desc" data-i18n="sat-desc">
-                    Lupa ingests imagery from multiple satellite providers — Sentinel-2 for city-scale coverage, Planet Labs for daily revisit at sub-meter resolution, and commercial feeds for mission-critical cadence. Spectral indices — BSI, NDVI, NDWI — filter for anomalous terrain signatures. Gemini 2.5 Flash classifies each candidate tile with in-domain few-shot examples, achieving 92.9% precision out of the box.
+                    Pull public parcel records across jurisdictions — county assessors, state cadastral databases, business registries. No paid data sources required.
                 </p>
                 <div class="tags">
-                    <span class="tag">Google Earth Engine</span>
-                    <span class="tag">Sentinel-2</span>
-                    <span class="tag">Planet Labs</span>
-                    <span class="tag">Gemini 2.5 Flash</span>
-                    <span class="tag">Daily Revisit</span>
+                    <span class="tag">County Assessors</span>
+                    <span class="tag">State Cadastral</span>
+                    <span class="tag">Public Records</span>
                 </div>
             </div>
         </div>
 
         <div class="layer-row fade-up" style="transition-delay:.1s">
-            <div class="layer-marker"><span>STR</span></div>
+            <div class="layer-marker"><span>02</span></div>
             <div class="layer-body">
-                <div class="layer-name" data-i18n="str-name">Street Coverage</div>
+                <div class="layer-name" data-i18n="str-name">Cross-reference</div>
                 <p class="layer-desc" data-i18n="str-desc">
-                    Street-level verification closes the loop on satellite detections — confirming anomaly presence, tracking resolution over time, and surfacing issues invisible from orbit.
+                    Identify compliance gaps where the same owner appears to claim primary-residence or exemption benefits in more than one jurisdiction simultaneously.
                 </p>
                 <div class="tags">
-                    <span class="tag">360° Cameras</span>
-                    <span class="tag">Ground Truth</span>
-                    <span class="tag">Temporal Trends</span>
+                    <span class="tag">Multi-jurisdiction</span>
+                    <span class="tag">Exemption Signals</span>
+                    <span class="tag">Name Matching</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-row fade-up" style="transition-delay:.2s">
+            <div class="layer-marker"><span>03</span></div>
+            <div class="layer-body">
+                <div class="layer-name" data-i18n="deliver-name">Deliver</div>
+                <p class="layer-desc" data-i18n="deliver-desc">
+                    Ranked investigative leads with source citations and verification links — ready for your audit team, independently verifiable against public records.
+                </p>
+                <div class="tags">
+                    <span class="tag">Ranked Leads</span>
+                    <span class="tag">Source Citations</span>
+                    <span class="tag">Verification Links</span>
                 </div>
             </div>
         </div>
