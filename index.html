@@ -1202,6 +1202,20 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+// ── Products animation ────────────────────────────────────────────
+const productsAnim = document.getElementById('products-anim');
+if (productsAnim) {
+    const animObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('anim-play');
+                animObs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    animObs.observe(productsAnim);
+}
 </script>
 </body>
 </html>
