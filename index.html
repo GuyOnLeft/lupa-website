@@ -443,6 +443,23 @@
 
         .anim-val { color: var(--ink); }
 
+        .pool-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: var(--dim);
+            margin: 6px 0 2px;
+            line-height: 1.4;
+        }
+
+        .pool-grid em {
+            font-style: normal;
+            color: var(--amber);
+            opacity: 0.85;
+        }
+
         .anim-connector {
             width: 0;
             height: 1px;
@@ -811,9 +828,15 @@
                     <div class="anim-wrap" id="pool-anim">
                         <div class="anim-panels">
                             <div class="anim-panel anim-panel--left">
-                                <div class="anim-label">// SATELLITE SCAN</div>
-                                <div class="anim-row"><span class="anim-key">PARCEL</span><span class="anim-val">██████████</span></div>
-                                <div class="anim-row"><span class="anim-key">SIGNAL</span><span class="anim-val">POOL DETECT</span></div>
+                                <div class="anim-label">// AERIAL SCAN · NAIP 0.6m</div>
+                                <div class="pool-grid">
+                                    <span>▓▓▒░░░▒▓▓</span>
+                                    <span>▓▒░<em>◉◉◉</em>░▒▓</span>
+                                    <span>▓▒░<em>◉◉◉</em>░▒▓</span>
+                                    <span>▓▓▒░░░▒▓▓</span>
+                                </div>
+                                <div class="anim-row" style="margin-top:10px"><span class="anim-key">CONF</span><span class="anim-val">0.97</span></div>
+                                <div class="anim-row"><span class="anim-key">TYPE</span><span class="anim-val">IN-GROUND</span></div>
                                 <div class="anim-row"><span class="anim-key">PERMIT</span><span class="anim-val">ISSUED</span></div>
                             </div>
                             <div class="anim-connector"></div>
