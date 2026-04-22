@@ -321,8 +321,8 @@
             padding: 3px 10px;
         }
 
-        /* ── Verticals ── */
-        #verticals { background: var(--bg2); border-top: 1px solid var(--faint); }
+        /* ── Products ── */
+        #products { background: var(--bg2); border-top: 1px solid var(--faint); }
 
         .vert-row {
             display: flex;
@@ -546,6 +546,7 @@
     </a>
     <div class="nav-right">
         <span class="nav-loc" data-i18n="nav-loc">Est. 2026 · Spatial Intelligence</span>
+        <a href="#products" class="nav-products">Products</a>
         <button class="lang-toggle" id="lang-btn" style="display:none">ES</button>
         <a href="mailto:jeremy@lupaintel.com" class="nav-cta" data-i18n="nav-cta">Request a Demo</a>
     </div>
@@ -625,26 +626,56 @@
     </div>
 </section>
 
-<!-- ── Verticals ── -->
-<section id="verticals">
+<!-- ── Products ── -->
+<section id="products">
     <div class="section-wrap">
         <div class="eyebrow fade-up" data-i18n="vert-eyebrow">Products</div>
 
-        <div class="vert-row fade-up">
-            <div class="vert-n">01</div>
-            <div class="vert-content">
-                <div class="vert-title" data-i18n="vert-01-title">Homestead Exemption Audit</div>
-                <p class="vert-desc" data-i18n="vert-01-desc">Cross-jurisdiction dual-claim detection — owners simultaneously claiming primary-residence tax benefits in more than one state or county. Available now.</p>
+        <!-- Tier 1: Homestead Exemption Audit (flagship) -->
+        <div class="products-flagship fade-up">
+            <div class="vert-row">
+                <div class="vert-n">01</div>
+                <div class="vert-content">
+                    <div class="vert-title" data-i18n="vert-01-title">Homestead Exemption Audit</div>
+                    <p class="vert-desc" data-i18n="vert-01-desc">Cross-jurisdiction dual-claim detection — identifying owners simultaneously claiming primary-residence tax benefits in more than one jurisdiction. Available now.</p>
+                </div>
             </div>
+            <div class="anim-wrap" id="products-anim">
+                <div class="anim-panels">
+                    <div class="anim-panel anim-panel--left">
+                        <div class="anim-label">// RECORD A</div>
+                        <div class="anim-row"><span class="anim-key">OWNER</span><span class="anim-val">████████████</span></div>
+                        <div class="anim-row"><span class="anim-key">JURIS</span><span class="anim-val">JURISDICTION A</span></div>
+                        <div class="anim-row"><span class="anim-key">STATUS</span><span class="anim-val">EXEMPT</span></div>
+                    </div>
+                    <div class="anim-connector"></div>
+                    <div class="anim-panel anim-panel--right">
+                        <div class="anim-label">// RECORD B</div>
+                        <div class="anim-row"><span class="anim-key">OWNER</span><span class="anim-val">████████████</span></div>
+                        <div class="anim-row"><span class="anim-key">JURIS</span><span class="anim-val">JURISDICTION B</span></div>
+                        <div class="anim-row"><span class="anim-key">STATUS</span><span class="anim-val">EXEMPT</span></div>
+                    </div>
+                </div>
+                <div class="anim-status">// DUAL CLAIM DETECTED</div>
+            </div>
+            <a href="mailto:jeremy@lupaintel.com" class="vert-cta" data-i18n="vert-01-cta">request_a_demo</a>
         </div>
 
-        <div class="vert-row fade-up" style="transition-delay:.08s">
-            <div class="vert-n">02</div>
-            <div class="vert-content">
-                <div class="vert-title" data-i18n="vert-02-title">More products in development.</div>
-                <p class="vert-desc" data-i18n="vert-02-desc">Expanding to additional parcel compliance verticals. Reach out if you have a specific use case in mind.</p>
+        <!-- Tier 2: Pool Detection (secondary) -->
+        <div class="products-secondary fade-up">
+            <div class="vert-row">
+                <div class="vert-n">02</div>
+                <div class="vert-content">
+                    <div class="vert-title" data-i18n="vert-02-title">Pool Detection</div>
+                    <p class="vert-desc" data-i18n="vert-02-desc">Satellite-based detection of unrecorded pool installations cross-referenced against permit history and tax roll records. Available now.</p>
+                </div>
             </div>
+            <a href="mailto:jeremy@lupaintel.com" class="vert-cta vert-cta--secondary" data-i18n="vert-02-cta">request_a_demo</a>
         </div>
+
+        <!-- Tier 3: More in development -->
+        <p class="products-more" data-i18n="vert-more">// Additional compliance verticals in development — reach out if you have a use case.</p>
+
     </div>
 </section>
 
