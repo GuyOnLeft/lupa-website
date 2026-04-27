@@ -415,6 +415,7 @@
             display: flex;
             align-items: center;
             max-width: 560px;
+            margin: 0 auto;
         }
 
         .anim-panel {
@@ -488,6 +489,7 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             transition-delay: 900ms;
+            text-align: center;
         }
 
         /* Animation play state — triggered by JS adding .anim-play to #products-anim */
@@ -972,53 +974,38 @@ const T = {
     },
     es: {
         'nav-loc':        'Est. 2026 · Inteligencia Predial',
-        'nav-cta':        'Solicitar Piloto',
-        'hero-sys':       'Detección de anomalías espaciales / activo',
-        'hero-headline':  'Lupa ve<br>lo que las<br><em>cuadrillas no ven.</em>',
-        'hero-sub':       'Detección continua y precisa de anomalías para ciudades, servicios públicos e infraestructura.',
-        'hero-cta':       'solicitar_escaneo_piloto',
-        'stat-label-1':   'Sitios Prioritarios de Basura Ilegal Identificados',
-        'stat-sub-1':     'Jujuy, Argentina',
-        'stat-label-2':   'Anomalías en Corredores de Servicios',
-        'stat-sub-2':     'Colorado Springs, CO',
-        'stat-label-3':   'Precisión · Benchmark Independiente',
-        'stat-sub-3':     'Dataset académico AerialWaste',
+        'nav-cta':        'Solicitar una Demo',
+        'hero-sys':       'Inteligencia predial / activo',
+        'hero-headline':  'Vemos lo que<br><em>otros no ven.</em>',
+        'hero-sub':       'Inteligencia de datos prediales entre jurisdicciones para gobiernos locales — construida íntegramente sobre registros públicos.',
+        'hero-cta':       'solicitar_una_demo',
         'how-eyebrow':    'Cómo Funciona',
-        'pipeline-title': 'Pipeline de Detección',
-        'sat-name':       'Escaneo Satelital',
-        'sat-desc':       'Lupa ingesta imágenes de múltiples proveedores satelitales — Sentinel-2 para cobertura a escala de ciudad, Planet Labs para revisita diaria a resolución sub-métrica, y feeds comerciales para cadencia crítica. Índices espectrales — BSI, NDVI, NDWI — filtran firmas de terreno anómalas. Gemini 2.5 Flash clasifica cada tile candidato con ejemplos few-shot en dominio, alcanzando 92.9% de precisión sin ajuste fino.',
-        'str-name':       'Cobertura Terrestre',
-        'str-desc':       'La verificación a nivel de calle cierra el ciclo de las detecciones satelitales — confirmando la presencia de anomalías, siguiendo su resolución en el tiempo y descubriendo problemas invisibles desde órbita.',
-        'vert-eyebrow':   'Verticales',
-        'vert-01-title':  'Residuos y Medio Ambiente',
-        'vert-01-desc':   'Detectá sitios de basura ilegal, microbasurales y violaciones ambientales en municipios enteros. Probado en Jujuy, Argentina — 102 sitios prioritarios identificados, sin relevamientos manuales.',
-        'vert-02-title':  'Infraestructura de Servicios',
-        'vert-02-desc':   'Monitoreá corredores de líneas eléctricas por avance de vegetación, perturbación del suelo, construcciones no autorizadas, inundaciones cerca de subestaciones y depósito ilegal de residuos.',
-        'vert-03-title':  'Cumplimiento Municipal',
-        'vert-03-desc':   'Seguí el cumplimiento de permisos, invasiones y violaciones de código a escala de ciudad. La cobertura satelital + terrestre continua reemplaza costosos programas de inspección manual periódica.',
-        'bench-eyebrow':  'Validación Independiente',
-        'bench-pull':     '"1 falso positivo<br>por cada <strong>14</strong> sitios marcados."',
-        'bench-body':     'El clasificador de Lupa fue evaluado contra AerialWaste — un dataset académico de detección de vertederos ilegales publicado en <em>Nature Scientific Data</em>. 100 imágenes. 50 positivas, 50 negativas. Anotaciones de fotointérpretes profesionales. Cero métricas autoinformadas.',
-        'th-config':      'Configuración',
-        'th-precision':   'Precisión',
-        'tr-zero':        'Línea base sin ejemplos',
-        'tr-few':         'Few-shot en dominio',
-        'bench-meta':     '100 imágenes · 50 pos / 50 neg · seed=42 · reproducible<br>Dataset: AerialWaste testing split · Modelo: Gemini 2.5 Flash',
-        'exits-label':    'Empresas Comparables',
-        'buyers-eyebrow': 'Quién Compra Lupa',
-        'buyer-1-name':   'Servicios Públicos',
-        'buyer-1-desc':   'Utilities de electricidad, agua y gas con infraestructura lineal en grandes territorios. Monitoreo de servidumbres, avance de vegetación, riesgo de inundación en subestaciones.',
-        'buyer-1-price':  'Piloto desde $25K / mes',
-        'buyer-2-name':   'Gobiernos Municipales',
-        'buyer-2-desc':   'Ciudades y provincias que gestionan residuos, cumplimiento ambiental e infracciones a escala. Reemplaza ciclos de inspección manual costosos con cobertura de IA continua. Activo en Jujuy, Argentina.',
-        'buyer-2-price':  'A medida / área de cobertura',
-        'buyer-3-name':   'Finanzas para el Desarrollo',
-        'buyer-3-desc':   'Proyectos que requieren monitoreo ambiental y verificación de cumplimiento en América Latina y mercados emergentes. Puna Foundation usa Lupa para seguimiento de residuos y condiciones de uso del suelo en Jujuy.',
-        'buyer-3-price':  'Por proyecto',
-        'cta-headline':   '¿Listo para ver tu ciudad de otra manera?',
-        'cta-sub':        'Hacemos un escaneo piloto de tu zona de cobertura. Vos ves lo que encontramos.',
-        'cta-link':       'solicitar_escaneo_piloto',
-        'footer-tagline': 'Plataforma de Inteligencia Espacial',
+        'pipeline-title': 'Pipeline de Inteligencia',
+        'sat-name':       'Ingesta',
+        'sat-desc':       'Extracción de registros prediales públicos entre jurisdicciones — tasadores municipales, bases de datos catastrales estatales, registros de empresas. Sin fuentes de datos pagas.',
+        'str-name':       'Cruce de Datos',
+        'str-desc':       'Identificación de discrepancias entre señales públicas y registros de tasación — entre jurisdicciones, historial de permisos, imágenes satelitales y padrones fiscales.',
+        'deliver-name':   'Entrega',
+        'deliver-desc':   'Leads de investigación priorizados con citas de fuentes y enlaces de verificación — listos para su equipo de auditoría, verificables de forma independiente contra registros públicos.',
+        'vert-eyebrow':   'Productos',
+        'vert-01-title':  'Auditoría de Exención de Vivienda Principal',
+        'vert-01-desc':   'Detección de doble reclamo entre jurisdicciones — identificando propietarios que reclaman simultáneamente beneficios fiscales de residencia principal en más de una jurisdicción. Disponible ahora.',
+        'vert-01-cta':    'solicitar_una_demo',
+        'vert-02-title':  'Detección de Piletas',
+        'vert-02-desc':   'Detección satelital de instalaciones de piletas no registradas, cruzada con el historial de permisos y los registros fiscales. Disponible ahora.',
+        'vert-02-cta':    'solicitar_una_demo',
+        'vert-more':      '// Verticales de cumplimiento adicionales en desarrollo — contáctenos si tiene un caso de uso.',
+        'buyers-eyebrow': 'A Quién Servimos',
+        'buyer-1-name':   'Tasadores Municipales de Propiedades',
+        'buyer-1-desc':   'Cumplimiento de exenciones de vivienda principal en grandes portfolios prediales — sin aumentar el personal.',
+        'buyer-2-name':   'Agencias Estatales de Rentas',
+        'buyer-2-desc':   'Detección de acumulación de exenciones entre municipios y soporte para programas de auditoría estatal.',
+        'buyer-3-name':   'Tasadores Locales',
+        'buyer-3-desc':   'Cumplimiento de permisos, detección de construcciones sin permiso y recuperación de brechas de tasación.',
+        'cta-headline':   '¿Listo para ver lo que sus registros ya saben?',
+        'cta-sub':        'Realizamos una auditoría piloto de su jurisdicción. Usted ve lo que encontramos.',
+        'cta-link':       'solicitar_una_demo',
+        'footer-tagline': 'Plataforma de Inteligencia Predial',
     }
 };
 
