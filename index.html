@@ -343,6 +343,61 @@
             padding: 3px 10px;
         }
 
+        /* ── Proof / Scan Results ── */
+        #proof { background: var(--bg); border-top: 1px solid var(--faint); }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--faint);
+            border: 1px solid var(--faint);
+            margin-bottom: 28px;
+        }
+
+        .proof-stat {
+            background: var(--bg);
+            padding: 40px 32px;
+        }
+
+        .proof-n {
+            font-size: clamp(30px, 3.8vw, 52px);
+            font-weight: 600;
+            color: var(--amber);
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 14px;
+        }
+
+        .proof-label {
+            font-size: 10px;
+            color: var(--ink);
+            line-height: 1.7;
+            margin-bottom: 4px;
+        }
+
+        .proof-src {
+            display: block;
+            font-size: 8px;
+            color: var(--dim);
+            letter-spacing: 0.08em;
+            margin-top: 4px;
+        }
+
+        .proof-note {
+            font-size: 8px;
+            color: var(--dim);
+            letter-spacing: 0.1em;
+            line-height: 1.9;
+        }
+
+        .proof-note::before { content: '// '; color: var(--faint); }
+
+        @media (max-width: 900px) {
+            .proof-grid { grid-template-columns: repeat(2, 1fr); }
+            .proof-stat { padding: 28px 20px; }
+        }
+
         /* ── Products ── */
         #products { background: var(--bg2); border-top: 1px solid var(--faint); }
 
@@ -798,6 +853,32 @@
     </div>
 </section>
 
+<!-- ── Proof / Scan Results ── -->
+<section id="proof">
+    <div class="section-wrap">
+        <div class="eyebrow fade-up" data-i18n="proof-eyebrow">Scan Results</div>
+        <div class="proof-grid fade-up">
+            <div class="proof-stat">
+                <div class="proof-n">570+</div>
+                <div class="proof-label" data-i18n="proof-1-label">Confirmed dual-claim cases<span class="proof-src" data-i18n="proof-1-src">Cross-verified against public records in both jurisdictions</span></div>
+            </div>
+            <div class="proof-stat">
+                <div class="proof-n">1M+</div>
+                <div class="proof-label" data-i18n="proof-2-label">Parcels analyzed<span class="proof-src" data-i18n="proof-2-src">8 counties · Florida + Indiana</span></div>
+            </div>
+            <div class="proof-stat">
+                <div class="proof-n">5</div>
+                <div class="proof-label" data-i18n="proof-3-label">States cross-referenced<span class="proof-src" data-i18n="proof-3-src">FL · IN · IL · OH · NY</span></div>
+            </div>
+            <div class="proof-stat">
+                <div class="proof-n">100%</div>
+                <div class="proof-label" data-i18n="proof-4-label">Public records — no paid sources<span class="proof-src" data-i18n="proof-4-src">County assessors · state cadastral · public portals</span></div>
+            </div>
+        </div>
+        <div class="proof-note fade-up" data-i18n="proof-note">Every case cross-verified against public records in both jurisdictions · data snapshot 2026-04-27 · no login required</div>
+    </div>
+</section>
+
 <!-- ── Products ── -->
 <section id="products">
     <div class="section-wrap">
@@ -957,6 +1038,12 @@ const T = {
         'str-desc':       'Identify discrepancies between public signals and assessment records — across jurisdictions, permit history, satellite imagery, and tax rolls.',
         'deliver-name':   'Deliver',
         'deliver-desc':   'Ranked investigative leads with source citations and verification links — ready for your audit team, independently verifiable against public records.',
+        'proof-eyebrow':  'Scan Results',
+        'proof-1-label':  'Confirmed dual-claim cases<span class="proof-src">Cross-verified against public records in both jurisdictions</span>',
+        'proof-2-label':  'Parcels analyzed<span class="proof-src">8 counties · Florida + Indiana</span>',
+        'proof-3-label':  'States cross-referenced<span class="proof-src">FL · IN · IL · OH · NY</span>',
+        'proof-4-label':  'Public records — no paid sources<span class="proof-src">County assessors · state cadastral · public portals</span>',
+        'proof-note':     'Every case cross-verified against public records in both jurisdictions · data snapshot 2026-04-27 · no login required',
         'vert-eyebrow':   'Products',
         'vert-01-title':  'Homestead Exemption Audit',
         'vert-01-desc':   'Cross-jurisdiction dual-claim detection — identifying owners simultaneously claiming primary-residence tax benefits in more than one jurisdiction. Available now.',
@@ -992,6 +1079,12 @@ const T = {
         'str-desc':       'Identificación de discrepancias entre señales públicas y registros de tasación — entre jurisdicciones, historial de permisos, imágenes satelitales y padrones fiscales.',
         'deliver-name':   'Entrega',
         'deliver-desc':   'Leads de investigación priorizados con citas de fuentes y enlaces de verificación — listos para su equipo de auditoría, verificables de forma independiente contra registros públicos.',
+        'proof-eyebrow':  'Resultados de Escaneo',
+        'proof-1-label':  'Casos de doble exención confirmados<span class="proof-src">Verificados contra registros públicos en ambas jurisdicciones</span>',
+        'proof-2-label':  'Parcelas analizadas<span class="proof-src">8 condados · Florida + Indiana</span>',
+        'proof-3-label':  'Estados cruzados<span class="proof-src">FL · IN · IL · OH · NY</span>',
+        'proof-4-label':  'Registros públicos — sin fuentes pagas<span class="proof-src">Tasadores · base catastral estatal · portales públicos</span>',
+        'proof-note':     'Cada caso verificado contra registros públicos en ambas jurisdicciones · datos al 2026-04-27 · sin inicio de sesión',
         'vert-eyebrow':   'Productos',
         'vert-01-title':  'Auditoría de Exención de Vivienda Principal',
         'vert-01-desc':   'Detección de doble reclamo entre jurisdicciones — identificando propietarios que reclaman simultáneamente beneficios fiscales de residencia principal en más de una jurisdicción. Disponible ahora.',
