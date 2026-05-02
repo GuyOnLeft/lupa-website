@@ -282,92 +282,228 @@
         .eyebrow::before { content: '//'; color: var(--faint); letter-spacing: 0; }
         .eyebrow::after  { content: ''; flex: 1; height: 1px; background: var(--faint); max-width: 100px; }
 
-        /* ── Detection Pipeline ── */
-        #how { background: var(--bg); border-top: 1px solid var(--faint); }
+        /* ── Gradient Cards (How It Works) ── */
+        #how { background: var(--bg); border-top: none; padding-top: 0; }
 
-        .pipeline-header {
+        .grad-cards {
             display: flex;
-            align-items: baseline;
-            gap: 24px;
-            margin-bottom: 64px;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        .pipeline-title {
-            font-size: clamp(18px, 2.2vw, 28px);
-            font-weight: 600;
+        .grad-card {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 32px 36px;
+        }
+
+        .card-ingest {
+            background:
+                radial-gradient(ellipse at 18% 28%, #7c3aed 0%, transparent 52%),
+                radial-gradient(ellipse at 76% 18%, #2563eb 0%, transparent 48%),
+                radial-gradient(ellipse at 54% 82%, #0ea5e9 0%, transparent 50%),
+                radial-gradient(ellipse at 84% 68%, #6d28d9 0%, transparent 38%),
+                #1e1b4b;
+        }
+
+        .card-crossref {
+            background:
+                radial-gradient(ellipse at 14% 62%, #d97706 0%, transparent 48%),
+                radial-gradient(ellipse at 72% 18%, #b45309 0%, transparent 44%),
+                radial-gradient(ellipse at 52% 84%, #f59e0b 0%, transparent 52%),
+                radial-gradient(ellipse at 84% 54%, #92400e 0%, transparent 38%),
+                #451a03;
+        }
+
+        .card-deliver {
+            background:
+                radial-gradient(ellipse at 24% 24%, #dc2626 0%, transparent 48%),
+                radial-gradient(ellipse at 72% 28%, #ea580c 0%, transparent 44%),
+                radial-gradient(ellipse at 42% 76%, #f97316 0%, transparent 52%),
+                radial-gradient(ellipse at 82% 68%, #b91c1c 0%, transparent 38%),
+                #7c2d12;
+        }
+
+        /* Card floating content area */
+        .card-preview {
+            position: absolute;
+            top: 32px;
+            left: 36px;
+            right: 36px;
+            bottom: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Card label */
+        .card-label {
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-step {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            letter-spacing: -0.01em;
-            color: var(--ink);
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 6px;
+            font-family: 'IBM Plex Mono', monospace;
         }
 
-        .pipeline-ver {
-            font-size: 9px;
-            color: var(--dim);
+        .card-title {
+            font-size: clamp(18px, 2.4vw, 28px);
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.65;
+            max-width: 540px;
+        }
+
+        /* ── Ingest: floating pill tags ── */
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-width: 500px;
+        }
+
+        .grad-pill {
+            background: rgba(255,255,255,0.14);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.18);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 7px 16px;
+            border-radius: 99px;
+        }
+
+        /* ── Cross-reference: record panels ── */
+        .records-compare {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .record-panel {
+            background: rgba(0,0,0,0.28);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 18px 20px;
+            width: 168px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: rgba(255,255,255,0.85);
+            line-height: 2;
+        }
+
+        .record-panel .rec-label {
+            font-size: 8px;
             letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.38);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .rec-key { color: rgba(255,255,255,0.42); }
+        .rec-flag { color: #fbbf24; font-weight: 700; }
+
+        .record-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 0 12px;
+        }
+
+        .connector-line-h {
+            width: 32px;
+            height: 1px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .connector-badge {
+            background: #fbbf24;
+            color: #000;
+            font-size: 7px;
+            font-weight: 900;
+            padding: 3px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.08em;
+            font-family: 'IBM Plex Mono', monospace;
             white-space: nowrap;
         }
 
-        .layer-row {
-            display: flex;
-            align-items: stretch;
-            border-top: 1px solid var(--faint);
+        /* ── Deliver: leads list ── */
+        .leads-list {
+            background: rgba(0,0,0,0.28);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 18px 22px;
+            width: 310px;
+            font-family: 'IBM Plex Mono', monospace;
         }
 
-        .layer-row + .layer-row { border-top: 1px solid var(--faint); }
-
-        .layer-marker {
-            padding: 44px 40px 44px 0;
-            width: 90px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: flex-start;
-            padding-top: 46px;
-        }
-
-        .layer-marker span {
-            font-size: 9px;
-            letter-spacing: 0.12em;
-            color: var(--amber);
-            text-transform: uppercase;
-            border: 1px solid rgba(240,181,0,0.25);
-            padding: 3px 7px;
-            display: inline-block;
-            line-height: 1.4;
-        }
-
-        .layer-body {
-            border-left: 1px solid var(--faint);
-            padding: 44px 0 44px 48px;
-            flex: 1;
-        }
-
-        .layer-name {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--ink);
-            margin-bottom: 16px;
-        }
-
-        .layer-desc {
-            font-size: 11px;
-            font-weight: 300;
-            color: var(--dim);
-            line-height: 2;
-            max-width: 580px;
-            margin-bottom: 24px;
-        }
-
-        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-
-        .tag {
+        .leads-header {
             font-size: 8px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--dim);
-            border: 1px solid var(--faint);
-            padding: 3px 10px;
+            color: rgba(255,255,255,0.38);
+            margin-bottom: 12px;
+        }
+
+        .lead-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            font-size: 10px;
+            color: rgba(255,255,255,0.78);
+        }
+
+        .lead-rank {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lead-name { flex: 1; }
+
+        .lead-badge {
+            font-size: 8px;
+            background: rgba(251,191,36,0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(251,191,36,0.28);
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
         }
 
         /* ── Products ── */
@@ -710,10 +846,6 @@
 
             .section-wrap { padding: 80px 24px; }
 
-            .pipeline-header { flex-direction: column; gap: 6px; margin-bottom: 44px; }
-            .layer-marker { width: 60px; padding-right: 20px; }
-            .layer-body { padding-left: 24px; }
-
             .product-layout { flex-direction: column; gap: 32px; }
 
             .anim-wrap { overflow: hidden; }
@@ -788,57 +920,94 @@
     </div>
 </section>
 
-<!-- ── Detection Pipeline ── -->
+<!-- ── How It Works ── -->
 <section id="how">
     <div class="section-wrap">
         <div class="eyebrow fade-up" data-i18n="how-eyebrow">How It Works</div>
-        <div class="pipeline-header fade-up">
-            <div class="pipeline-title" data-i18n="pipeline-title">Intelligence Pipeline</div>
-        </div>
 
-        <div class="layer-row fade-up">
-            <div class="layer-marker"><span>01</span></div>
-            <div class="layer-body">
-                <div class="layer-name" data-i18n="sat-name">Ingest</div>
-                <p class="layer-desc" data-i18n="sat-desc">
-                    Pull public parcel records across jurisdictions — county assessors, state cadastral databases, business registries. No paid data sources required.
-                </p>
-                <div class="tags">
-                    <span class="tag">County Assessors</span>
-                    <span class="tag">State Cadastral</span>
-                    <span class="tag">Public Records</span>
+        <div class="grad-cards">
+
+            <!-- Card 1: Ingest -->
+            <div class="grad-card card-ingest fade-up">
+                <div class="card-preview">
+                    <div class="tags-cloud">
+                        <span class="grad-pill">County Assessors</span>
+                        <span class="grad-pill">State Cadastral</span>
+                        <span class="grad-pill">FL FDOR</span>
+                        <span class="grad-pill">Business Registries</span>
+                        <span class="grad-pill">Cook County</span>
+                        <span class="grad-pill">Lee County</span>
+                        <span class="grad-pill">Permit History</span>
+                        <span class="grad-pill">Tax Rolls</span>
+                        <span class="grad-pill">Public Records</span>
+                    </div>
+                </div>
+                <div class="card-label">
+                    <div class="card-step" data-i18n="card-step-01">01 — Ingest</div>
+                    <div class="card-title" data-i18n="sat-name">Ingest</div>
+                    <p class="card-desc" data-i18n="sat-desc">Pull public parcel records across jurisdictions — county assessors, state cadastral databases, business registries. No paid data sources required.</p>
                 </div>
             </div>
-        </div>
 
-        <div class="layer-row fade-up" style="transition-delay:.1s">
-            <div class="layer-marker"><span>02</span></div>
-            <div class="layer-body">
-                <div class="layer-name" data-i18n="str-name">Cross-reference</div>
-                <p class="layer-desc" data-i18n="str-desc">
-                    Identify discrepancies between public signals and assessment records — across jurisdictions, permit history, satellite imagery, and tax rolls.
-                </p>
-                <div class="tags">
-                    <span class="tag">Multi-jurisdiction</span>
-                    <span class="tag">Satellite Signals</span>
-                    <span class="tag">Permit History</span>
+            <!-- Card 2: Cross-reference -->
+            <div class="grad-card card-crossref fade-up" style="transition-delay:.08s">
+                <div class="card-preview">
+                    <div class="records-compare">
+                        <div class="record-panel">
+                            <div class="rec-label">// Record A</div>
+                            <div><span class="rec-key">OWNER&nbsp;</span>J. Smith</div>
+                            <div><span class="rec-key">JURIS&nbsp;</span>LEE CO, FL</div>
+                            <div><span class="rec-key">STATUS&nbsp;</span><span class="rec-flag">EXEMPT</span></div>
+                        </div>
+                        <div class="record-connector">
+                            <div class="connector-line-h"></div>
+                            <div class="connector-badge">MATCH</div>
+                            <div class="connector-line-h"></div>
+                        </div>
+                        <div class="record-panel">
+                            <div class="rec-label">// Record B</div>
+                            <div><span class="rec-key">OWNER&nbsp;</span>J. Smith</div>
+                            <div><span class="rec-key">JURIS&nbsp;</span>COOK CO, IL</div>
+                            <div><span class="rec-key">STATUS&nbsp;</span><span class="rec-flag">EXEMPT</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-label">
+                    <div class="card-step" data-i18n="card-step-02">02 — Cross-reference</div>
+                    <div class="card-title" data-i18n="str-name">Cross-reference</div>
+                    <p class="card-desc" data-i18n="str-desc">Identify discrepancies between public signals and assessment records — across jurisdictions, permit history, satellite imagery, and tax rolls.</p>
                 </div>
             </div>
-        </div>
 
-        <div class="layer-row fade-up" style="transition-delay:.2s">
-            <div class="layer-marker"><span>03</span></div>
-            <div class="layer-body">
-                <div class="layer-name" data-i18n="deliver-name">Deliver</div>
-                <p class="layer-desc" data-i18n="deliver-desc">
-                    Ranked investigative leads with source citations and verification links — ready for your audit team, independently verifiable against public records.
-                </p>
-                <div class="tags">
-                    <span class="tag">Ranked Leads</span>
-                    <span class="tag">Source Citations</span>
-                    <span class="tag">Verification Links</span>
+            <!-- Card 3: Deliver -->
+            <div class="grad-card card-deliver fade-up" style="transition-delay:.16s">
+                <div class="card-preview">
+                    <div class="leads-list">
+                        <div class="leads-header">// Ranked leads · Lee County FL</div>
+                        <div class="lead-row">
+                            <div class="lead-rank">1</div>
+                            <div class="lead-name">████████ · Parcel #12-44-24</div>
+                            <div class="lead-badge">DUAL CLAIM</div>
+                        </div>
+                        <div class="lead-row">
+                            <div class="lead-rank">2</div>
+                            <div class="lead-name">████████ · Parcel #08-31-17</div>
+                            <div class="lead-badge">DUAL CLAIM</div>
+                        </div>
+                        <div class="lead-row">
+                            <div class="lead-rank">3</div>
+                            <div class="lead-name">████████ · Parcel #22-19-05</div>
+                            <div class="lead-badge">DUAL CLAIM</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-label">
+                    <div class="card-step" data-i18n="card-step-03">03 — Deliver</div>
+                    <div class="card-title" data-i18n="deliver-name">Deliver</div>
+                    <p class="card-desc" data-i18n="deliver-desc">Ranked investigative leads with source citations and verification links — ready for your audit team, independently verifiable against public records.</p>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -996,6 +1165,9 @@ const T = {
         'hero-cta':       'Request a Demo',
         'how-eyebrow':    'How It Works',
         'pipeline-title': 'Intelligence Pipeline',
+        'card-step-01':   '01 — Ingest',
+        'card-step-02':   '02 — Cross-reference',
+        'card-step-03':   '03 — Deliver',
         'sat-name':       'Ingest',
         'sat-desc':       'Pull public parcel records across jurisdictions — county assessors, state cadastral databases, business registries. No paid data sources required.',
         'str-name':       'Cross-reference',
@@ -1031,6 +1203,9 @@ const T = {
         'hero-cta':       'Solicitar una Demo',
         'how-eyebrow':    'Cómo Funciona',
         'pipeline-title': 'Pipeline de Inteligencia',
+        'card-step-01':   '01 — Ingesta',
+        'card-step-02':   '02 — Cruce de Datos',
+        'card-step-03':   '03 — Entrega',
         'sat-name':       'Ingesta',
         'sat-desc':       'Extracción de registros prediales públicos entre jurisdicciones — tasadores municipales, bases de datos catastrales estatales, registros de empresas. Sin fuentes de datos pagas.',
         'str-name':       'Cruce de Datos',
