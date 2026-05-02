@@ -651,6 +651,16 @@
         /* ── Buyers ── */
         #buyers { background: var(--bg); border-top: none; }
 
+        .buyers-headline {
+            font-size: clamp(28px, 3.6vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 56px;
+            max-width: 640px;
+        }
+
         .buyer-row {
             display: grid;
             grid-template-columns: 200px 1fr;
@@ -663,10 +673,10 @@
         .buyer-row:last-child { border-bottom: 1px solid var(--faint); }
 
         .buyer-name {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--ink);
-            padding-top: 2px;
+            padding-top: 0;
             letter-spacing: -0.01em;
         }
 
@@ -1033,6 +1043,7 @@
 <section id="buyers">
     <div class="section-wrap">
         <div class="eyebrow fade-up" data-i18n="buyers-eyebrow">Who We Serve</div>
+        <h2 class="buyers-headline fade-up" data-i18n="buyers-headline">Built for the agencies that own parcel-level compliance.</h2>
 
         <div class="buyer-row fade-up">
             <div class="buyer-name" data-i18n="buyer-1-name">County Property Appraisers</div>
@@ -1110,6 +1121,7 @@ const T = {
         'vert-02-cta':    'Request a Demo',
         'vert-more':      '// Additional compliance verticals in development — reach out if you have a use case.',
         'buyers-eyebrow': 'Who We Serve',
+        'buyers-headline':'Built for the agencies that own parcel-level compliance.',
         'buyer-1-name':   'County Property Appraisers',
         'buyer-1-desc':   'Homestead and exemption compliance across large parcel portfolios — without adding staff.',
         'buyer-2-name':   'State Revenue Agencies',
@@ -1147,6 +1159,7 @@ const T = {
         'vert-02-cta':    'Solicitar una Demo',
         'vert-more':      '// Verticales de cumplimiento adicionales en desarrollo — contáctenos si tiene un caso de uso.',
         'buyers-eyebrow': 'A Quién Servimos',
+        'buyers-headline':'Diseñado para las agencias responsables del cumplimiento predial.',
         'buyer-1-name':   'Tasadores Municipales de Propiedades',
         'buyer-1-desc':   'Cumplimiento de exenciones de vivienda principal en grandes portfolios prediales — sin aumentar el personal.',
         'buyer-2-name':   'Agencias Estatales de Rentas',
