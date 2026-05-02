@@ -817,7 +817,8 @@
             .record-panel { width: 130px; padding: 12px 14px; font-size: 9px; }
 
             .buyer-row { grid-template-columns: 1fr; gap: 10px; }
-            .buyer-price { padding-top: 0; }
+
+            #cta { margin: 0 16px 32px; padding: 60px 28px; }
 
             .cta-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
             .cta-cmd { text-align: left; }
@@ -832,7 +833,7 @@
 <!-- ── Nav ── -->
 <nav>
     <a href="#" class="nav-logo">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
         Lupa
     </a>
     <div class="nav-right">
@@ -1085,7 +1086,7 @@
 <!-- ── Footer ── -->
 <footer>
     <div class="footer-logo">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
         Lupa Intelligence
     </div>
     <div class="footer-r">
@@ -1198,8 +1199,6 @@ langBtn.addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
 
 // ── Globe (Three.js) ──────────────────────────────────────────────
 const canvas = document.getElementById('scan-canvas');
-
-// ── Globe (Three.js) ──────────────────────────────────────────────
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0x000000, 0);
