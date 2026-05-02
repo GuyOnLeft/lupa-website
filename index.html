@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lupa Intelligence — cross-jurisdiction parcel data intelligence for county governments. Homestead exemption audits and pool detection built entirely on public records.">
+    <meta property="og:title" content="Lupa Intelligence">
+    <meta property="og:description" content="Cross-jurisdiction parcel data intelligence for county governments. Built entirely on public records.">
+    <meta property="og:url" content="https://lupaintel.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Lupa Intelligence">
+    <meta name="twitter:description" content="Cross-jurisdiction parcel data intelligence for county governments.">
     <title>Lupa Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="shortcut icon" href="/favicon.svg">
@@ -898,7 +906,7 @@
                 </div>
                 <div class="card-label">
                     <div class="card-step" data-i18n="card-step-01">01 — Ingest</div>
-                    <div class="card-title" data-i18n="sat-name">Ingest</div>
+                    <h3 class="card-title" data-i18n="sat-name">Ingest</h3>
                     <p class="card-desc" data-i18n="sat-desc">Pull public parcel records across jurisdictions — county assessors, state cadastral databases, business registries. No paid data sources required.</p>
                 </div>
             </div>
@@ -928,7 +936,7 @@
                 </div>
                 <div class="card-label">
                     <div class="card-step" data-i18n="card-step-02">02 — Cross-reference</div>
-                    <div class="card-title" data-i18n="str-name">Cross-reference</div>
+                    <h3 class="card-title" data-i18n="str-name">Cross-reference</h3>
                     <p class="card-desc" data-i18n="str-desc">Identify discrepancies between public signals and assessment records — across jurisdictions, permit history, satellite imagery, and tax rolls.</p>
                 </div>
             </div>
@@ -957,7 +965,7 @@
                 </div>
                 <div class="card-label">
                     <div class="card-step" data-i18n="card-step-03">03 — Deliver</div>
-                    <div class="card-title" data-i18n="deliver-name">Deliver</div>
+                    <h3 class="card-title" data-i18n="deliver-name">Deliver</h3>
                     <p class="card-desc" data-i18n="deliver-desc">Ranked investigative leads with source citations and verification links — ready for your audit team, independently verifiable against public records.</p>
                 </div>
             </div>
@@ -995,7 +1003,7 @@
             </div>
             <div class="product-text-col">
                 <div class="vert-n">01</div>
-                <div class="vert-title" data-i18n="vert-01-title">Homestead Exemption Audit</div>
+                <h3 class="vert-title" data-i18n="vert-01-title">Homestead Exemption Audit</h3>
                 <p class="vert-desc" data-i18n="vert-01-desc">Cross-jurisdiction dual-claim detection — identifying owners simultaneously claiming primary-residence tax benefits in more than one jurisdiction. Available now.</p>
                 <a href="mailto:jeremy@lupaintel.com" class="vert-cta" data-i18n="vert-01-cta">Request a Demo</a>
             </div>
@@ -1031,7 +1039,7 @@
             </div>
             <div class="product-text-col">
                 <div class="vert-n">02</div>
-                <div class="vert-title" data-i18n="vert-02-title">Pool Detection</div>
+                <h3 class="vert-title" data-i18n="vert-02-title">Pool Detection</h3>
                 <p class="vert-desc" data-i18n="vert-02-desc">Satellite-based detection of unrecorded pool installations cross-referenced against permit history and tax roll records. Available now.</p>
                 <a href="mailto:jeremy@lupaintel.com" class="vert-cta vert-cta--secondary" data-i18n="vert-02-cta">Request a Demo</a>
             </div>
@@ -1445,6 +1453,8 @@ document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
         obs.observe(el);
     }
 });
+
+applyLang('en');
 </script>
 </body>
 </html>
