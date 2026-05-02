@@ -122,14 +122,20 @@
 
         .nav-products:hover { color: var(--ink); }
 
-        /* ── Hero — full-bleed canvas ── */
+        /* ── Hero ── */
         #hero {
+            padding: 64px 52px 0;
+        }
+
+        .hero-card {
             position: relative;
-            min-height: 100vh;
+            border-radius: 20px;
+            overflow: hidden;
+            min-height: 86vh;
+            background: #0A0908;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            overflow: hidden;
         }
 
         #scan-canvas {
@@ -155,75 +161,106 @@
         .hero-content {
             position: relative;
             z-index: 2;
-            padding: 0 60px 88px;
+            padding: 0 52px 72px;
         }
 
         .hero-sys {
             font-size: 9px;
-            letter-spacing: 0.24em;
-            color: var(--dim);
+            letter-spacing: 0.22em;
+            color: rgba(240,181,0,0.6);
             text-transform: uppercase;
-            margin-bottom: 36px;
-            text-shadow: 0 0 16px rgba(10,9,8,1), 0 0 6px rgba(10,9,8,1);
+            margin-bottom: 28px;
+            font-family: 'IBM Plex Mono', monospace;
         }
 
-        .hero-sys::before { content: '// '; color: var(--amber); opacity: 0.7; }
+        .hero-sys::before { content: '// '; }
 
         h1.hero-headline {
-            font-size: clamp(56px, 9vw, 132px);
-            font-weight: 600;
-            line-height: 0.93;
+            font-size: clamp(52px, 8.5vw, 120px);
+            font-weight: 800;
+            line-height: 0.95;
             letter-spacing: -0.035em;
             text-transform: uppercase;
-            color: var(--ink);
-            margin-bottom: 40px;
+            color: #fff;
+            margin-bottom: 32px;
         }
 
         h1.hero-headline em {
-            font-style: normal;
-            color: var(--amber);
+            font-style: italic;
+            color: #F0B500;
             display: block;
         }
 
         .hero-sub {
-            font-size: 11px;
-            font-weight: 300;
-            color: var(--dim);
-            line-height: 2;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.8;
             max-width: 360px;
-            margin-bottom: 56px;
-            padding-left: 18px;
-            border-left: 1px solid var(--faint);
-            text-shadow: 0 0 16px rgba(10,9,8,1), 0 0 6px rgba(10,9,8,1);
+            margin-bottom: 40px;
         }
 
-        .hero-cta {
+        .hero-cta-pill {
             display: inline-block;
-            font-size: 11px;
-            font-family: 'IBM Plex Mono', monospace;
-            letter-spacing: 0.1em;
-            color: var(--amber);
+            background: #fff;
+            color: #1a1a1a;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 99px;
             text-decoration: none;
-            text-shadow: 0 0 16px rgba(10,9,8,1), 0 0 6px rgba(10,9,8,1);
+            transition: opacity 0.15s;
         }
 
-        .hero-cta::before { content: '> '; opacity: 0.55; }
-        .hero-cta::after  { content: '_'; animation: cur 1.1s step-end infinite; }
-
-        @keyframes cur { 50% { opacity: 0; } }
-
-        .hero-cta:hover { text-decoration: underline; }
+        .hero-cta-pill:hover { opacity: 0.85; }
 
         .scan-overlay-coords {
             position: absolute;
-            bottom: 32px;
-            right: 44px;
+            bottom: 28px;
+            right: 40px;
             font-size: 9px;
+            font-family: 'IBM Plex Mono', monospace;
             letter-spacing: 0.1em;
             color: rgba(240,181,0,0.3);
             text-align: right;
             line-height: 2.2;
             z-index: 2;
+        }
+
+        /* ── Hero stat row ── */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 10px 0 0;
+        }
+
+        .hero-stat {
+            background: var(--surface);
+            border-radius: 14px;
+            padding: 24px 20px;
+        }
+
+        .hero-stat-n {
+            font-size: clamp(26px, 3.2vw, 42px);
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .hero-stat-label {
+            font-size: 11px;
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        .hero-stat-src {
+            display: block;
+            font-size: 9px;
+            color: var(--dim);
+            margin-top: 3px;
         }
 
         /* ── Common section wrapper ── */
@@ -331,61 +368,6 @@
             color: var(--dim);
             border: 1px solid var(--faint);
             padding: 3px 10px;
-        }
-
-        /* ── Proof / Scan Results ── */
-        #proof { background: var(--bg); border-top: 1px solid var(--faint); }
-
-        .proof-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background: var(--faint);
-            border: 1px solid var(--faint);
-            margin-bottom: 28px;
-        }
-
-        .proof-stat {
-            background: var(--bg);
-            padding: 40px 32px;
-        }
-
-        .proof-n {
-            font-size: clamp(30px, 3.8vw, 52px);
-            font-weight: 600;
-            color: var(--amber);
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 14px;
-        }
-
-        .proof-label {
-            font-size: 10px;
-            color: var(--ink);
-            line-height: 1.7;
-            margin-bottom: 4px;
-        }
-
-        .proof-src {
-            display: block;
-            font-size: 8px;
-            color: var(--dim);
-            letter-spacing: 0.08em;
-            margin-top: 4px;
-        }
-
-        .proof-note {
-            font-size: 8px;
-            color: var(--dim);
-            letter-spacing: 0.1em;
-            line-height: 1.9;
-        }
-
-        .proof-note::before { content: '// '; color: var(--faint); }
-
-        @media (max-width: 900px) {
-            .proof-grid { grid-template-columns: repeat(2, 1fr); }
-            .proof-stat { padding: 28px 20px; }
         }
 
         /* ── Products ── */
@@ -771,21 +753,39 @@
 
 <!-- ── Hero ── -->
 <section id="hero">
-    <canvas id="scan-canvas"></canvas>
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-        <div class="hero-sys" data-i18n="hero-sys">Parcel intelligence / active</div>
-        <h1 class="hero-headline" data-i18n="hero-headline">
-            We see what<br><em>others don't.</em>
-        </h1>
-        <p class="hero-sub" data-i18n="hero-sub">
-            Cross-jurisdiction parcel data intelligence for county governments — built entirely on public records.
-        </p>
-        <a href="mailto:jeremy@lupaintel.com" class="hero-cta" data-i18n="hero-cta">request_a_demo</a>
+    <div class="hero-card">
+        <canvas id="scan-canvas"></canvas>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-sys" data-i18n="hero-sys">Parcel intelligence / active</div>
+            <h1 class="hero-headline" data-i18n="hero-headline">
+                We see what<br><em>others don't.</em>
+            </h1>
+            <p class="hero-sub" data-i18n="hero-sub">
+                Cross-jurisdiction parcel data intelligence for county governments — built entirely on public records.
+            </p>
+            <a href="mailto:jeremy@lupaintel.com" class="hero-cta-pill" data-i18n="hero-cta">Request a Demo</a>
+        </div>
+        <div class="scan-overlay-coords" id="scan-coords">26.6406°N &nbsp;81.8723°W<br>SCANNING...</div>
     </div>
-
-    <div class="scan-overlay-coords" id="scan-coords">26.6406°N &nbsp;81.8723°W<br>SCANNING...</div>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-n">570+</div>
+            <div class="hero-stat-label">Confirmed dual-claim cases<span class="hero-stat-src">Cross-verified against public records in both jurisdictions</span></div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-n">1M+</div>
+            <div class="hero-stat-label">Parcels analyzed<span class="hero-stat-src">8 counties · Florida + Indiana</span></div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-n">5</div>
+            <div class="hero-stat-label">States cross-referenced<span class="hero-stat-src">FL · IN · IL · OH · NY</span></div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-n">100%</div>
+            <div class="hero-stat-label">Public records — no paid sources<span class="hero-stat-src">County assessors · state cadastral · public portals</span></div>
+        </div>
+    </div>
 </section>
 
 <!-- ── Detection Pipeline ── -->
@@ -840,32 +840,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- ── Proof / Scan Results ── -->
-<section id="proof">
-    <div class="section-wrap">
-        <div class="eyebrow fade-up" data-i18n="proof-eyebrow">Scan Results</div>
-        <div class="proof-grid fade-up">
-            <div class="proof-stat">
-                <div class="proof-n">570+</div>
-                <div class="proof-label" data-i18n="proof-1-label">Confirmed dual-claim cases<span class="proof-src" data-i18n="proof-1-src">Cross-verified against public records in both jurisdictions</span></div>
-            </div>
-            <div class="proof-stat">
-                <div class="proof-n">1M+</div>
-                <div class="proof-label" data-i18n="proof-2-label">Parcels analyzed<span class="proof-src" data-i18n="proof-2-src">8 counties · Florida + Indiana</span></div>
-            </div>
-            <div class="proof-stat">
-                <div class="proof-n">5</div>
-                <div class="proof-label" data-i18n="proof-3-label">States cross-referenced<span class="proof-src" data-i18n="proof-3-src">FL · IN · IL · OH · NY</span></div>
-            </div>
-            <div class="proof-stat">
-                <div class="proof-n">100%</div>
-                <div class="proof-label" data-i18n="proof-4-label">Public records — no paid sources<span class="proof-src" data-i18n="proof-4-src">County assessors · state cadastral · public portals</span></div>
-            </div>
-        </div>
-        <div class="proof-note fade-up" data-i18n="proof-note">Every case cross-verified against public records in both jurisdictions · data snapshot 2026-04-27 · no login required</div>
     </div>
 </section>
 
@@ -1019,7 +993,7 @@ const T = {
         'hero-sys':       'Parcel intelligence / active',
         'hero-headline':  'We see what<br><em>others don\'t.</em>',
         'hero-sub':       'Cross-jurisdiction parcel data intelligence for county governments — built entirely on public records.',
-        'hero-cta':       'request_a_demo',
+        'hero-cta':       'Request a Demo',
         'how-eyebrow':    'How It Works',
         'pipeline-title': 'Intelligence Pipeline',
         'sat-name':       'Ingest',
@@ -1028,12 +1002,6 @@ const T = {
         'str-desc':       'Identify discrepancies between public signals and assessment records — across jurisdictions, permit history, satellite imagery, and tax rolls.',
         'deliver-name':   'Deliver',
         'deliver-desc':   'Ranked investigative leads with source citations and verification links — ready for your audit team, independently verifiable against public records.',
-        'proof-eyebrow':  'Scan Results',
-        'proof-1-label':  'Confirmed dual-claim cases<span class="proof-src">Cross-verified against public records in both jurisdictions</span>',
-        'proof-2-label':  'Parcels analyzed<span class="proof-src">8 counties · Florida + Indiana</span>',
-        'proof-3-label':  'States cross-referenced<span class="proof-src">FL · IN · IL · OH · NY</span>',
-        'proof-4-label':  'Public records — no paid sources<span class="proof-src">County assessors · state cadastral · public portals</span>',
-        'proof-note':     'Every case cross-verified against public records in both jurisdictions · data snapshot 2026-04-27 · no login required',
         'vert-eyebrow':   'Products',
         'vert-01-title':  'Homestead Exemption Audit',
         'vert-01-desc':   'Cross-jurisdiction dual-claim detection — identifying owners simultaneously claiming primary-residence tax benefits in more than one jurisdiction. Available now.',
@@ -1060,7 +1028,7 @@ const T = {
         'hero-sys':       'Inteligencia predial / activo',
         'hero-headline':  'Vemos lo que<br><em>otros no ven.</em>',
         'hero-sub':       'Inteligencia de datos prediales entre jurisdicciones para gobiernos locales — construida íntegramente sobre registros públicos.',
-        'hero-cta':       'solicitar_una_demo',
+        'hero-cta':       'Solicitar una Demo',
         'how-eyebrow':    'Cómo Funciona',
         'pipeline-title': 'Pipeline de Inteligencia',
         'sat-name':       'Ingesta',
@@ -1069,12 +1037,6 @@ const T = {
         'str-desc':       'Identificación de discrepancias entre señales públicas y registros de tasación — entre jurisdicciones, historial de permisos, imágenes satelitales y padrones fiscales.',
         'deliver-name':   'Entrega',
         'deliver-desc':   'Leads de investigación priorizados con citas de fuentes y enlaces de verificación — listos para su equipo de auditoría, verificables de forma independiente contra registros públicos.',
-        'proof-eyebrow':  'Resultados de Escaneo',
-        'proof-1-label':  'Casos de doble exención confirmados<span class="proof-src">Verificados contra registros públicos en ambas jurisdicciones</span>',
-        'proof-2-label':  'Parcelas analizadas<span class="proof-src">8 condados · Florida + Indiana</span>',
-        'proof-3-label':  'Estados cruzados<span class="proof-src">FL · IN · IL · OH · NY</span>',
-        'proof-4-label':  'Registros públicos — sin fuentes pagas<span class="proof-src">Tasadores · base catastral estatal · portales públicos</span>',
-        'proof-note':     'Cada caso verificado contra registros públicos en ambas jurisdicciones · datos al 2026-04-27 · sin inicio de sesión',
         'vert-eyebrow':   'Productos',
         'vert-01-title':  'Auditoría de Exención de Vivienda Principal',
         'vert-01-desc':   'Detección de doble reclamo entre jurisdicciones — identificando propietarios que reclaman simultáneamente beneficios fiscales de residencia principal en más de una jurisdicción. Disponible ahora.',
