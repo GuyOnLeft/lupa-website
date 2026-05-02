@@ -49,44 +49,44 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            height: 48px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 52px;
-            background: rgba(10,9,8,0.97);
+            background: rgba(237,234,229,0.95);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--faint);
         }
 
         .nav-logo {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: var(--amber);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--ink);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 8px;
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 28px;
+            gap: 24px;
         }
 
         .nav-loc {
-            font-size: 9px;
+            font-size: 10px;
             color: var(--dim);
-            letter-spacing: 0.06em;
+            letter-spacing: 0.04em;
         }
 
         .lang-toggle {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 9px;
-            letter-spacing: 0.18em;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--dim);
             background: none;
@@ -99,22 +99,22 @@
         .lang-toggle:hover { color: var(--ink); }
 
         .nav-cta {
-            font-size: 9px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--ink);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            color: #fff;
+            background: var(--ink);
             text-decoration: none;
-            border-bottom: 1px solid var(--dim);
-            padding-bottom: 1px;
-            transition: color 0.15s, border-color 0.15s;
+            padding: 8px 16px;
+            border-radius: 99px;
+            transition: opacity 0.15s;
         }
 
-        .nav-cta:hover { color: var(--amber); border-color: var(--amber); }
+        .nav-cta:hover { opacity: 0.75; }
 
         .nav-products {
-            font-size: 9px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 500;
             color: var(--dim);
             text-decoration: none;
             transition: color 0.15s;
