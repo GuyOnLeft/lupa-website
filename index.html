@@ -300,6 +300,7 @@
         }
 
         .grad-card {
+            background: var(--surface);
             border-radius: 20px;
             overflow: hidden;
             position: relative;
@@ -308,33 +309,6 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 32px 36px;
-        }
-
-        .card-ingest {
-            background:
-                radial-gradient(ellipse at 18% 28%, #7c3aed 0%, transparent 52%),
-                radial-gradient(ellipse at 76% 18%, #2563eb 0%, transparent 48%),
-                radial-gradient(ellipse at 54% 82%, #0ea5e9 0%, transparent 50%),
-                radial-gradient(ellipse at 84% 68%, #6d28d9 0%, transparent 38%),
-                #1e1b4b;
-        }
-
-        .card-crossref {
-            background:
-                radial-gradient(ellipse at 14% 62%, #d97706 0%, transparent 48%),
-                radial-gradient(ellipse at 72% 18%, #b45309 0%, transparent 44%),
-                radial-gradient(ellipse at 52% 84%, #f59e0b 0%, transparent 52%),
-                radial-gradient(ellipse at 84% 54%, #92400e 0%, transparent 38%),
-                #451a03;
-        }
-
-        .card-deliver {
-            background:
-                radial-gradient(ellipse at 24% 24%, #dc2626 0%, transparent 48%),
-                radial-gradient(ellipse at 72% 28%, #ea580c 0%, transparent 44%),
-                radial-gradient(ellipse at 42% 76%, #f97316 0%, transparent 52%),
-                radial-gradient(ellipse at 82% 68%, #b91c1c 0%, transparent 38%),
-                #7c2d12;
         }
 
         /* Card floating content area */
@@ -352,7 +326,7 @@
 
         /* Card label */
         .card-label {
-            color: #fff;
+            color: var(--ink);
             position: relative;
             z-index: 2;
         }
@@ -362,7 +336,7 @@
             font-weight: 700;
             letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.45);
+            color: var(--dim);
             margin-bottom: 6px;
             font-family: 'IBM Plex Mono', monospace;
         }
@@ -370,13 +344,14 @@
         .card-title {
             font-size: clamp(18px, 2.4vw, 28px);
             font-weight: 700;
+            color: var(--ink);
             margin-bottom: 6px;
             letter-spacing: -0.01em;
         }
 
         .card-desc {
             font-size: 13px;
-            color: rgba(255,255,255,0.6);
+            color: var(--dim);
             line-height: 1.65;
             max-width: 540px;
         }
@@ -391,10 +366,10 @@
         }
 
         .grad-pill {
-            background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.18);
-            color: #fff;
+            background: var(--bg);
+            backdrop-filter: none;
+            border: 1px solid var(--faint);
+            color: var(--ink);
             font-size: 12px;
             font-weight: 500;
             padding: 7px 16px;
@@ -408,28 +383,28 @@
         }
 
         .record-panel {
-            background: rgba(0,0,0,0.28);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg);
+            backdrop-filter: none;
+            border: 1px solid var(--faint);
             border-radius: 14px;
             padding: 18px 20px;
             width: 168px;
             font-family: 'IBM Plex Mono', monospace;
             font-size: 10px;
-            color: rgba(255,255,255,0.85);
+            color: var(--ink);
             line-height: 2;
         }
 
         .record-panel .rec-label {
             font-size: 8px;
             letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.38);
+            color: var(--dim);
             margin-bottom: 8px;
             text-transform: uppercase;
         }
 
-        .rec-key { color: rgba(255,255,255,0.42); }
-        .rec-flag { color: #fbbf24; font-weight: 700; }
+        .rec-key { color: var(--amber); }
+        .rec-flag { color: var(--amber); font-weight: 700; }
 
         .record-connector {
             display: flex;
@@ -442,7 +417,7 @@
         .connector-line-h {
             width: 32px;
             height: 1px;
-            background: rgba(255,255,255,0.3);
+            background: var(--faint);
         }
 
         .connector-badge {
@@ -459,9 +434,9 @@
 
         /* ── Deliver: leads list ── */
         .leads-list {
-            background: rgba(0,0,0,0.28);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg);
+            backdrop-filter: none;
+            border: 1px solid var(--faint);
             border-radius: 14px;
             padding: 18px 22px;
             width: 310px;
@@ -472,7 +447,7 @@
             font-size: 8px;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.38);
+            color: var(--dim);
             margin-bottom: 12px;
         }
 
@@ -481,14 +456,14 @@
             align-items: center;
             gap: 10px;
             padding: 8px 0;
-            border-top: 1px solid rgba(255,255,255,0.07);
+            border-top: 1px solid var(--faint);
             font-size: 10px;
-            color: rgba(255,255,255,0.78);
+            color: var(--ink);
         }
 
         .lead-rank {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
+            background: var(--faint);
+            color: var(--ink);
             font-size: 9px;
             font-weight: 700;
             width: 22px;
@@ -895,10 +870,7 @@
                     <div class="tags-cloud">
                         <span class="grad-pill">County Assessors</span>
                         <span class="grad-pill">State Cadastral</span>
-                        <span class="grad-pill">FL FDOR</span>
                         <span class="grad-pill">Business Registries</span>
-                        <span class="grad-pill">Cook County</span>
-                        <span class="grad-pill">Lee County</span>
                         <span class="grad-pill">Permit History</span>
                         <span class="grad-pill">Tax Rolls</span>
                         <span class="grad-pill">Public Records</span>
@@ -918,7 +890,7 @@
                         <div class="record-panel">
                             <div class="rec-label">// Record A</div>
                             <div><span class="rec-key">OWNER&nbsp;</span>J. Smith</div>
-                            <div><span class="rec-key">JURIS&nbsp;</span>LEE CO, FL</div>
+                            <div><span class="rec-key">JURIS&nbsp;</span>JURISDICTION A</div>
                             <div><span class="rec-key">STATUS&nbsp;</span><span class="rec-flag">EXEMPT</span></div>
                         </div>
                         <div class="record-connector">
@@ -929,7 +901,7 @@
                         <div class="record-panel">
                             <div class="rec-label">// Record B</div>
                             <div><span class="rec-key">OWNER&nbsp;</span>J. Smith</div>
-                            <div><span class="rec-key">JURIS&nbsp;</span>COOK CO, IL</div>
+                            <div><span class="rec-key">JURIS&nbsp;</span>JURISDICTION B</div>
                             <div><span class="rec-key">STATUS&nbsp;</span><span class="rec-flag">EXEMPT</span></div>
                         </div>
                     </div>
@@ -945,7 +917,7 @@
             <div class="grad-card card-deliver fade-up" style="transition-delay:.16s">
                 <div class="card-preview">
                     <div class="leads-list">
-                        <div class="leads-header">// Ranked leads · Lee County FL</div>
+                        <div class="leads-header">// Ranked leads</div>
                         <div class="lead-row">
                             <div class="lead-rank">1</div>
                             <div class="lead-name">████████ · Parcel #12-44-24</div>
