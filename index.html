@@ -339,6 +339,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 1;
         }
 
         /* Card label */
@@ -396,7 +397,6 @@
         .records-compare {
             display: flex;
             align-items: center;
-            gap: 0;
         }
 
         .record-panel {
@@ -855,6 +855,9 @@
 
             .vert-row { gap: 24px; }
             .vert-n { width: 52px; }
+
+            .records-compare { flex-wrap: wrap; justify-content: center; }
+            .record-panel { width: 130px; padding: 12px 14px; font-size: 9px; }
 
             .buyer-row { grid-template-columns: 1fr; gap: 10px; }
             .buyer-price { padding-top: 0; }
