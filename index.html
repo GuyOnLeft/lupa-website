@@ -668,48 +668,40 @@
         .vert-cta--secondary:hover { color: var(--ink); border-color: var(--ink); opacity: 1; }
 
         /* ── Buyers ── */
-        #buyers { background: var(--bg2); border-top: 1px solid var(--faint); }
+        #buyers { background: var(--bg); border-top: none; }
 
         .buyer-row {
             display: grid;
-            grid-template-columns: 180px 1fr;
+            grid-template-columns: 200px 1fr;
             gap: 52px;
             align-items: start;
-            padding: 40px 0;
+            padding: 36px 0;
             border-top: 1px solid var(--faint);
         }
 
         .buyer-row:last-child { border-bottom: 1px solid var(--faint); }
 
         .buyer-name {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+            font-size: 13px;
+            font-weight: 700;
             color: var(--ink);
             padding-top: 2px;
+            letter-spacing: -0.01em;
         }
 
         .buyer-desc {
-            font-size: 11px;
-            font-weight: 300;
+            font-size: 13px;
             color: var(--dim);
-            line-height: 2;
-        }
-
-        .buyer-price {
-            font-size: 9px;
-            color: var(--amber);
-            letter-spacing: 0.08em;
-            white-space: nowrap;
-            padding-top: 2px;
+            line-height: 1.8;
         }
 
         /* ── CTA ── */
         #cta {
-            background: var(--bg);
-            border-top: 1px solid var(--faint);
-            padding: 120px 60px;
+            background: var(--ink);
+            border-top: none;
+            padding: 100px 60px;
+            border-radius: 20px;
+            margin: 0 52px 52px;
         }
 
         .cta-inner {
@@ -720,69 +712,60 @@
         }
 
         .cta-headline {
-            font-size: clamp(28px, 4vw, 56px);
-            font-weight: 600;
-            text-transform: uppercase;
+            font-size: clamp(26px, 3.8vw, 52px);
+            font-weight: 800;
             letter-spacing: -0.025em;
-            line-height: 1.05;
-            color: var(--ink);
-            margin-bottom: 20px;
-            max-width: 540px;
+            line-height: 1.08;
+            color: #fff;
+            margin-bottom: 16px;
+            max-width: 520px;
         }
 
         .cta-sub {
-            font-size: 11px;
-            font-weight: 300;
-            color: var(--dim);
-            line-height: 2;
+            font-size: 14px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.8;
             max-width: 380px;
         }
 
-        .cta-cmd {
-            flex-shrink: 0;
-            text-align: right;
-        }
+        .cta-cmd { flex-shrink: 0; }
 
-        .terminal-link {
-            display: block;
-            font-size: 13px;
-            font-family: 'IBM Plex Mono', monospace;
-            letter-spacing: 0.06em;
-            color: var(--amber);
+        .cta-pill {
+            display: inline-block;
+            background: #fff;
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 99px;
             text-decoration: none;
-            line-height: 1.6;
-            margin-bottom: 6px;
+            transition: opacity 0.15s;
         }
 
-        .terminal-link::before { content: '> '; opacity: 0.45; }
-        .terminal-link::after  { content: '_'; animation: cur 1.1s step-end infinite; }
-        .terminal-link:hover { text-decoration: underline; }
+        .cta-pill:hover { opacity: 0.85; }
 
         /* ── Footer ── */
         footer {
             padding: 22px 52px;
-            border-top: 1px solid var(--faint);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .footer-logo {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--amber);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--ink);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .footer-r {
-            font-size: 8px;
+            font-size: 11px;
             color: var(--dim);
-            letter-spacing: 0.06em;
-            line-height: 2;
+            line-height: 1.9;
             text-align: right;
         }
 
@@ -1094,7 +1077,7 @@
             <p class="cta-sub" data-i18n="cta-sub">We run a pilot audit of your jurisdiction. You see what we find.</p>
         </div>
         <div class="cta-cmd">
-            <a href="mailto:jeremy@lupaintel.com" class="terminal-link" data-i18n="cta-link">request_a_demo</a>
+            <a href="mailto:jeremy@lupaintel.com" class="cta-pill" data-i18n="cta-link">Request a Demo</a>
         </div>
     </div>
 </section>
@@ -1154,7 +1137,7 @@ const T = {
         'buyer-3-desc':   'Permit compliance, unpermitted construction detection, and assessment gap recovery.',
         'cta-headline':   'Ready to see what your records already know?',
         'cta-sub':        'We run a pilot audit of your jurisdiction. You see what we find.',
-        'cta-link':       'request_a_demo',
+        'cta-link':       'Request a Demo',
         'footer-tagline': 'Parcel Intelligence Platform',
     },
     es: {
@@ -1192,7 +1175,7 @@ const T = {
         'buyer-3-desc':   'Cumplimiento de permisos, detección de construcciones sin permiso y recuperación de brechas de tasación.',
         'cta-headline':   '¿Listo para ver lo que sus registros ya saben?',
         'cta-sub':        'Realizamos una auditoría piloto de su jurisdicción. Usted ve lo que encontramos.',
-        'cta-link':       'solicitar_una_demo',
+        'cta-link':       'Solicitar una Demo',
         'footer-tagline': 'Plataforma de Inteligencia Predial',
     }
 };
