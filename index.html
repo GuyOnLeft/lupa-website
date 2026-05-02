@@ -783,47 +783,38 @@
             nav { padding: 0 20px; }
             .nav-loc { display: none; }
 
-            /* Globe visible in upper half; solid dark behind all text */
-            .hero-overlay {
-                background:
-                    linear-gradient(to top,
-                        rgba(10,9,8,0.98) 0%,
-                        rgba(10,9,8,0.92) 38%,
-                        rgba(10,9,8,0.55) 58%,
-                        rgba(10,9,8,0.0)  75%
-                    ),
-                    linear-gradient(to bottom,
-                        rgba(10,9,8,0.6) 0%,
-                        transparent 18%
-                    );
-            }
-
-            .hero-content { padding: 0 24px 72px; }
+            #hero { padding: 56px 16px 0; }
+            .hero-card { min-height: 75vh; border-radius: 16px; }
+            .hero-content { padding: 0 24px 56px; }
+            h1.hero-headline { font-size: clamp(44px, 12vw, 72px); }
             .scan-overlay-coords { display: none; }
-            h1.hero-headline { font-size: clamp(48px, 13vw, 80px); }
 
-            .section-wrap { padding: 80px 24px; }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .hero-stat { padding: 18px 14px; }
 
-            .anim-wrap { overflow: hidden; }
-            .anim-panels { width: 100%; max-width: 100%; }
-            .anim-panel { padding: 12px 10px; }
-            .anim-key { min-width: 42px; }
+            .section-wrap { padding: 72px 20px; }
 
-            .product-card { flex-direction: column; gap: 24px; }
+            .grad-card { min-height: 320px; padding: 20px 22px; border-radius: 16px; }
+            .card-preview { left: 22px; right: 22px; bottom: 100px; }
+            .card-title { font-size: 18px; }
+            .card-desc { font-size: 12px; }
 
-            .vert-n { width: 52px; }
+            .tags-cloud { gap: 6px; }
+            .grad-pill { font-size: 11px; padding: 5px 12px; }
 
             .records-compare { flex-wrap: wrap; justify-content: center; }
             .record-panel { width: 130px; padding: 12px 14px; font-size: 9px; }
 
+            .leads-list { width: 100%; max-width: 280px; }
+
+            .product-card { flex-direction: column; gap: 24px; padding: 24px 22px; border-radius: 16px; }
+
             .buyer-row { grid-template-columns: 1fr; gap: 10px; }
 
-            #cta { margin: 0 16px 32px; padding: 60px 28px; }
+            #cta { margin: 0 16px 32px; padding: 60px 28px; border-radius: 16px; }
+            .cta-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
 
-            .cta-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
-            .cta-cmd { text-align: left; }
-
-            footer { padding: 20px 24px; flex-direction: column; gap: 10px; text-align: center; }
+            footer { padding: 20px; flex-direction: column; gap: 10px; text-align: center; }
             .footer-r { text-align: center; }
         }
     </style>
