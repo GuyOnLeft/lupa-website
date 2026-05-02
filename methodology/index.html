@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methodology — Public-Records Parcel Intelligence | Lupa Intelligence</title>
+    <meta name="description" content="How Lupa Intelligence builds cross-jurisdiction parcel audits entirely on public records: data sources, owner-name normalization, citation-backed leads, and verification workflow.">
+    <link rel="canonical" href="https://lupaintel.com/methodology/">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta property="og:title" content="Methodology — Public-Records Parcel Intelligence | Lupa Intelligence">
+    <meta property="og:description" content="How Lupa builds cross-jurisdiction parcel audits entirely on public records — sources, normalization, citations, verification.">
+    <meta property="og:url" content="https://lupaintel.com/methodology/">
+    <meta property="og:type" content="article">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8890VE29T1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8890VE29T1');
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#edeae5; --ink:#1a1a1a; --dim:#666; --faint:#d4d0ca; --amber:#c47f17; --surface:#fff; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--bg); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.65; }
+        a { color:var(--amber); }
+        nav { display:flex; justify-content:space-between; align-items:center; padding:18px 32px; border-bottom:1px solid var(--faint); position:sticky; top:0; background:rgba(237,234,229,.95); backdrop-filter:blur(10px); z-index:10; }
+        nav a.brand { font-weight:700; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px; }
+        nav .cta { background:var(--ink); color:#fff; padding:8px 16px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:600; }
+        main { max-width:780px; margin:0 auto; padding:48px 24px 80px; }
+        .eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:16px; }
+        h1 { font-size:clamp(32px, 5vw, 44px); font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:20px; }
+        .lede { font-size:19px; color:#333; margin-bottom:36px; }
+        h2 { font-size:24px; font-weight:700; margin:40px 0 14px; letter-spacing:-.01em; }
+        h3 { font-size:17px; font-weight:600; margin:24px 0 8px; }
+        p { margin-bottom:14px; }
+        ul { margin:8px 0 18px 22px; }
+        li { margin-bottom:6px; }
+        code { font-family:'IBM Plex Mono',monospace; font-size:13px; background:#fff; padding:1px 6px; border-radius:4px; border:1px solid var(--faint); }
+        .cta-block { margin:48px 0 16px; padding:28px; background:var(--ink); color:#fff; border-radius:12px; }
+        .cta-block h2 { color:#fff; margin-top:0; }
+        .cta-block a { display:inline-block; background:var(--amber); color:#fff; padding:12px 24px; border-radius:999px; font-weight:600; text-decoration:none; margin-top:8px; }
+        footer { border-top:1px solid var(--faint); padding:24px 32px; font-size:13px; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+        footer a { color:var(--dim); text-decoration:none; margin-right:14px; }
+        .breadcrumb { font-size:12px; color:var(--dim); margin-bottom:8px; }
+        .breadcrumb a { color:var(--dim); text-decoration:none; }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Methodology — Public-Records Parcel Intelligence",
+      "author": {"@type": "Organization", "name": "Lupa Intelligence"},
+      "publisher": {"@type": "Organization", "name": "Lupa Intelligence"},
+      "url": "https://lupaintel.com/methodology/",
+      "datePublished": "2026-05-02",
+      "description": "How Lupa Intelligence builds cross-jurisdiction parcel audits entirely on public records: data sources, owner-name normalization, citation-backed leads, and verification workflow."
+    }
+    </script>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="brand">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Lupa Intelligence
+    </a>
+    <a href="mailto:jeremy@lupaintel.com" class="cta">Request a Demo</a>
+</nav>
+
+<main>
+    <div class="breadcrumb"><a href="/">Home</a> &nbsp;/&nbsp; Methodology</div>
+    <div class="eyebrow">Reference</div>
+    <h1>How Lupa Builds Parcel Audits on Public Records</h1>
+    <p class="lede">Every Lupa finding is independently verifiable against a government source — that's the design constraint. This page documents how data is sourced, how owners are matched across jurisdictions, and how leads are delivered so your audit team can verify before acting.</p>
+
+    <h2>Data sources</h2>
+    <p>Lupa uses only public records published by government bodies. No paid aggregators (Regrid, ATTOM, PropStream, Melissa Data) are in the pipeline.</p>
+    <ul>
+        <li><strong>County property appraiser portals</strong> — parcel rolls, exemption flags, ownership records.</li>
+        <li><strong>State cadastral databases</strong> — e.g., Florida Department of Revenue (FDOR) statewide parcel dataset.</li>
+        <li><strong>Recorder/clerk offices</strong> — deed transfers and title history.</li>
+        <li><strong>Permit systems</strong> — county and municipal permit histories.</li>
+        <li><strong>Aerial imagery</strong> — NAIP, county-flown imagery programs, and other openly published sources.</li>
+        <li><strong>Business registries</strong> — secretary of state filings for entity-owned parcel cross-checks.</li>
+    </ul>
+
+    <h2>Owner-name normalization</h2>
+    <p>Cross-jurisdiction matching fails or over-matches when name formatting differs between sources. Lupa uses a longest-token + suffix-strip keying strategy validated against four naming conventions:</p>
+    <ul>
+        <li>Cook County, IL — <code>FIRST LAST</code></li>
+        <li>Florida Department of Revenue — <code>LAST FIRST</code></li>
+        <li>Cuyahoga County, OH — <code>LAST,FIRST</code></li>
+        <li>Franklin County, OH — <code>LAST FIRST</code></li>
+    </ul>
+    <p>The same approach handles JR/SR/III suffixes, middle initial variants, and married-name carryover without requiring per-source regex. This matters because a naive string match across the FDOR <code>OWN_NAME</code> field misses roughly 90% of legitimate dual-claim cases.</p>
+
+    <h2>Citation-backed leads</h2>
+    <p>Every lead delivered by Lupa includes:</p>
+    <ul>
+        <li>Parcel IDs in every relevant jurisdiction.</li>
+        <li>Direct URL citations to the source public record (county portal, FDOR record, permit system).</li>
+        <li>The specific data point that triggered the flag (exemption status, sale date, permit gap).</li>
+        <li>Confidence tier so audit teams can prioritize.</li>
+    </ul>
+    <p>This means a Lupa lead is not "trust our model." It's a pointer to a public record your team can open and read directly.</p>
+
+    <h2>Verification workflow</h2>
+    <p>Lupa is an investigative-lead generator, not an enforcement tool. The intended workflow:</p>
+    <ol style="margin:8px 0 18px 22px;">
+        <li>Lupa delivers ranked leads with citations.</li>
+        <li>Your audit team verifies each lead against the cited public records.</li>
+        <li>Verified cases enter your standard notice/dispute process.</li>
+    </ol>
+    <p>Side-by-side record comparison is the default for likely or ambiguous cases — never act on a flag without confirming the underlying documents.</p>
+
+    <h2>Known constraints and caveats</h2>
+    <ul>
+        <li><strong>New York STAR program (post-2019)</strong> — county roll data alone misses post-2019 STAR credit recipients because the program shifted to a state-administered credit. Reliable NY checks require the NYS state dataset.</li>
+        <li><strong>Florida §193.092</strong> — back-assessment recovery on permitted parcels is statutorily capped, so revenue projections on permitted-but-unassessed pool detections must account for this.</li>
+        <li><strong>Recent sales</strong> — homestead-exemption flags lag transfers, so flagged cases on parcels with recent ownership changes are a known false-positive class and are reviewed before delivery.</li>
+        <li><strong>Owner-name conventions are jurisdictional</strong> — new states require validation of the local naming convention before adapter coverage is claimed as production-ready.</li>
+    </ul>
+
+    <h2>Why public records only</h2>
+    <p>Three reasons:</p>
+    <ul>
+        <li><strong>Verifiability</strong> — every finding is reproducible by the customer using the same source data, which matters for due process when notices go out.</li>
+        <li><strong>Cost structure</strong> — no per-record or per-query pricing means scans scale to full-jurisdiction without surprise costs.</li>
+        <li><strong>FOIA-friendly</strong> — when a flagged owner asks "where did this come from?" the answer is a public URL, not a vendor's proprietary score.</li>
+    </ul>
+
+    <div class="cta-block">
+        <h2>Have a coverage question?</h2>
+        <p>If you're evaluating Lupa for a specific jurisdiction or program, we're happy to walk through methodology details for that scope.</p>
+        <a href="mailto:jeremy@lupaintel.com?subject=Methodology%20Question">Get in touch →</a>
+    </div>
+
+    <p style="margin-top:24px"><a href="/homestead-exemption-audit/">Homestead Exemption Audit →</a> &nbsp;·&nbsp; <a href="/pool-detection/">Pool Detection →</a></p>
+</main>
+
+<footer>
+    <div>© 2026 Lupa Intelligence · jeremy@lupaintel.com · 719-761-4236</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/homestead-exemption-audit/">Homestead Audit</a>
+        <a href="/pool-detection/">Pool Detection</a>
+        <a href="/methodology/">Methodology</a>
+    </div>
+</footer>
+
+</body>
+</html>

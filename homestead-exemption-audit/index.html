@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homestead Exemption Audit & Dual-Claim Detection | Lupa Intelligence</title>
+    <meta name="description" content="Cross-jurisdiction homestead exemption audit service for county property appraisers and state revenue agencies. Detects dual homestead claims, exemption stacking, and primary-residence fraud using public records — no paid data sources.">
+    <link rel="canonical" href="https://lupaintel.com/homestead-exemption-audit/">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta property="og:title" content="Homestead Exemption Audit & Dual-Claim Detection | Lupa Intelligence">
+    <meta property="og:description" content="Identify owners simultaneously claiming primary-residence tax benefits in more than one jurisdiction. Built for county property appraisers and state DORs.">
+    <meta property="og:url" content="https://lupaintel.com/homestead-exemption-audit/">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8890VE29T1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8890VE29T1');
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#edeae5; --ink:#1a1a1a; --dim:#666; --faint:#d4d0ca; --amber:#c47f17; --surface:#fff; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--bg); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.65; }
+        a { color:var(--amber); }
+        nav { display:flex; justify-content:space-between; align-items:center; padding:18px 32px; border-bottom:1px solid var(--faint); position:sticky; top:0; background:rgba(237,234,229,.95); backdrop-filter:blur(10px); z-index:10; }
+        nav a.brand { font-weight:700; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px; }
+        nav .cta { background:var(--ink); color:#fff; padding:8px 16px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:600; }
+        main { max-width:780px; margin:0 auto; padding:48px 24px 80px; }
+        .eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:16px; }
+        h1 { font-size:clamp(32px, 5vw, 48px); font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:20px; }
+        .lede { font-size:19px; color:#333; margin-bottom:36px; }
+        h2 { font-size:24px; font-weight:700; margin:40px 0 14px; letter-spacing:-.01em; }
+        h3 { font-size:17px; font-weight:600; margin:24px 0 8px; }
+        p { margin-bottom:14px; }
+        ul { margin:8px 0 18px 22px; }
+        li { margin-bottom:6px; }
+        .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin:28px 0 36px; }
+        .stat { background:var(--surface); border:1px solid var(--faint); padding:16px; border-radius:8px; }
+        .stat-n { font-family:'IBM Plex Mono',monospace; font-size:24px; font-weight:600; color:var(--ink); }
+        .stat-l { font-size:11px; color:var(--dim); margin-top:4px; text-transform:uppercase; letter-spacing:.06em; }
+        .cta-block { margin:48px 0 16px; padding:28px; background:var(--ink); color:#fff; border-radius:12px; }
+        .cta-block h2 { color:#fff; margin-top:0; }
+        .cta-block a { display:inline-block; background:var(--amber); color:#fff; padding:12px 24px; border-radius:999px; font-weight:600; text-decoration:none; margin-top:8px; }
+        .faq details { border-bottom:1px solid var(--faint); padding:14px 0; }
+        .faq summary { cursor:pointer; font-weight:600; font-size:16px; }
+        .faq p { margin-top:10px; color:#333; }
+        footer { border-top:1px solid var(--faint); padding:24px 32px; font-size:13px; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+        footer a { color:var(--dim); text-decoration:none; margin-right:14px; }
+        .breadcrumb { font-size:12px; color:var(--dim); margin-bottom:8px; }
+        .breadcrumb a { color:var(--dim); text-decoration:none; }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Homestead Exemption Audit",
+      "serviceType": "Property tax compliance audit",
+      "provider": {"@type": "Organization", "name": "Lupa Intelligence", "url": "https://lupaintel.com/"},
+      "url": "https://lupaintel.com/homestead-exemption-audit/",
+      "description": "Cross-jurisdiction dual-claim detection identifying owners simultaneously claiming primary-residence tax benefits in more than one jurisdiction. Built for county property appraisers, state revenue agencies, and municipal assessors.",
+      "areaServed": [
+        {"@type": "AdministrativeArea", "name": "Florida"},
+        {"@type": "AdministrativeArea", "name": "Indiana"},
+        {"@type": "AdministrativeArea", "name": "Illinois"},
+        {"@type": "AdministrativeArea", "name": "Ohio"},
+        {"@type": "AdministrativeArea", "name": "New York"}
+      ],
+      "audience": {"@type": "GovernmentOrganization", "name": "County property appraisers and state revenue agencies"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a homestead exemption audit?",
+          "acceptedAnswer": {"@type": "Answer", "text": "A homestead exemption audit reviews parcel ownership records to confirm that owners claiming a primary-residence property tax exemption qualify for it under state law. It typically focuses on detecting dual claims (one owner receiving the exemption in two jurisdictions), residency mismatches, and post-sale exemption carryover."}
+        },
+        {
+          "@type": "Question",
+          "name": "How does Lupa detect dual homestead claims across counties?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Lupa ingests public parcel records from county assessors and state cadastral databases, normalizes owner names across jurisdictional formatting differences, and cross-references exemption flags. Every flagged case includes citations linking to both source records so the audit team can independently verify before issuing a notice."}
+        },
+        {
+          "@type": "Question",
+          "name": "Does Lupa use paid data sources?",
+          "acceptedAnswer": {"@type": "Answer", "text": "No. Lupa builds entirely on public records — county property appraiser portals, state cadastral databases, FDOR datasets, and similar government-published sources. There is no dependency on Regrid, ATTOM, PropStream, or other paid aggregators."}
+        },
+        {
+          "@type": "Question",
+          "name": "Which states does Lupa cover for homestead exemption stacking?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Florida is the most mature coverage area, with cross-county and cross-state checks against Indiana, Illinois, Ohio, and New York. Additional states are added as adapters are built. New York coverage notes: the 2019 STAR program shift to a state credit means county roll data alone misses post-2019 recipients, so NY checks require the NYS state dataset."}
+        },
+        {
+          "@type": "Question",
+          "name": "What does a Lupa pilot look like?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Lupa runs a no-obligation pilot scan of your jurisdiction and delivers ranked investigative leads with source citations. Your audit team verifies findings against public records before any owner outreach. Pilots typically focus on a single county or program area to keep evaluation simple."}
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="brand">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Lupa Intelligence
+    </a>
+    <a href="mailto:jeremy@lupaintel.com" class="cta">Request a Demo</a>
+</nav>
+
+<main>
+    <div class="breadcrumb"><a href="/">Home</a> &nbsp;/&nbsp; Homestead Exemption Audit</div>
+    <div class="eyebrow">Product · Available Now</div>
+    <h1>Homestead Exemption Audit &amp; Dual-Claim Detection</h1>
+    <p class="lede">Cross-jurisdiction parcel intelligence that identifies owners simultaneously claiming primary-residence property tax benefits in more than one jurisdiction. Built for county property appraisers, state revenue agencies, and municipal assessors — entirely on public records.</p>
+
+    <div class="stat-grid">
+        <div class="stat"><div class="stat-n">570+</div><div class="stat-l">Confirmed dual-claim cases</div></div>
+        <div class="stat"><div class="stat-n">1M+</div><div class="stat-l">Parcels analyzed</div></div>
+        <div class="stat"><div class="stat-n">5</div><div class="stat-l">States cross-referenced</div></div>
+        <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Public records, no paid data</div></div>
+    </div>
+
+    <h2>What Lupa detects</h2>
+    <ul>
+        <li><strong>Dual homestead claims</strong> — same owner, primary-residence exemption active in two or more jurisdictions simultaneously.</li>
+        <li><strong>Exemption stacking</strong> — owners receiving stacked benefits (homestead, senior, veteran, agricultural) where statute prohibits.</li>
+        <li><strong>Post-sale carryover</strong> — exemption flag still active after the qualifying owner sold or transferred title.</li>
+        <li><strong>Residency mismatches</strong> — primary-residence claim against an address with rental, commercial, or non-occupancy signals.</li>
+        <li><strong>Cross-state stacking</strong> — Florida claimants also receiving primary-residence benefits in Indiana, Illinois, Ohio, or New York.</li>
+    </ul>
+
+    <h2>How it works</h2>
+    <h3>1. Ingest</h3>
+    <p>Lupa pulls public parcel and exemption records from county property appraiser portals, state cadastral databases (FDOR, etc.), recorder offices, and business registries. Owner names are normalized across formatting differences (LAST FIRST vs. FIRST LAST, suffix variants, comma conventions) so cross-jurisdiction matches don't get missed.</p>
+
+    <h3>2. Cross-reference</h3>
+    <p>Owner records are matched across jurisdictions using a longest-token + suffix-strip keying strategy validated against Florida, Cook County IL, Cuyahoga OH, and Franklin OH naming conventions. Matches surface where the same individual holds active primary-residence exemptions in more than one place.</p>
+
+    <h3>3. Deliver</h3>
+    <p>Findings arrive as a ranked list of investigative leads — each with parcel IDs, exemption flags, and direct citation links to the source public records in both jurisdictions. Your audit team verifies independently before issuing any notice.</p>
+
+    <h2>Who this is built for</h2>
+    <ul>
+        <li><strong>County property appraisers</strong> running annual homestead and exemption compliance reviews without adding staff.</li>
+        <li><strong>State revenue agencies</strong> coordinating cross-county audit programs and tracking statewide stacking patterns.</li>
+        <li><strong>Municipal assessors</strong> looking for assessment gap recovery in jurisdictions with high seasonal or out-of-state ownership.</li>
+    </ul>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+        <details>
+            <summary>What is a homestead exemption audit?</summary>
+            <p>A homestead exemption audit reviews parcel ownership records to confirm that owners claiming a primary-residence property tax exemption qualify for it under state law. It typically focuses on detecting dual claims, residency mismatches, and post-sale exemption carryover.</p>
+        </details>
+        <details>
+            <summary>How does Lupa detect dual homestead claims across counties?</summary>
+            <p>Lupa ingests public parcel records from county assessors and state cadastral databases, normalizes owner names across jurisdictional formatting differences, and cross-references exemption flags. Every flagged case includes citations linking to both source records so the audit team can independently verify before issuing a notice.</p>
+        </details>
+        <details>
+            <summary>Does Lupa use paid data sources?</summary>
+            <p>No. Lupa builds entirely on public records — county property appraiser portals, state cadastral databases (FDOR and similar), and recorder offices. There is no dependency on Regrid, ATTOM, PropStream, or other paid aggregators.</p>
+        </details>
+        <details>
+            <summary>Which states does Lupa cover for homestead stacking?</summary>
+            <p>Florida is the most mature coverage area, with cross-county and cross-state checks against Indiana, Illinois, Ohio, and New York. New York coverage note: the 2019 STAR program shift to a state credit means county roll data alone misses post-2019 recipients, so NY checks require the NYS state dataset.</p>
+        </details>
+        <details>
+            <summary>What does a Lupa pilot look like?</summary>
+            <p>Lupa runs a no-obligation pilot scan of your jurisdiction and delivers ranked investigative leads with source citations. Your audit team verifies findings against public records before any owner outreach.</p>
+        </details>
+    </div>
+
+    <div class="cta-block">
+        <h2>Run a pilot audit on your jurisdiction</h2>
+        <p>We scan your parcel base, cross-reference against the relevant out-of-jurisdiction datasets, and deliver a ranked lead list with citations. You decide what to act on.</p>
+        <a href="mailto:jeremy@lupaintel.com?subject=Homestead%20Audit%20Pilot%20Inquiry">Request a Demo →</a>
+    </div>
+
+    <p style="margin-top:24px"><a href="/pool-detection/">See also: Pool Detection →</a> &nbsp;·&nbsp; <a href="/methodology/">Read our methodology →</a></p>
+</main>
+
+<footer>
+    <div>© 2026 Lupa Intelligence · jeremy@lupaintel.com · 719-761-4236</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/homestead-exemption-audit/">Homestead Audit</a>
+        <a href="/pool-detection/">Pool Detection</a>
+        <a href="/methodology/">Methodology</a>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unpermitted Pool Detection from Satellite Imagery | Lupa Intelligence</title>
+    <meta name="description" content="Satellite-based detection of unpermitted and unrecorded swimming pools, cross-referenced against permit history and tax roll records. Built for county property appraisers and municipal assessors recovering assessment gaps.">
+    <link rel="canonical" href="https://lupaintel.com/pool-detection/">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta property="og:title" content="Unpermitted Pool Detection from Satellite Imagery | Lupa Intelligence">
+    <meta property="og:description" content="Detect unpermitted swimming pools from public aerial imagery and cross-reference against permits and tax rolls. For county property appraisers and municipal assessors.">
+    <meta property="og:url" content="https://lupaintel.com/pool-detection/">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8890VE29T1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8890VE29T1');
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#edeae5; --ink:#1a1a1a; --dim:#666; --faint:#d4d0ca; --amber:#c47f17; --surface:#fff; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--bg); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.65; }
+        a { color:var(--amber); }
+        nav { display:flex; justify-content:space-between; align-items:center; padding:18px 32px; border-bottom:1px solid var(--faint); position:sticky; top:0; background:rgba(237,234,229,.95); backdrop-filter:blur(10px); z-index:10; }
+        nav a.brand { font-weight:700; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px; }
+        nav .cta { background:var(--ink); color:#fff; padding:8px 16px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:600; }
+        main { max-width:780px; margin:0 auto; padding:48px 24px 80px; }
+        .eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:16px; }
+        h1 { font-size:clamp(32px, 5vw, 48px); font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:20px; }
+        .lede { font-size:19px; color:#333; margin-bottom:36px; }
+        h2 { font-size:24px; font-weight:700; margin:40px 0 14px; letter-spacing:-.01em; }
+        h3 { font-size:17px; font-weight:600; margin:24px 0 8px; }
+        p { margin-bottom:14px; }
+        ul { margin:8px 0 18px 22px; }
+        li { margin-bottom:6px; }
+        .cta-block { margin:48px 0 16px; padding:28px; background:var(--ink); color:#fff; border-radius:12px; }
+        .cta-block h2 { color:#fff; margin-top:0; }
+        .cta-block a { display:inline-block; background:var(--amber); color:#fff; padding:12px 24px; border-radius:999px; font-weight:600; text-decoration:none; margin-top:8px; }
+        .faq details { border-bottom:1px solid var(--faint); padding:14px 0; }
+        .faq summary { cursor:pointer; font-weight:600; font-size:16px; }
+        .faq p { margin-top:10px; color:#333; }
+        footer { border-top:1px solid var(--faint); padding:24px 32px; font-size:13px; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+        footer a { color:var(--dim); text-decoration:none; margin-right:14px; }
+        .breadcrumb { font-size:12px; color:var(--dim); margin-bottom:8px; }
+        .breadcrumb a { color:var(--dim); text-decoration:none; }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Unpermitted Pool Detection",
+      "serviceType": "Property tax compliance and assessment gap recovery",
+      "provider": {"@type": "Organization", "name": "Lupa Intelligence", "url": "https://lupaintel.com/"},
+      "url": "https://lupaintel.com/pool-detection/",
+      "description": "Satellite-based detection of unrecorded swimming pool installations cross-referenced against permit history and tax roll records. Built for county property appraisers and municipal assessors.",
+      "audience": {"@type": "GovernmentOrganization", "name": "County property appraisers and municipal assessors"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does satellite pool detection work?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Public aerial imagery (NAIP and equivalent county-flown sources) is processed parcel-by-parcel to identify swimming pool footprints. Each detection is cross-referenced against the parcel's permit history and tax roll record to flag pools that were never permitted or never added to the assessment."}
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between pool detection and a permit audit?",
+          "acceptedAnswer": {"@type": "Answer", "text": "A permit audit only sees pools that someone applied for. Pool detection sees pools that physically exist on the parcel — including ones built without a permit, built before current records, or completed but never assessed. The combination is what surfaces assessment gaps."}
+        },
+        {
+          "@type": "Question",
+          "name": "Does Lupa charge for imagery?",
+          "acceptedAnswer": {"@type": "Answer", "text": "No. Lupa relies on publicly available aerial imagery (NAIP, county GIS programs, and similar). There is no per-image cost or commercial satellite subscription required."}
+        },
+        {
+          "@type": "Question",
+          "name": "Florida-specific note: doesn't §193.092 cap revenue on permitted pools?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. Florida statute §193.092 limits back-assessment of property where a permit was issued. Lupa's Florida pool workflow is designed to surface unpermitted detections specifically, where the §193.092 cap does not apply, and to flag permitted-but-unassessed cases separately so audit teams can prioritize accordingly."}
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="brand">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Lupa Intelligence
+    </a>
+    <a href="mailto:jeremy@lupaintel.com" class="cta">Request a Demo</a>
+</nav>
+
+<main>
+    <div class="breadcrumb"><a href="/">Home</a> &nbsp;/&nbsp; Pool Detection</div>
+    <div class="eyebrow">Product · Available Now</div>
+    <h1>Unpermitted Pool Detection from Public Aerial Imagery</h1>
+    <p class="lede">Satellite-based detection of swimming pools that were never permitted or never added to the tax roll. Cross-referenced against permit history and assessment records, delivered as a ranked list of assessment-gap leads for your audit team.</p>
+
+    <h2>What Lupa detects</h2>
+    <ul>
+        <li><strong>Unpermitted pools</strong> — physical pool present on the parcel with no matching permit on file.</li>
+        <li><strong>Permitted but unassessed</strong> — permit was issued, but the pool never made it to the tax roll.</li>
+        <li><strong>Pool cages and screen enclosures</strong> — common in Florida, frequently missed in assessment.</li>
+        <li><strong>Above-ground vs. in-ground classification</strong> — important for jurisdictions that assess them differently or exempt above-ground units.</li>
+    </ul>
+
+    <h2>How it works</h2>
+    <h3>1. Aerial scan</h3>
+    <p>Lupa processes publicly available aerial imagery (NAIP and county-flown sources) to identify pool footprints across every parcel in scope. Each detection includes a confidence score, type classification, and parcel ID.</p>
+
+    <h3>2. Cross-reference</h3>
+    <p>Each detection is matched against the parcel's permit history and current tax roll record. The output separates: detected + permitted + assessed (no action), detected + permitted + unassessed (review), and detected + no permit (priority).</p>
+
+    <h3>3. Deliver</h3>
+    <p>Findings arrive as a ranked lead list with parcel ID, owner name, detection confidence, permit status, and assessment status. Direct citation links let your audit team verify against the public source records before any outreach.</p>
+
+    <h2>Florida note: §193.092 and revenue caps</h2>
+    <p>Florida statute §193.092 limits back-assessment recovery on parcels where a permit was issued, which materially affects revenue projections on permitted-but-unassessed cases. Lupa surfaces unpermitted detections separately so your team can prioritize the cases where the §193.092 cap does not apply.</p>
+
+    <h2>Who this is built for</h2>
+    <ul>
+        <li><strong>County property appraisers</strong> running periodic improvement audits across high-pool-density jurisdictions.</li>
+        <li><strong>Municipal assessors</strong> recovering assessment gaps in residential portfolios.</li>
+        <li><strong>State revenue agencies</strong> evaluating cross-county compliance program design.</li>
+    </ul>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+        <details>
+            <summary>How does satellite pool detection work?</summary>
+            <p>Public aerial imagery (NAIP and equivalent county-flown sources) is processed parcel-by-parcel to identify swimming pool footprints. Each detection is cross-referenced against the parcel's permit history and tax roll record.</p>
+        </details>
+        <details>
+            <summary>What's the difference between pool detection and a permit audit?</summary>
+            <p>A permit audit only sees pools that someone applied for. Pool detection sees pools that physically exist on the parcel — including ones built without a permit. The combination is what surfaces assessment gaps.</p>
+        </details>
+        <details>
+            <summary>Does Lupa charge for imagery?</summary>
+            <p>No. Lupa relies on publicly available aerial imagery (NAIP, county GIS programs, and similar). No per-image cost or commercial satellite subscription required.</p>
+        </details>
+        <details>
+            <summary>How does Florida §193.092 affect this?</summary>
+            <p>It caps back-assessment recovery on permitted parcels. Lupa surfaces unpermitted detections separately so your team can focus on cases where the cap does not apply.</p>
+        </details>
+    </div>
+
+    <div class="cta-block">
+        <h2>Run a pilot pool scan on your jurisdiction</h2>
+        <p>We scan a defined slice of your parcel base, cross-reference against your permit and tax roll records, and deliver a ranked list of assessment-gap leads.</p>
+        <a href="mailto:jeremy@lupaintel.com?subject=Pool%20Detection%20Pilot%20Inquiry">Request a Demo →</a>
+    </div>
+
+    <p style="margin-top:24px"><a href="/homestead-exemption-audit/">See also: Homestead Exemption Audit →</a> &nbsp;·&nbsp; <a href="/methodology/">Read our methodology →</a></p>
+</main>
+
+<footer>
+    <div>© 2026 Lupa Intelligence · jeremy@lupaintel.com · 719-761-4236</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/homestead-exemption-audit/">Homestead Audit</a>
+        <a href="/pool-detection/">Pool Detection</a>
+        <a href="/methodology/">Methodology</a>
+    </div>
+</footer>
+
+</body>
+</html>
