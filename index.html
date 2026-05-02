@@ -777,18 +777,28 @@
 
             .section-wrap { padding: 72px 20px; }
 
-            .grad-card { min-height: 320px; padding: 20px 22px; border-radius: 16px; }
-            .card-preview { left: 22px; right: 22px; bottom: 100px; }
+            .grad-card { min-height: auto; flex-direction: column; justify-content: flex-start; padding-top: 28px; padding: 20px 22px; border-radius: 16px; }
+            .card-preview { position: relative; top: auto; left: auto; right: auto; bottom: auto; padding: 20px 0 24px; }
+            .card-label { padding-top: 0; }
             .card-title { font-size: 18px; }
             .card-desc { font-size: 12px; }
 
             .tags-cloud { gap: 6px; }
             .grad-pill { font-size: 11px; padding: 5px 12px; }
 
-            .records-compare { flex-wrap: wrap; justify-content: center; }
-            .record-panel { width: 130px; padding: 12px 14px; font-size: 8px; line-height: 1.6; }
+            .records-compare { flex-direction: column; align-items: center; gap: 8px; }
+            .record-panel { width: 100%; max-width: 260px; padding: 12px 14px; font-size: 8px; line-height: 1.6; }
+            .record-connector { display: none; }
 
-            .leads-list { width: 100%; max-width: 280px; }
+            .leads-list { width: 100%; max-width: 100%; box-sizing: border-box; }
+
+            .anim-panels { flex-direction: column; gap: 8px; }
+            .anim-connector { display: none; }
+            .anim-panel--left { transform: translateY(-12px); }
+            .anim-panel--right { transform: translateY(12px); transition-delay: 300ms; }
+            .anim-play .anim-panel--left { transform: translateY(0); }
+            .anim-play .anim-panel--right { transform: translateY(0); }
+            .anim-status { margin-top: 8px; }
 
             .product-card { flex-direction: column; gap: 24px; padding: 24px 22px; border-radius: 16px; }
 
