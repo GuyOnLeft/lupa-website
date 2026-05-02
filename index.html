@@ -72,6 +72,37 @@
     </script>
     <!-- Umami -->
     <script defer src="https://umami-production-026b.up.railway.app/script.js" data-website-id="7dd8458d-6be9-4c5f-9cad-1c3661edce59"></script>
+    <!-- Engagement events: fires for both GA4 (gtag) and Umami -->
+    <script>
+    (function(){
+      function track(name, data){
+        try { if (window.gtag) gtag('event', name, data || {}); } catch(e){}
+        try { if (window.umami) umami.track(name, data || {}); } catch(e){}
+      }
+      var fired = {};
+      function fireOnce(name, data){ if(!fired[name]){ fired[name]=1; track(name, data); } }
+      // Scroll-depth milestones
+      window.addEventListener('scroll', function(){
+        var h = document.documentElement;
+        var pct = Math.round((h.scrollTop + window.innerHeight) / h.scrollHeight * 100);
+        if (pct >= 25) fireOnce('scroll_25');
+        if (pct >= 50) fireOnce('scroll_50');
+        if (pct >= 75) fireOnce('scroll_75');
+        if (pct >= 90) fireOnce('scroll_90');
+      }, { passive: true });
+      // Time-on-page heartbeats
+      setTimeout(function(){ fireOnce('engaged_30s'); }, 30000);
+      setTimeout(function(){ fireOnce('engaged_60s'); }, 60000);
+      // Click tracking on mailto and external links
+      document.addEventListener('click', function(e){
+        var a = e.target.closest && e.target.closest('a');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('mailto:') === 0) track('mailto_click', { href: href });
+        else if (/^https?:\/\//.test(href) && a.host !== location.host) track('outbound_click', { href: href });
+      });
+    })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
