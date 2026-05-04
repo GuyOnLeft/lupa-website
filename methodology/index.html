@@ -106,7 +106,10 @@
         <svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
         Lupa Intelligence
     </a>
-    <a href="mailto:jeremy@lupaintel.com" class="cta">Request a Demo</a>
+    <div style="display:flex; align-items:center; gap:18px;">
+        <a href="/#products" style="color:var(--ink); text-decoration:none; font-size:14px; font-weight:500;">Products</a>
+        <a href="mailto:jeremy@lupaintel.com" class="cta">Request a Demo</a>
+    </div>
 </nav>
 
 <main>
@@ -119,28 +122,47 @@
     <p>Lupa uses only public records published by government bodies. No paid aggregators (Regrid, ATTOM, PropStream, Melissa Data) are in the pipeline.</p>
     <ul>
         <li><strong>County property appraiser portals</strong> — parcel rolls, exemption flags, ownership records.</li>
-        <li><strong>State cadastral databases</strong> — e.g., Florida Department of Revenue (FDOR) statewide parcel dataset.</li>
+        <li><strong>State cadastral databases</strong> — statewide parcel datasets published by state revenue and property-tax agencies.</li>
         <li><strong>Recorder/clerk offices</strong> — deed transfers and title history.</li>
         <li><strong>Permit systems</strong> — county and municipal permit histories.</li>
         <li><strong>Aerial imagery</strong> — NAIP, county-flown imagery programs, and other openly published sources.</li>
         <li><strong>Business registries</strong> — secretary of state filings for entity-owned parcel cross-checks.</li>
     </ul>
 
-    <h2>Owner-name normalization</h2>
-    <p>Cross-jurisdiction matching fails or over-matches when name formatting differs between sources. Lupa uses a longest-token + suffix-strip keying strategy validated against four naming conventions:</p>
+    <h2>Signals</h2>
+    <p>The kinds of evidence Lupa looks at when generating a lead. No single signal becomes a lead on its own — every delivered case requires corroboration across at least two independent primary sources.</p>
     <ul>
-        <li>Cook County, IL — <code>FIRST LAST</code></li>
-        <li>Florida Department of Revenue — <code>LAST FIRST</code></li>
-        <li>Cuyahoga County, OH — <code>LAST,FIRST</code></li>
-        <li>Franklin County, OH — <code>LAST FIRST</code></li>
+        <li><strong>Simultaneous primary-residence claims</strong> across jurisdictional boundaries (county-to-county within a state, or state-to-state).</li>
+        <li><strong>Mailing-address inconsistencies</strong> between parcel ownership records and active exemption or owner-occupied flags.</li>
+        <li><strong>Tenure gaps</strong> — exemption flags persisting on parcels that have changed hands in ways the receiving record hasn't yet reflected.</li>
+        <li><strong>Entity-ownership structures</strong> incompatible with primary-residence statutes — trust, LLC, or business-entity ownership where residency law requires a natural person.</li>
+        <li><strong>Public-record contradictions</strong> across primary-source databases — assessor data, auditor data, recorder filings, and business registries that name the same subject in mutually exclusive ways.</li>
     </ul>
-    <p>The same approach handles JR/SR/III suffixes, middle initial variants, and married-name carryover without requiring per-source regex. This matters because a naive string match across the FDOR <code>OWN_NAME</code> field misses roughly 90% of legitimate dual-claim cases.</p>
+
+    <h2>Guardrails</h2>
+    <p>False-positive filters Lupa applies before any lead leaves the pipeline.</p>
+    <ul>
+        <li><strong>Recent-sale filter</strong> — flagged cases with ownership transfers in the last 24 months are excluded as a known false-positive class (exemption flags lag deed transfers in most jurisdictions).</li>
+        <li><strong>Common-name disambiguation</strong> — owners whose names appear in many parcel records statewide require additional corroborating signals before inclusion.</li>
+        <li><strong>Active-duty military exclusion</strong> — APO/FPO addresses are excluded under the relevant statutory protections (e.g., FL §196.061).</li>
+        <li><strong>Federal-entity exclusion</strong> — parcels held by federal agencies, mortgage servicers (Fannie Mae, Freddie Mac), or other sovereign-immunity entities are excluded as uncollectable.</li>
+        <li><strong>Confidential-address exclusion</strong> — protected-class records (judicial, law enforcement, victim-advocate) under public-records-redaction statutes are excluded.</li>
+        <li><strong>Side-by-side review</strong> — likely or ambiguous cases require manual side-by-side comparison of source documents before delivery.</li>
+    </ul>
+
+    <h2>Scope discipline</h2>
+    <p>How Lupa interacts with the public data sources it uses.</p>
+    <ul>
+        <li><strong>Identifiable user agents</strong> on every public-API access — server logs attribute scans to Lupa, not to anonymous traffic.</li>
+        <li><strong>Conservative request rates</strong> with explicit sleep cadence between calls — public APIs are not stress-tested.</li>
+        <li><strong>No silent re-scraping</strong> after first contact with a target jurisdiction. If Lupa has reached out to a county, that county's data sources are not re-pulled until the conversation has been resolved or 30 days have passed, whichever comes first.</li>
+    </ul>
 
     <h2>Citation-backed leads</h2>
     <p>Every lead delivered by Lupa includes:</p>
     <ul>
         <li>Parcel IDs in every relevant jurisdiction.</li>
-        <li>Direct URL citations to the source public record (county portal, FDOR record, permit system).</li>
+        <li>Direct URL citations to the source public record (county portal, state cadastral record, permit system).</li>
         <li>The specific data point that triggered the flag (exemption status, sale date, permit gap).</li>
         <li>Confidence tier so audit teams can prioritize.</li>
     </ul>
