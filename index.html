@@ -98,6 +98,12 @@
         var a = e.target.closest && e.target.closest('a');
         if (!a) return;
         var href = a.getAttribute('href') || '';
+        // Bot trap: invisible link humans cannot reach. A click here is almost certainly a scraper that follows every href.
+        if (a.classList && a.classList.contains('bot-trap')) {
+          e.preventDefault();
+          track('bot_trap_click', { href: href, ua: navigator.userAgent });
+          return;
+        }
         if (href.indexOf('mailto:') === 0) track('mailto_click', { href: href });
         else if (/^https?:\/\//.test(href) && a.host !== location.host) track('outbound_click', { href: href });
       });
@@ -849,11 +855,21 @@
 
         .fade-up.visible { opacity: 1; transform: none; }
 
+        /* ── Bot trap (hidden link bots follow, humans cannot see/focus) ── */
+        .bot-trap {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
         /* ── Responsive ── */
         @media (max-width: 900px) {
-            nav { padding: 0 20px; }
+            nav { padding: 0 16px; }
             .nav-loc { display: none; }
-            .nav-products { display: none; }
+            .nav-products { font-size: 11px; }
             .nav-right { gap: 12px; }
 
             #hero { padding: 56px 16px 0; }
@@ -899,6 +915,13 @@
 
             footer { padding: 20px; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
             .footer-r { text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .nav-right { gap: 10px; }
+            /* Hide only the second .nav-products link (Methodology) on the narrowest phones so the header doesn't wrap */
+            .nav-right .nav-products + .nav-products { display: none; }
+            .nav-cta { padding: 7px 12px; font-size: 11px; }
         }
     </style>
 </head>
@@ -1172,6 +1195,7 @@
         jeremy@lupaintel.com · 719-761-4236<br>
         © 2026 Lupa Intelligence
     </div>
+    <a href="/internal-archive/" class="bot-trap" rel="nofollow noindex" aria-hidden="true" tabindex="-1">Site Index</a>
 </footer>
 
 <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
