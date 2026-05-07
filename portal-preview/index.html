@@ -856,10 +856,10 @@ a:hover { text-decoration: underline; }
     </div>
     <div class="nav-org">
       <div class="nav-org-name">
-        <div class="name">Franklin County Auditor's Office</div>
-        <div class="role">Michael Stinziano · Auditor</div>
+        <div class="name">Sample County Auditor's Office</div>
+        <div class="role">Jane Smith · Auditor</div>
       </div>
-      <div class="nav-avatar">MS</div>
+      <div class="nav-avatar">JS</div>
     </div>
   </div>
 
@@ -1135,7 +1135,7 @@ a:hover { text-decoration: underline; }
           <div class="label">Organization
             <span class="desc">Verified entity on Lupa Intelligence</span>
           </div>
-          <div class="value">Franklin County Auditor's Office<br><span class="mono">FEIN ending 4471 · OH</span></div>
+          <div class="value">Sample County Auditor's Office<br><span class="mono">FEIN ending 0000 · State</span></div>
         </div>
         <div class="setting-row">
           <div class="label">Subscription
@@ -1164,34 +1164,34 @@ a:hover { text-decoration: underline; }
         </div>
         <div class="team">
           <div class="team-row">
-            <div class="team-avatar">MS</div>
+            <div class="team-avatar">JS</div>
             <div class="team-info">
-              <div class="nm">Michael Stinziano</div>
-              <div class="em">mstinziano@franklincountyohio.gov</div>
+              <div class="nm">Jane Smith</div>
+              <div class="em">jsmith@samplecounty.gov</div>
             </div>
             <div class="team-role">Owner</div>
           </div>
           <div class="team-row">
-            <div class="team-avatar alt">JR</div>
+            <div class="team-avatar alt">AB</div>
             <div class="team-info">
-              <div class="nm">Janelle Reeves</div>
-              <div class="em">jreeves@franklincountyohio.gov</div>
+              <div class="nm">Alex Brown</div>
+              <div class="em">abrown@samplecounty.gov</div>
             </div>
             <div class="team-role">Investigator</div>
           </div>
           <div class="team-row">
-            <div class="team-avatar alt">DK</div>
+            <div class="team-avatar alt">CD</div>
             <div class="team-info">
-              <div class="nm">Daniel Kowalski</div>
-              <div class="em">dkowalski@franklincountyohio.gov</div>
+              <div class="nm">Casey Davis</div>
+              <div class="em">cdavis@samplecounty.gov</div>
             </div>
             <div class="team-role">Investigator</div>
           </div>
           <div class="team-row">
-            <div class="team-avatar alt2">PT</div>
+            <div class="team-avatar alt2">JM</div>
             <div class="team-info">
-              <div class="nm">Patricia Tremaine</div>
-              <div class="em">ptremaine@franklincountyohio.gov</div>
+              <div class="nm">Jordan Miller</div>
+              <div class="em">jmiller@samplecounty.gov</div>
             </div>
             <div class="team-role">Reviewer</div>
           </div>
@@ -1257,7 +1257,7 @@ a:hover { text-decoration: underline; }
 <div class="drawer" id="drawer">
   <div class="drawer-head">
     <div>
-      <div class="case-id" id="d-case-id">FRA-2026-0001</div>
+      <div class="case-id" id="d-case-id">CASE-2026-0001</div>
       <div class="case-owner" id="d-owner">—</div>
       <div style="margin-top:8px;" id="d-status-tag"></div>
     </div>
@@ -1268,7 +1268,7 @@ a:hover { text-decoration: underline; }
       <div class="drawer-section-title">Properties</div>
       <div class="props">
         <div class="prop-card local">
-          <div class="label">Owner-occupancy claim · Franklin OH</div>
+          <div class="label">Owner-occupancy claim · Local</div>
           <div class="addr" id="d-local-addr">—</div>
           <div class="meta" id="d-local-meta">—</div>
         </div>
@@ -1284,8 +1284,8 @@ a:hover { text-decoration: underline; }
       <div class="drawer-section-title">Recovery</div>
       <div class="kv">
         <div class="k">Estimated recovery</div><div class="v mono" id="d-recovery">—</div>
-        <div class="k">Lookback period</div><div class="v">3 years (ORC §323.152(B))</div>
-        <div class="k">Penalty</div><div class="v">10% per ORC §323.121</div>
+        <div class="k">Lookback period</div><div class="v">3 years (per local statute)</div>
+        <div class="k">Penalty</div><div class="v">10% per local code</div>
         <div class="k">Confidence</div><div class="v" id="d-confidence">—</div>
       </div>
     </div>
@@ -1293,7 +1293,7 @@ a:hover { text-decoration: underline; }
     <div class="drawer-section">
       <div class="drawer-section-title">Statutory Basis</div>
       <div class="statute">
-        <strong>Ohio Revised Code §323.152(B)</strong> — owner-occupancy credit limited to <em>principal place of residence</em>. Florida homestead under <code>FL §196.031</code> requires permanent FL residency, creating mutually exclusive claims. Lupa cross-references both states' rolls for the same tax year(s), surfacing simultaneous claims for recovery under <code>ORC §323.121</code>.
+        <strong>Local owner-occupancy statute</strong> — credit limited to <em>principal place of residence</em>. Cross-state homestead/exemption laws require permanent residency in their respective states, creating mutually exclusive claims. Lupa cross-references both jurisdictions' rolls for the same tax year(s), surfacing simultaneous claims for recovery under local clawback authority.
       </div>
     </div>
 
@@ -1344,41 +1344,41 @@ const STATUS_LABELS = {
   disputed: 'Disputed',
 };
 
-// 33 dummy cases — mix of FL counties + statuses
+// 33 dummy cases — generic placeholder data
 const SEED_CASES = [
-  ['FRA-2026-0001','NOICE R. DENNIS','Estero','Lee FL','invest',1830,'2026-04-12','22-46-25-E2-01100.0050','610-189482','high'],
-  ['FRA-2026-0002','DARGUSCH C. III','Bonita Springs','Lee FL','flagged',1810,'2026-04-22','03-48-25-B2-00211.0010','610-201733','high'],
-  ['FRA-2026-0003','TRIPLETT R. WAYNE','Fort Myers','Lee FL','flagged',1790,'2026-04-22','24-44-25-P3-04500.0080','610-188110','medium'],
-  ['FRA-2026-0004','SMITH SHERMAN L.','Fort Myers','Lee FL','invest',1820,'2026-04-15','19-44-25-P1-02100.0030','610-204411','high'],
-  ['FRA-2026-0005','BENDER GLENNA','Fort Myers','Lee FL','billed',1780,'2026-03-28','35-44-24-P3-03100.0070','610-211980','high'],
-  ['FRA-2026-0006','OHLINGER B. RUTH','Fort Myers','Lee FL','collected',1830,'2026-03-01','12-44-24-P3-04400.0010','610-209119','high'],
-  ['FRA-2026-0007','HAMPTON D. MARIE','Cape Coral','Lee FL','collected',2150,'2026-02-22','30-44-23-C1-04100.0020','610-187600','high'],
-  ['FRA-2026-0008','GENTRY P. ANTHONY','Naples','Collier FL','flagged',1920,'2026-04-25','12-49-26-006-0034','610-219112','medium'],
-  ['FRA-2026-0009','PEARCE H. CAROL','Sarasota','Sarasota FL','flagged',1740,'2026-04-25','0036-09-0021','610-194422','high'],
-  ['FRA-2026-0010','RAEDEKE WILLIAM','Punta Gorda','Charlotte FL','invest',1980,'2026-04-08','402317201001','610-188291','high'],
-  ['FRA-2026-0011','BLAIR MICHAEL T.','Port Charlotte','Charlotte FL','invest',1860,'2026-04-08','402208407008','610-203388','high'],
-  ['FRA-2026-0012','LUNDQUIST G.','Bradenton','Manatee FL','flagged',1670,'2026-04-29','7651100150','610-217701','medium'],
-  ['FRA-2026-0013','SCHURMAN E. PAUL','Venice','Sarasota FL','flagged',1830,'2026-04-29','0411150009','610-220009','medium'],
-  ['FRA-2026-0014','VAN DEUSEN H.','Marco Island','Collier FL','billed',1870,'2026-03-19','58000040001','610-198822','high'],
-  ['FRA-2026-0015','WALDRON J. ROBERT','Ocala','Marion FL','collected',1760,'2026-02-08','3034-001-022','610-176540','high'],
-  ['FRA-2026-0016','REINHARDT TIMOTHY','Largo','Pinellas FL','flagged',1810,'2026-05-01','24-30-15-71820-002-0010','610-218119','high'],
-  ['FRA-2026-0017','POMEROY DENNIS','Clearwater','Pinellas FL','flagged',1830,'2026-05-01','12-29-15-46011-101-0030','610-218271','medium'],
-  ['FRA-2026-0018','EICHHORN B.','St. Petersburg','Pinellas FL','invest',1880,'2026-04-18','23-31-16-19920-003-0040','610-205991','high'],
-  ['FRA-2026-0019','TRAPP R. WILLIAM','Lehigh Acres','Lee FL','disputed',1840,'2026-03-12','22-45-26-04-00088.0070','610-189471','medium'],
-  ['FRA-2026-0020','HENNESSY M. JOHN','Cape Coral','Lee FL','flagged',1790,'2026-04-22','06-44-23-C4-02500.0030','610-209887','medium'],
-  ['FRA-2026-0021','VANDERWEELE A.','Fort Myers Beach','Lee FL','flagged',1850,'2026-04-22','24-46-24-W2-04400.0080','610-211204','high'],
-  ['FRA-2026-0022','PRIDDY C. EDWARD','Sarasota','Sarasota FL','collected',1750,'2026-02-15','0050-12-0014','610-178802','high'],
-  ['FRA-2026-0023','TOLLIVER S.','Bonita Springs','Lee FL','billed',1820,'2026-03-21','29-47-25-B3-00100.0090','610-208840','high'],
-  ['FRA-2026-0024','CARSWELL J. PAUL','Port Charlotte','Charlotte FL','flagged',1770,'2026-04-30','402112180003','610-220588','medium'],
-  ['FRA-2026-0025','WIDMER GREGORY','Englewood','Charlotte FL','flagged',1830,'2026-04-30','412006381005','610-220611','high'],
-  ['FRA-2026-0026','BIRKHIMER A.','Fort Myers','Lee FL','invest',1860,'2026-04-15','01-45-24-P2-04100.0020','610-189920','high'],
-  ['FRA-2026-0027','KEMP J. ROBERT','Cape Coral','Lee FL','collected',1880,'2026-01-30','22-44-23-C2-01900.0080','610-187212','high'],
-  ['FRA-2026-0028','SOWERS ELENORE','Naples','Collier FL','flagged',1900,'2026-04-25','22-49-26-008-0011','610-219277','medium'],
-  ['FRA-2026-0029','THACKER J. WAYNE','Bradenton','Manatee FL','flagged',1810,'2026-04-29','7401900100','610-220019','medium'],
-  ['FRA-2026-0030','OBRIEN P. JAMES','Lehigh Acres','Lee FL','collected',1670,'2026-01-12','12-45-26-04-00091.0030','610-176920','high'],
-  ['FRA-2026-0031','VOSE H. MICHAEL','Fort Myers','Lee FL','flagged',1820,'2026-04-22','35-44-25-P3-04200.0050','610-211177','high'],
-  ['FRA-2026-0032','GULLEY R. ARTHUR','Cape Coral','Lee FL','disputed',1750,'2026-03-04','08-44-23-C5-03400.0060','610-189011','medium'],
-  ['FRA-2026-0033','ADKISSON DAVID','Marco Island','Collier FL','flagged',1880,'2026-04-25','58110820009','610-219410','high'],
+  ['CASE-2026-0001','SMITH JOHN A.','Bayview','Coastal FL','invest',1830,'2026-04-12','SAMPLE-0001-A','LOCAL-100001','high'],
+  ['CASE-2026-0002','JOHNSON MARY R.','Sandpoint','Coastal FL','flagged',1810,'2026-04-22','SAMPLE-0002-A','LOCAL-100002','high'],
+  ['CASE-2026-0003','WILLIAMS ROBERT','Lakeshore','Coastal FL','flagged',1790,'2026-04-22','SAMPLE-0003-A','LOCAL-100003','medium'],
+  ['CASE-2026-0004','BROWN PATRICIA','Lakeshore','Coastal FL','invest',1820,'2026-04-15','SAMPLE-0004-A','LOCAL-100004','high'],
+  ['CASE-2026-0005','JONES MICHAEL','Lakeshore','Coastal FL','billed',1780,'2026-03-28','SAMPLE-0005-A','LOCAL-100005','high'],
+  ['CASE-2026-0006','GARCIA LINDA','Lakeshore','Coastal FL','collected',1830,'2026-03-01','SAMPLE-0006-A','LOCAL-100006','high'],
+  ['CASE-2026-0007','MILLER JAMES','Riverbend','Coastal FL','collected',2150,'2026-02-22','SAMPLE-0007-A','LOCAL-100007','high'],
+  ['CASE-2026-0008','DAVIS BARBARA','Pine Grove','Inland FL','flagged',1920,'2026-04-25','SAMPLE-0008-B','LOCAL-100008','medium'],
+  ['CASE-2026-0009','WILSON RICHARD','Cedar Springs','Bayside FL','flagged',1740,'2026-04-25','SAMPLE-0009-C','LOCAL-100009','high'],
+  ['CASE-2026-0010','MOORE SUSAN','Oak Harbor','Central FL','invest',1980,'2026-04-08','SAMPLE-0010-D','LOCAL-100010','high'],
+  ['CASE-2026-0011','TAYLOR JOSEPH','Oak Harbor','Central FL','invest',1860,'2026-04-08','SAMPLE-0011-D','LOCAL-100011','high'],
+  ['CASE-2026-0012','ANDERSON JESSICA','Maple Cove','Northern FL','flagged',1670,'2026-04-29','SAMPLE-0012-E','LOCAL-100012','medium'],
+  ['CASE-2026-0013','THOMAS DAVID','Cedar Springs','Bayside FL','flagged',1830,'2026-04-29','SAMPLE-0013-C','LOCAL-100013','medium'],
+  ['CASE-2026-0014','JACKSON LISA','Pine Grove','Inland FL','billed',1870,'2026-03-19','SAMPLE-0014-B','LOCAL-100014','high'],
+  ['CASE-2026-0015','WHITE PAUL','Brookhaven','Western FL','collected',1760,'2026-02-08','SAMPLE-0015-F','LOCAL-100015','high'],
+  ['CASE-2026-0016','HARRIS NANCY','Coastal Heights','Southern FL','flagged',1810,'2026-05-01','SAMPLE-0016-G','LOCAL-100016','high'],
+  ['CASE-2026-0017','MARTIN GEORGE','Coastal Heights','Southern FL','flagged',1830,'2026-05-01','SAMPLE-0017-G','LOCAL-100017','medium'],
+  ['CASE-2026-0018','THOMPSON KAREN','Coastal Heights','Southern FL','invest',1880,'2026-04-18','SAMPLE-0018-G','LOCAL-100018','high'],
+  ['CASE-2026-0019','CLARK STEVEN','Lakeshore','Coastal FL','disputed',1840,'2026-03-12','SAMPLE-0019-A','LOCAL-100019','medium'],
+  ['CASE-2026-0020','LEWIS BETTY','Riverbend','Coastal FL','flagged',1790,'2026-04-22','SAMPLE-0020-A','LOCAL-100020','medium'],
+  ['CASE-2026-0021','ROBINSON KENNETH','Bayview','Coastal FL','flagged',1850,'2026-04-22','SAMPLE-0021-A','LOCAL-100021','high'],
+  ['CASE-2026-0022','WALKER HELEN','Cedar Springs','Bayside FL','collected',1750,'2026-02-15','SAMPLE-0022-C','LOCAL-100022','high'],
+  ['CASE-2026-0023','YOUNG DONALD','Sandpoint','Coastal FL','billed',1820,'2026-03-21','SAMPLE-0023-A','LOCAL-100023','high'],
+  ['CASE-2026-0024','ALLEN SANDRA','Oak Harbor','Central FL','flagged',1770,'2026-04-30','SAMPLE-0024-D','LOCAL-100024','medium'],
+  ['CASE-2026-0025','KING DONNA','Oak Harbor','Central FL','flagged',1830,'2026-04-30','SAMPLE-0025-D','LOCAL-100025','high'],
+  ['CASE-2026-0026','WRIGHT MARK','Lakeshore','Coastal FL','invest',1860,'2026-04-15','SAMPLE-0026-A','LOCAL-100026','high'],
+  ['CASE-2026-0027','SCOTT DOROTHY','Riverbend','Coastal FL','collected',1880,'2026-01-30','SAMPLE-0027-A','LOCAL-100027','high'],
+  ['CASE-2026-0028','GREEN PAUL','Pine Grove','Inland FL','flagged',1900,'2026-04-25','SAMPLE-0028-B','LOCAL-100028','medium'],
+  ['CASE-2026-0029','BAKER RUTH','Maple Cove','Northern FL','flagged',1810,'2026-04-29','SAMPLE-0029-E','LOCAL-100029','medium'],
+  ['CASE-2026-0030','ADAMS ANTHONY','Lakeshore','Coastal FL','collected',1670,'2026-01-12','SAMPLE-0030-A','LOCAL-100030','high'],
+  ['CASE-2026-0031','NELSON SHARON','Lakeshore','Coastal FL','flagged',1820,'2026-04-22','SAMPLE-0031-A','LOCAL-100031','high'],
+  ['CASE-2026-0032','HILL DANIEL','Riverbend','Coastal FL','disputed',1750,'2026-03-04','SAMPLE-0032-A','LOCAL-100032','medium'],
+  ['CASE-2026-0033','CARTER MICHELLE','Pine Grove','Inland FL','flagged',1880,'2026-04-25','SAMPLE-0033-B','LOCAL-100033','high'],
 ];
 
 STATE.cases = SEED_CASES.map(([id, owner, city, county, status, recovery, opened, folio, ohParcel, confidence]) => ({
@@ -1398,8 +1398,8 @@ STATE.cases = SEED_CASES.map(([id, owner, city, county, status, recovery, opened
 }));
 
 function ohAddrFor(owner) {
-  const streets = ['Riverside Dr','Olentangy Blvd','Hamilton Rd','High St','Broad St','Sunbury Rd','Worthington Galena Rd','Cleveland Ave','Livingston Ave','Polaris Pkwy'];
-  const cities = ['Columbus','Worthington','Westerville','Dublin','Upper Arlington','Grandview Heights','Bexley','Gahanna'];
+  const streets = ['Main St','Oak Ave','Maple Dr','Elm St','1st Ave','2nd St','Cedar Ln','Pine Rd','Walnut Way','Birch Blvd'];
+  const cities = ['Springfield','Lakewood','Hillside','Centerville','Riverdale','Brookfield','Greenwood','Fairview'];
   let h = 0;
   for (const c of owner) h = (h * 31 + c.charCodeAt(0)) % 9999;
   const num = (h % 8000) + 1200;
@@ -1418,7 +1418,7 @@ function seedHistory(status, opened) {
     return dt.toISOString().slice(0, 10);
   };
   if (['invest','billed','collected','disputed'].includes(status)) {
-    events.push({ when: addDays(opened, 6), what: 'Moved to In Investigation by Erroneous Exemptions team.', tag: 'invest' });
+    events.push({ when: addDays(opened, 6), what: 'Moved to In Investigation by review team.', tag: 'invest' });
   }
   if (['billed','collected'].includes(status)) {
     events.push({ when: addDays(opened, 21), what: 'Owner served notice — billed for 3-yr lookback + 10% penalty.', tag: 'billed' });
@@ -1427,7 +1427,7 @@ function seedHistory(status, opened) {
     events.push({ when: addDays(opened, 45), what: 'Payment received — case closed, full balance remitted.', tag: 'collected' });
   }
   if (status === 'disputed') {
-    events.push({ when: addDays(opened, 18), what: 'Owner submitted documentation contesting FL homestead claim — under review.', tag: 'disputed' });
+    events.push({ when: addDays(opened, 18), what: 'Owner submitted documentation contesting cross-state claim — under review.', tag: 'disputed' });
   }
   return events;
 }
@@ -1516,12 +1516,12 @@ function shortenOwner(name) {
 
 function buildActivityFeed() {
   return [
-    { color:'#2e7d4f', when:'Today', what:`Case <code>FRA-2026-0006</code> marked <strong class="collected">Collected</strong> — $1,830 recovered, owner remitted full balance.` },
-    { color:'#c47f17', when:'2 days ago', what:`3 new <strong class="flag">Tier 1 flags</strong> added — Florida cross-reference, Lee + Sarasota counties.` },
-    { color:'#1f6fb8', when:'3 days ago', what:`Case <code>FRA-2026-0001</code> moved to <strong class="invest">In Investigation</strong> by Erroneous Exemptions team.` },
+    { color:'#2e7d4f', when:'Today', what:`Case <code>CASE-2026-0006</code> marked <strong class="collected">Collected</strong> — $1,830 recovered, owner remitted full balance.` },
+    { color:'#c47f17', when:'2 days ago', what:`3 new <strong class="flag">Tier 1 flags</strong> added — cross-state match, multiple counties.` },
+    { color:'#1f6fb8', when:'3 days ago', what:`Case <code>CASE-2026-0001</code> moved to <strong class="invest">In Investigation</strong> by review team.` },
     { color:'#888',    when:'5 days ago', what:`Monthly delta report available — May 2026 (<code>5 new flags · 2 resolved · $14,300 recovered</code>).` },
-    { color:'#9c8038', when:'1 week ago', what:`Case <code>FRA-2026-0004</code> — owner responded with documentation; pending team review.` },
-    { color:'#c47f17', when:'2 weeks ago', what:`Quarterly state expansion: <strong>Indiana coverage now active</strong> (Lake + Porter counties).` },
+    { color:'#9c8038', when:'1 week ago', what:`Case <code>CASE-2026-0004</code> — owner responded with documentation; pending team review.` },
+    { color:'#c47f17', when:'2 weeks ago', what:`Quarterly state expansion: <strong>new state coverage now active</strong>.` },
   ];
 }
 
@@ -1666,14 +1666,14 @@ function openCase(id) {
   document.getElementById('d-local-meta').innerHTML = `
     Parcel · ${c.ohParcel}<br>
     Owner-occ credit claimed: 2023, 2024, 2025<br>
-    <a href="#" onclick="toast('Opening Franklin GIS'); return false;">View on Franklin GIS →</a>
+    <a href="#" onclick="toast('Opening county GIS'); return false;">View on county GIS →</a>
   `;
   document.getElementById('d-remote-addr').textContent = `${c.city}, ${c.county}`;
   document.getElementById('d-remote-meta').innerHTML = `
     Folio · ${c.folio}<br>
-    FL homestead active: 2023, 2024, 2025<br>
-    <a href="#" onclick="toast('Opening FL county property appraiser'); return false;">View on county PA →</a> ·
-    <a href="#" onclick="toast('Opening FDOR'); return false;">FDOR record →</a>
+    Cross-state exemption active: 2023, 2024, 2025<br>
+    <a href="#" onclick="toast('Opening county property appraiser'); return false;">View on county PA →</a> ·
+    <a href="#" onclick="toast('Opening state record'); return false;">State record →</a>
   `;
 
   document.getElementById('d-recovery').textContent = `$${c.recovery.toLocaleString()} (3-yr est.)`;
@@ -1716,7 +1716,7 @@ function setStatus(newStatus) {
   const today = new Date().toISOString().slice(0,10);
   c.history.push({
     when: today,
-    what: `Status changed to <strong class="${newStatus}">${STATUS_LABELS[newStatus]}</strong> by Michael Stinziano.`,
+    what: `Status changed to <strong class="${newStatus}">${STATUS_LABELS[newStatus]}</strong> by Jane Smith.`,
     tag: newStatus,
   });
   toast(`Case marked ${STATUS_LABELS[newStatus]}`, statusColor(newStatus));
@@ -1735,7 +1735,7 @@ function addNote() {
   const text = input.value.trim();
   if (!text) return;
   const c = STATE.cases.find(x => x.id === STATE.selectedCase);
-  c.notes.push({ when: new Date().toISOString().slice(0,10), author: 'M. Stinziano', text });
+  c.notes.push({ when: new Date().toISOString().slice(0,10), author: 'J. Smith', text });
   input.value = '';
   openCase(c.id);
   toast('Note saved');
