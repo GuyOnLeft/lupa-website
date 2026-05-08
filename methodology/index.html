@@ -27,9 +27,7 @@
       gtag('js', new Date());
       gtag('config', 'G-8890VE29T1');
     </script>
-    <!-- Umami -->
     <script defer src="https://umami-production-026b.up.railway.app/script.js" data-website-id="7dd8458d-6be9-4c5f-9cad-1c3661edce59"></script>
-    <!-- Engagement events: fires for both GA4 (gtag) and Umami -->
     <script>
     (function(){
       function track(name, data){
@@ -68,6 +66,8 @@
         nav { display:flex; justify-content:space-between; align-items:center; padding:18px 32px; border-bottom:1px solid var(--faint); position:sticky; top:0; background:rgba(237,234,229,.95); backdrop-filter:blur(10px); z-index:10; }
         nav a.brand { font-weight:700; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px; }
         nav .cta { background:var(--ink); color:#fff; padding:8px 16px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:600; }
+        .lang-toggle { background:none; border:1px solid var(--faint); color:var(--dim); padding:6px 10px; border-radius:999px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; cursor:pointer; transition: all .15s; }
+        .lang-toggle:hover { color:var(--ink); border-color:var(--ink); }
         main { max-width:780px; margin:0 auto; padding:48px 24px 80px; }
         .eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:16px; }
         h1 { font-size:clamp(32px, 5vw, 44px); font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:20px; }
@@ -106,111 +106,282 @@
         <svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
         Lupa Intelligence
     </a>
-    <div style="display:flex; align-items:center; gap:18px;">
-        <a href="/#products" style="color:var(--ink); text-decoration:none; font-size:14px; font-weight:500;">Products</a>
-        <a href="mailto:jeremy@lupaintel.com" class="cta">Request a Demo</a>
+    <div style="display:flex; align-items:center; gap:14px;">
+        <a href="/#products" data-i18n="nav-products" style="color:var(--ink); text-decoration:none; font-size:14px; font-weight:500;">Products</a>
+        <button class="lang-toggle" id="lang-btn">ES</button>
+        <a href="mailto:jeremy@lupaintel.com" class="cta" data-i18n="nav-cta">Request a Demo</a>
     </div>
 </nav>
 
 <main>
-    <div class="breadcrumb"><a href="/">Home</a> &nbsp;/&nbsp; Methodology</div>
-    <div class="eyebrow">Reference</div>
-    <h1>How Lupa Builds Parcel Audits on Public Records</h1>
-    <p class="lede">Every Lupa finding is independently verifiable against a government source — that's the design constraint. This page documents how data is sourced, how owners are matched across jurisdictions, and how leads are delivered so your audit team can verify before acting.</p>
+    <div class="breadcrumb"><a href="/" data-i18n="bc-home">Home</a> &nbsp;/&nbsp; <span data-i18n="bc-methodology">Methodology</span></div>
+    <div class="eyebrow" data-i18n="eyebrow">Reference</div>
+    <h1 data-i18n="h1">How Lupa Builds Parcel Audits on Public Records</h1>
+    <p class="lede" data-i18n="lede">Every Lupa finding is independently verifiable against a government source — that's the design constraint. This page documents how data is sourced, how owners are matched across jurisdictions, and how leads are delivered so your audit team can verify before acting.</p>
 
-    <h2>Data sources</h2>
-    <p>Lupa uses only public records published by government bodies. No paid aggregators (Regrid, ATTOM, PropStream, Melissa Data) are in the pipeline.</p>
+    <h2 data-i18n="h2-sources">Data sources</h2>
+    <p data-i18n="sources-p">Lupa uses only public records published by government bodies. No paid aggregators (Regrid, ATTOM, PropStream, Melissa Data) are in the pipeline.</p>
     <ul>
-        <li><strong>County property appraiser portals</strong> — parcel rolls, exemption flags, ownership records.</li>
-        <li><strong>State cadastral databases</strong> — statewide parcel datasets published by state revenue and property-tax agencies.</li>
-        <li><strong>Recorder/clerk offices</strong> — deed transfers and title history.</li>
-        <li><strong>Permit systems</strong> — county and municipal permit histories.</li>
-        <li><strong>Aerial imagery</strong> — NAIP, county-flown imagery programs, and other openly published sources.</li>
-        <li><strong>Business registries</strong> — secretary of state filings for entity-owned parcel cross-checks.</li>
+        <li data-i18n="src-1"><strong>County property appraiser portals</strong> — parcel rolls, exemption flags, ownership records.</li>
+        <li data-i18n="src-2"><strong>State cadastral databases</strong> — statewide parcel datasets published by state revenue and property-tax agencies.</li>
+        <li data-i18n="src-3"><strong>Recorder/clerk offices</strong> — deed transfers and title history.</li>
+        <li data-i18n="src-4"><strong>Permit systems</strong> — county and municipal permit histories.</li>
+        <li data-i18n="src-5"><strong>Aerial imagery</strong> — NAIP, county-flown imagery programs, and other openly published sources.</li>
+        <li data-i18n="src-6"><strong>Business registries</strong> — secretary of state filings for entity-owned parcel cross-checks.</li>
     </ul>
 
-    <h2>Signals</h2>
-    <p>The kinds of evidence Lupa looks at when generating a lead. No single signal becomes a lead on its own — every delivered case requires corroboration across at least two independent primary sources.</p>
+    <h2 data-i18n="h2-signals">Signals</h2>
+    <p data-i18n="signals-p">The kinds of evidence Lupa looks at when generating a lead. No single signal becomes a lead on its own — every delivered case requires corroboration across at least two independent primary sources.</p>
     <ul>
-        <li><strong>Simultaneous primary-residence claims</strong> across jurisdictional boundaries (county-to-county within a state, or state-to-state).</li>
-        <li><strong>Mailing-address inconsistencies</strong> between parcel ownership records and active exemption or owner-occupied flags.</li>
-        <li><strong>Tenure gaps</strong> — exemption flags persisting on parcels that have changed hands in ways the receiving record hasn't yet reflected.</li>
-        <li><strong>Entity-ownership structures</strong> incompatible with primary-residence statutes — trust, LLC, or business-entity ownership where residency law requires a natural person.</li>
-        <li><strong>Public-record contradictions</strong> across primary-source databases — assessor data, auditor data, recorder filings, and business registries that name the same subject in mutually exclusive ways.</li>
+        <li data-i18n="sig-1"><strong>Simultaneous primary-residence claims</strong> across jurisdictional boundaries (county-to-county within a state, or state-to-state).</li>
+        <li data-i18n="sig-2"><strong>Mailing-address inconsistencies</strong> between parcel ownership records and active exemption or owner-occupied flags.</li>
+        <li data-i18n="sig-3"><strong>Tenure gaps</strong> — exemption flags persisting on parcels that have changed hands in ways the receiving record hasn't yet reflected.</li>
+        <li data-i18n="sig-4"><strong>Entity-ownership structures</strong> incompatible with primary-residence statutes — trust, LLC, or business-entity ownership where residency law requires a natural person.</li>
+        <li data-i18n="sig-5"><strong>Public-record contradictions</strong> across primary-source databases — assessor data, auditor data, recorder filings, and business registries that name the same subject in mutually exclusive ways.</li>
     </ul>
 
-    <h2>Guardrails</h2>
-    <p>False-positive filters Lupa applies before any lead leaves the pipeline.</p>
+    <h2 data-i18n="h2-guardrails">Guardrails</h2>
+    <p data-i18n="guardrails-p">False-positive filters Lupa applies before any lead leaves the pipeline.</p>
     <ul>
-        <li><strong>Recent-sale filter</strong> — flagged cases with ownership transfers in the last 24 months are excluded as a known false-positive class (exemption flags lag deed transfers in most jurisdictions).</li>
-        <li><strong>Common-name disambiguation</strong> — owners whose names appear in many parcel records statewide require additional corroborating signals before inclusion.</li>
-        <li><strong>Active-duty military exclusion</strong> — APO/FPO addresses are excluded under the relevant statutory protections (e.g., FL §196.061).</li>
-        <li><strong>Federal-entity exclusion</strong> — parcels held by federal agencies, mortgage servicers (Fannie Mae, Freddie Mac), or other sovereign-immunity entities are excluded as uncollectable.</li>
-        <li><strong>Confidential-address exclusion</strong> — protected-class records (judicial, law enforcement, victim-advocate) under public-records-redaction statutes are excluded.</li>
-        <li><strong>Side-by-side review</strong> — likely or ambiguous cases require manual side-by-side comparison of source documents before delivery.</li>
+        <li data-i18n="gr-1"><strong>Recent-sale filter</strong> — flagged cases with ownership transfers in the last 24 months are excluded as a known false-positive class (exemption flags lag deed transfers in most jurisdictions).</li>
+        <li data-i18n="gr-2"><strong>Common-name disambiguation</strong> — owners whose names appear in many parcel records statewide require additional corroborating signals before inclusion.</li>
+        <li data-i18n="gr-3"><strong>Active-duty military exclusion</strong> — APO/FPO addresses are excluded under the relevant statutory protections (e.g., FL §196.061).</li>
+        <li data-i18n="gr-4"><strong>Federal-entity exclusion</strong> — parcels held by federal agencies, mortgage servicers (Fannie Mae, Freddie Mac), or other sovereign-immunity entities are excluded as uncollectable.</li>
+        <li data-i18n="gr-5"><strong>Confidential-address exclusion</strong> — protected-class records (judicial, law enforcement, victim-advocate) under public-records-redaction statutes are excluded.</li>
+        <li data-i18n="gr-6"><strong>Side-by-side review</strong> — likely or ambiguous cases require manual side-by-side comparison of source documents before delivery.</li>
     </ul>
 
-    <h2>Scope discipline</h2>
-    <p>How Lupa interacts with the public data sources it uses.</p>
+    <h2 data-i18n="h2-scope">Scope discipline</h2>
+    <p data-i18n="scope-p">How Lupa interacts with the public data sources it uses.</p>
     <ul>
-        <li><strong>Identifiable user agents</strong> on every public-API access — server logs attribute scans to Lupa, not to anonymous traffic.</li>
-        <li><strong>Conservative request rates</strong> with explicit sleep cadence between calls — public APIs are not stress-tested.</li>
-        <li><strong>No silent re-scraping</strong> after first contact with a target jurisdiction. If Lupa has reached out to a county, that county's data sources are not re-pulled until the conversation has been resolved or 30 days have passed, whichever comes first.</li>
+        <li data-i18n="scope-1"><strong>Identifiable user agents</strong> on every public-API access — server logs attribute scans to Lupa, not to anonymous traffic.</li>
+        <li data-i18n="scope-2"><strong>Conservative request rates</strong> with explicit sleep cadence between calls — public APIs are not stress-tested.</li>
+        <li data-i18n="scope-3"><strong>No silent re-scraping</strong> after first contact with a target jurisdiction. If Lupa has reached out to a county, that county's data sources are not re-pulled until the conversation has been resolved or 30 days have passed, whichever comes first.</li>
     </ul>
 
-    <h2>Citation-backed leads</h2>
-    <p>Every lead delivered by Lupa includes:</p>
+    <h2 data-i18n="h2-citations">Citation-backed leads</h2>
+    <p data-i18n="cit-p">Every lead delivered by Lupa includes:</p>
     <ul>
-        <li>Parcel IDs in every relevant jurisdiction.</li>
-        <li>Direct URL citations to the source public record (county portal, state cadastral record, permit system).</li>
-        <li>The specific data point that triggered the flag (exemption status, sale date, permit gap).</li>
-        <li>Confidence tier so audit teams can prioritize.</li>
+        <li data-i18n="cit-1">Parcel IDs in every relevant jurisdiction.</li>
+        <li data-i18n="cit-2">Direct URL citations to the source public record (county portal, state cadastral record, permit system).</li>
+        <li data-i18n="cit-3">The specific data point that triggered the flag (exemption status, sale date, permit gap).</li>
+        <li data-i18n="cit-4">Confidence tier so audit teams can prioritize.</li>
     </ul>
-    <p>This means a Lupa lead is not "trust our model." It's a pointer to a public record your team can open and read directly.</p>
+    <p data-i18n="cit-summary">This means a Lupa lead is not "trust our model." It's a pointer to a public record your team can open and read directly.</p>
 
-    <h2>Verification workflow</h2>
-    <p>Lupa is an investigative-lead generator, not an enforcement tool. The intended workflow:</p>
+    <h2 data-i18n="h2-workflow">Verification workflow</h2>
+    <p data-i18n="wf-p">Lupa is an investigative-lead generator, not an enforcement tool. The intended workflow:</p>
     <ol style="margin:8px 0 18px 22px;">
-        <li>Lupa delivers ranked leads with citations.</li>
-        <li>Your audit team verifies each lead against the cited public records.</li>
-        <li>Verified cases enter your standard notice/dispute process.</li>
+        <li data-i18n="wf-1">Lupa delivers ranked leads with citations.</li>
+        <li data-i18n="wf-2">Your audit team verifies each lead against the cited public records.</li>
+        <li data-i18n="wf-3">Verified cases enter your standard notice/dispute process.</li>
     </ol>
-    <p>Side-by-side record comparison is the default for likely or ambiguous cases — never act on a flag without confirming the underlying documents.</p>
+    <p data-i18n="wf-summary">Side-by-side record comparison is the default for likely or ambiguous cases — never act on a flag without confirming the underlying documents.</p>
 
-    <h2>Known constraints and caveats</h2>
+    <h2 data-i18n="h2-caveats">Known constraints and caveats</h2>
     <ul>
-        <li><strong>New York STAR program (post-2019)</strong> — county roll data alone misses post-2019 STAR credit recipients because the program shifted to a state-administered credit. Reliable NY checks require the NYS state dataset.</li>
-        <li><strong>Florida §193.092</strong> — back-assessment recovery on permitted parcels is statutorily capped, so revenue projections on permitted-but-unassessed pool detections must account for this.</li>
-        <li><strong>Recent sales</strong> — homestead-exemption flags lag transfers, so flagged cases on parcels with recent ownership changes are a known false-positive class and are reviewed before delivery.</li>
-        <li><strong>Owner-name conventions are jurisdictional</strong> — new states require validation of the local naming convention before adapter coverage is claimed as production-ready.</li>
+        <li data-i18n="cav-1"><strong>New York STAR program (post-2019)</strong> — county roll data alone misses post-2019 STAR credit recipients because the program shifted to a state-administered credit. Reliable NY checks require the NYS state dataset.</li>
+        <li data-i18n="cav-2"><strong>Florida §193.092</strong> — back-assessment recovery on permitted parcels is statutorily capped, so revenue projections on permitted-but-unassessed pool detections must account for this.</li>
+        <li data-i18n="cav-3"><strong>Recent sales</strong> — homestead-exemption flags lag transfers, so flagged cases on parcels with recent ownership changes are a known false-positive class and are reviewed before delivery.</li>
+        <li data-i18n="cav-4"><strong>Owner-name conventions are jurisdictional</strong> — new states require validation of the local naming convention before adapter coverage is claimed as production-ready.</li>
     </ul>
 
-    <h2>Why public records only</h2>
-    <p>Three reasons:</p>
+    <h2 data-i18n="h2-why">Why public records only</h2>
+    <p data-i18n="why-p">Three reasons:</p>
     <ul>
-        <li><strong>Verifiability</strong> — every finding is reproducible by the customer using the same source data, which matters for due process when notices go out.</li>
-        <li><strong>Cost structure</strong> — no per-record or per-query pricing means scans scale to full-jurisdiction without surprise costs.</li>
-        <li><strong>FOIA-friendly</strong> — when a flagged owner asks "where did this come from?" the answer is a public URL, not a vendor's proprietary score.</li>
+        <li data-i18n="why-1"><strong>Verifiability</strong> — every finding is reproducible by the customer using the same source data, which matters for due process when notices go out.</li>
+        <li data-i18n="why-2"><strong>Cost structure</strong> — no per-record or per-query pricing means scans scale to full-jurisdiction without surprise costs.</li>
+        <li data-i18n="why-3"><strong>FOIA-friendly</strong> — when a flagged owner asks "where did this come from?" the answer is a public URL, not a vendor's proprietary score.</li>
     </ul>
 
     <div class="cta-block">
-        <h2>Have a coverage question?</h2>
-        <p>If you're evaluating Lupa for a specific jurisdiction or program, we're happy to walk through methodology details for that scope.</p>
-        <a href="mailto:jeremy@lupaintel.com?subject=Methodology%20Question">Get in touch →</a>
+        <h2 data-i18n="cta-h2">Have a coverage question?</h2>
+        <p data-i18n="cta-p">If you're evaluating Lupa for a specific jurisdiction or program, we're happy to walk through methodology details for that scope.</p>
+        <a href="mailto:jeremy@lupaintel.com?subject=Methodology%20Question" data-i18n="cta-link">Get in touch →</a>
     </div>
 
-    <p style="margin-top:24px"><a href="/homestead-exemption-audit/">Homestead Exemption Audit →</a> &nbsp;·&nbsp; <a href="/pool-detection/">Pool Detection →</a></p>
+    <p style="margin-top:24px"><a href="/homestead-exemption-audit/" data-i18n="see-1">Homestead Exemption Audit →</a> &nbsp;·&nbsp; <a href="/pool-detection/" data-i18n="see-2">Pool Detection →</a></p>
 </main>
 
 <footer>
-    <div>© 2026 Lupa Intelligence · jeremy@lupaintel.com · 719-761-4236</div>
+    <div data-i18n="footer-copyright">© 2026 Lupa Intelligence</div>
     <div>
-        <a href="/">Home</a>
-        <a href="/homestead-exemption-audit/">Homestead Audit</a>
-        <a href="/pool-detection/">Pool Detection</a>
-        <a href="/methodology/">Methodology</a>
+        <a href="/" data-i18n="footer-home">Home</a>
+        <a href="/homestead-exemption-audit/" data-i18n="footer-homestead">Homestead Audit</a>
+        <a href="/pool-detection/" data-i18n="footer-pool">Pool Detection</a>
+        <a href="/methodology/" data-i18n="footer-methodology">Methodology</a>
     </div>
 </footer>
+
+<script>
+const T = {
+    en: {
+        'nav-products': 'Products',
+        'nav-cta': 'Request a Demo',
+        'bc-home': 'Home',
+        'bc-methodology': 'Methodology',
+        'eyebrow': 'Reference',
+        'h1': 'How Lupa Builds Parcel Audits on Public Records',
+        'lede': 'Every Lupa finding is independently verifiable against a government source — that\'s the design constraint. This page documents how data is sourced, how owners are matched across jurisdictions, and how leads are delivered so your audit team can verify before acting.',
+        'h2-sources': 'Data sources',
+        'sources-p': 'Lupa uses only public records published by government bodies. No paid aggregators (Regrid, ATTOM, PropStream, Melissa Data) are in the pipeline.',
+        'src-1': '<strong>County property appraiser portals</strong> — parcel rolls, exemption flags, ownership records.',
+        'src-2': '<strong>State cadastral databases</strong> — statewide parcel datasets published by state revenue and property-tax agencies.',
+        'src-3': '<strong>Recorder/clerk offices</strong> — deed transfers and title history.',
+        'src-4': '<strong>Permit systems</strong> — county and municipal permit histories.',
+        'src-5': '<strong>Aerial imagery</strong> — NAIP, county-flown imagery programs, and other openly published sources.',
+        'src-6': '<strong>Business registries</strong> — secretary of state filings for entity-owned parcel cross-checks.',
+        'h2-signals': 'Signals',
+        'signals-p': 'The kinds of evidence Lupa looks at when generating a lead. No single signal becomes a lead on its own — every delivered case requires corroboration across at least two independent primary sources.',
+        'sig-1': '<strong>Simultaneous primary-residence claims</strong> across jurisdictional boundaries (county-to-county within a state, or state-to-state).',
+        'sig-2': '<strong>Mailing-address inconsistencies</strong> between parcel ownership records and active exemption or owner-occupied flags.',
+        'sig-3': '<strong>Tenure gaps</strong> — exemption flags persisting on parcels that have changed hands in ways the receiving record hasn\'t yet reflected.',
+        'sig-4': '<strong>Entity-ownership structures</strong> incompatible with primary-residence statutes — trust, LLC, or business-entity ownership where residency law requires a natural person.',
+        'sig-5': '<strong>Public-record contradictions</strong> across primary-source databases — assessor data, auditor data, recorder filings, and business registries that name the same subject in mutually exclusive ways.',
+        'h2-guardrails': 'Guardrails',
+        'guardrails-p': 'False-positive filters Lupa applies before any lead leaves the pipeline.',
+        'gr-1': '<strong>Recent-sale filter</strong> — flagged cases with ownership transfers in the last 24 months are excluded as a known false-positive class (exemption flags lag deed transfers in most jurisdictions).',
+        'gr-2': '<strong>Common-name disambiguation</strong> — owners whose names appear in many parcel records statewide require additional corroborating signals before inclusion.',
+        'gr-3': '<strong>Active-duty military exclusion</strong> — APO/FPO addresses are excluded under the relevant statutory protections (e.g., FL §196.061).',
+        'gr-4': '<strong>Federal-entity exclusion</strong> — parcels held by federal agencies, mortgage servicers (Fannie Mae, Freddie Mac), or other sovereign-immunity entities are excluded as uncollectable.',
+        'gr-5': '<strong>Confidential-address exclusion</strong> — protected-class records (judicial, law enforcement, victim-advocate) under public-records-redaction statutes are excluded.',
+        'gr-6': '<strong>Side-by-side review</strong> — likely or ambiguous cases require manual side-by-side comparison of source documents before delivery.',
+        'h2-scope': 'Scope discipline',
+        'scope-p': 'How Lupa interacts with the public data sources it uses.',
+        'scope-1': '<strong>Identifiable user agents</strong> on every public-API access — server logs attribute scans to Lupa, not to anonymous traffic.',
+        'scope-2': '<strong>Conservative request rates</strong> with explicit sleep cadence between calls — public APIs are not stress-tested.',
+        'scope-3': '<strong>No silent re-scraping</strong> after first contact with a target jurisdiction. If Lupa has reached out to a county, that county\'s data sources are not re-pulled until the conversation has been resolved or 30 days have passed, whichever comes first.',
+        'h2-citations': 'Citation-backed leads',
+        'cit-p': 'Every lead delivered by Lupa includes:',
+        'cit-1': 'Parcel IDs in every relevant jurisdiction.',
+        'cit-2': 'Direct URL citations to the source public record (county portal, state cadastral record, permit system).',
+        'cit-3': 'The specific data point that triggered the flag (exemption status, sale date, permit gap).',
+        'cit-4': 'Confidence tier so audit teams can prioritize.',
+        'cit-summary': 'This means a Lupa lead is not "trust our model." It\'s a pointer to a public record your team can open and read directly.',
+        'h2-workflow': 'Verification workflow',
+        'wf-p': 'Lupa is an investigative-lead generator, not an enforcement tool. The intended workflow:',
+        'wf-1': 'Lupa delivers ranked leads with citations.',
+        'wf-2': 'Your audit team verifies each lead against the cited public records.',
+        'wf-3': 'Verified cases enter your standard notice/dispute process.',
+        'wf-summary': 'Side-by-side record comparison is the default for likely or ambiguous cases — never act on a flag without confirming the underlying documents.',
+        'h2-caveats': 'Known constraints and caveats',
+        'cav-1': '<strong>New York STAR program (post-2019)</strong> — county roll data alone misses post-2019 STAR credit recipients because the program shifted to a state-administered credit. Reliable NY checks require the NYS state dataset.',
+        'cav-2': '<strong>Florida §193.092</strong> — back-assessment recovery on permitted parcels is statutorily capped, so revenue projections on permitted-but-unassessed pool detections must account for this.',
+        'cav-3': '<strong>Recent sales</strong> — homestead-exemption flags lag transfers, so flagged cases on parcels with recent ownership changes are a known false-positive class and are reviewed before delivery.',
+        'cav-4': '<strong>Owner-name conventions are jurisdictional</strong> — new states require validation of the local naming convention before adapter coverage is claimed as production-ready.',
+        'h2-why': 'Why public records only',
+        'why-p': 'Three reasons:',
+        'why-1': '<strong>Verifiability</strong> — every finding is reproducible by the customer using the same source data, which matters for due process when notices go out.',
+        'why-2': '<strong>Cost structure</strong> — no per-record or per-query pricing means scans scale to full-jurisdiction without surprise costs.',
+        'why-3': '<strong>FOIA-friendly</strong> — when a flagged owner asks "where did this come from?" the answer is a public URL, not a vendor\'s proprietary score.',
+        'cta-h2': 'Have a coverage question?',
+        'cta-p': 'If you\'re evaluating Lupa for a specific jurisdiction or program, we\'re happy to walk through methodology details for that scope.',
+        'cta-link': 'Get in touch →',
+        'see-1': 'Homestead Exemption Audit →',
+        'see-2': 'Pool Detection →',
+        'footer-copyright': '© 2026 Lupa Intelligence',
+        'footer-home': 'Home',
+        'footer-homestead': 'Homestead Audit',
+        'footer-pool': 'Pool Detection',
+        'footer-methodology': 'Methodology',
+    },
+    es: {
+        'nav-products': 'Productos',
+        'nav-cta': 'Solicitar una Demo',
+        'bc-home': 'Inicio',
+        'bc-methodology': 'Metodología',
+        'eyebrow': 'Referencia',
+        'h1': 'Cómo Lupa construye auditorías prediales sobre registros públicos',
+        'lede': 'Cada hallazgo de Lupa es verificable de forma independiente contra una fuente gubernamental — esa es la restricción de diseño. Esta página documenta cómo se obtienen los datos, cómo se cruzan los propietarios entre jurisdicciones, y cómo se entregan los leads para que su equipo de auditoría verifique antes de actuar.',
+        'h2-sources': 'Fuentes de datos',
+        'sources-p': 'Lupa utiliza únicamente registros públicos publicados por organismos gubernamentales. No hay agregadores pagos (Regrid, ATTOM, PropStream, Melissa Data) en el pipeline.',
+        'src-1': '<strong>Portales de tasadores de condado</strong> — padrones prediales, indicadores de exención, registros de propiedad.',
+        'src-2': '<strong>Bases catastrales estatales</strong> — conjuntos de datos prediales a nivel estatal publicados por agencias estatales de rentas e impuestos a la propiedad.',
+        'src-3': '<strong>Oficinas de registradores/secretarios</strong> — transferencias de escrituras e historial de títulos.',
+        'src-4': '<strong>Sistemas de permisos</strong> — historiales de permisos a nivel condado y municipal.',
+        'src-5': '<strong>Imágenes aéreas</strong> — NAIP, programas de imágenes propios de condados, y otras fuentes de publicación abierta.',
+        'src-6': '<strong>Registros empresariales</strong> — declaraciones ante secretarios de estado para verificar parcelas en propiedad de entidades.',
+        'h2-signals': 'Señales',
+        'signals-p': 'Los tipos de evidencia que Lupa observa al generar un lead. Ninguna señal se convierte en lead por sí sola — cada caso entregado requiere corroboración a través de al menos dos fuentes primarias independientes.',
+        'sig-1': '<strong>Reclamos simultáneos de residencia principal</strong> a través de fronteras jurisdiccionales (entre condados de un mismo estado, o entre estados).',
+        'sig-2': '<strong>Inconsistencias de dirección postal</strong> entre los registros de propiedad de parcelas y los indicadores activos de exención u ocupación por propietario.',
+        'sig-3': '<strong>Brechas de tenencia</strong> — indicadores de exención que persisten en parcelas que han cambiado de manos de formas que el registro receptor aún no refleja.',
+        'sig-4': '<strong>Estructuras de propiedad de entidad</strong> incompatibles con los estatutos de residencia principal — fideicomisos, LLC o entidades empresariales en jurisdicciones donde la ley exige una persona natural.',
+        'sig-5': '<strong>Contradicciones entre registros públicos</strong> a través de bases de fuentes primarias — datos del tasador, del auditor, presentaciones del registrador, y registros empresariales que nombran al mismo sujeto de formas mutuamente excluyentes.',
+        'h2-guardrails': 'Filtros de calidad',
+        'guardrails-p': 'Filtros anti-falsos-positivos que Lupa aplica antes de que cualquier lead salga del pipeline.',
+        'gr-1': '<strong>Filtro de venta reciente</strong> — los casos marcados con transferencias de propiedad en los últimos 24 meses se excluyen como una clase conocida de falsos positivos (los indicadores de exención van con retraso respecto a las transferencias de escritura en la mayoría de las jurisdicciones).',
+        'gr-2': '<strong>Desambiguación de nombres comunes</strong> — los propietarios cuyos nombres aparecen en muchos registros prediales estatales requieren señales corroborativas adicionales antes de su inclusión.',
+        'gr-3': '<strong>Exclusión de militares en servicio activo</strong> — las direcciones APO/FPO se excluyen bajo las protecciones estatutarias relevantes (p. ej., FL §196.061).',
+        'gr-4': '<strong>Exclusión de entidades federales</strong> — las parcelas en propiedad de agencias federales, administradores de hipotecas (Fannie Mae, Freddie Mac), u otras entidades con inmunidad soberana se excluyen como incobrables.',
+        'gr-5': '<strong>Exclusión de direcciones confidenciales</strong> — los registros de clases protegidas (judicial, fuerzas del orden, defensa de víctimas) bajo estatutos de redacción de registros públicos se excluyen.',
+        'gr-6': '<strong>Revisión lado a lado</strong> — los casos probables o ambiguos requieren comparación manual lado a lado de los documentos fuente antes de la entrega.',
+        'h2-scope': 'Disciplina de alcance',
+        'scope-p': 'Cómo Lupa interactúa con las fuentes de datos públicas que utiliza.',
+        'scope-1': '<strong>Agentes de usuario identificables</strong> en cada acceso a API pública — los logs del servidor atribuyen los escaneos a Lupa, no a tráfico anónimo.',
+        'scope-2': '<strong>Tasas de solicitud conservadoras</strong> con cadencia explícita de espera entre llamadas — las APIs públicas no se someten a pruebas de estrés.',
+        'scope-3': '<strong>Sin re-extracción silenciosa</strong> tras el primer contacto con una jurisdicción objetivo. Si Lupa ha contactado a un condado, las fuentes de datos de ese condado no se vuelven a consultar hasta que la conversación se haya resuelto o hayan pasado 30 días, lo que ocurra primero.',
+        'h2-citations': 'Leads respaldados por citas',
+        'cit-p': 'Cada lead entregado por Lupa incluye:',
+        'cit-1': 'Identificadores de parcela en cada jurisdicción relevante.',
+        'cit-2': 'Citas de URL directas al registro público fuente (portal del condado, registro catastral estatal, sistema de permisos).',
+        'cit-3': 'El dato específico que activó la marca (estado de exención, fecha de venta, brecha de permiso).',
+        'cit-4': 'Nivel de confianza para que los equipos de auditoría puedan priorizar.',
+        'cit-summary': 'Esto significa que un lead de Lupa no es "confíe en nuestro modelo." Es un puntero a un registro público que su equipo puede abrir y leer directamente.',
+        'h2-workflow': 'Flujo de verificación',
+        'wf-p': 'Lupa es un generador de leads de investigación, no una herramienta de aplicación. El flujo previsto:',
+        'wf-1': 'Lupa entrega leads priorizados con citas.',
+        'wf-2': 'Su equipo de auditoría verifica cada lead contra los registros públicos citados.',
+        'wf-3': 'Los casos verificados ingresan a su proceso estándar de aviso/disputa.',
+        'wf-summary': 'La comparación de registros lado a lado es la opción por defecto para casos probables o ambiguos — nunca actúe sobre una marca sin confirmar los documentos subyacentes.',
+        'h2-caveats': 'Restricciones y advertencias conocidas',
+        'cav-1': '<strong>Programa STAR de Nueva York (post-2019)</strong> — los datos de padrón de condado por sí solos omiten a los receptores de crédito STAR posteriores a 2019 porque el programa pasó a ser un crédito administrado por el estado. Las verificaciones confiables en NY requieren el conjunto de datos estatal de NYS.',
+        'cav-2': '<strong>Florida §193.092</strong> — la recuperación de tasación retroactiva en parcelas con permiso está limitada estatutariamente, por lo que las proyecciones de recaudación sobre detecciones de piletas con permiso pero no tasadas deben tener esto en cuenta.',
+        'cav-3': '<strong>Ventas recientes</strong> — los indicadores de exención de residencia principal van con retraso respecto a las transferencias, por lo que los casos marcados sobre parcelas con cambios recientes de propiedad son una clase conocida de falsos positivos y se revisan antes de la entrega.',
+        'cav-4': '<strong>Las convenciones de nombres de propietarios son jurisdiccionales</strong> — los nuevos estados requieren validación de la convención local de nombres antes de que la cobertura del adaptador se considere lista para producción.',
+        'h2-why': 'Por qué solo registros públicos',
+        'why-p': 'Tres razones:',
+        'why-1': '<strong>Verificabilidad</strong> — cada hallazgo es reproducible por el cliente usando los mismos datos fuente, lo que importa para el debido proceso cuando se envían avisos.',
+        'why-2': '<strong>Estructura de costos</strong> — sin precios por registro o por consulta, los escaneos escalan a jurisdicciones completas sin costos sorpresa.',
+        'why-3': '<strong>Compatible con FOIA</strong> — cuando un propietario marcado pregunta "¿de dónde salió esto?" la respuesta es una URL pública, no la puntuación propietaria de un proveedor.',
+        'cta-h2': '¿Tiene una pregunta de cobertura?',
+        'cta-p': 'Si está evaluando Lupa para una jurisdicción o programa específico, estamos encantados de repasar los detalles metodológicos para ese alcance.',
+        'cta-link': 'Contáctenos →',
+        'see-1': 'Auditoría de Exención de Residencia Principal →',
+        'see-2': 'Detección de Piletas →',
+        'footer-copyright': '© 2026 Lupa Intelligence',
+        'footer-home': 'Inicio',
+        'footer-homestead': 'Auditoría de Exención',
+        'footer-pool': 'Detección de Piletas',
+        'footer-methodology': 'Metodología',
+    }
+};
+
+let lang = 'en';
+const langBtn = document.getElementById('lang-btn');
+
+function applyLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[l][key] !== undefined) el.innerHTML = T[l][key];
+    });
+    if (langBtn) langBtn.textContent = (l === 'en') ? 'ES' : 'EN';
+    try { localStorage.setItem('lupa_lang', l); } catch(e){}
+    try { if (window.umami) umami.track('lang_toggle', { to: l }); } catch(e){}
+}
+
+if (langBtn) {
+    langBtn.addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
+}
+
+// Restore preferred language on load
+try {
+    const saved = localStorage.getItem('lupa_lang');
+    if (saved === 'es') applyLang('es');
+} catch(e){}
+</script>
 
 </body>
 </html>
