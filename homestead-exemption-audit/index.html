@@ -68,6 +68,8 @@
         nav { display:flex; justify-content:space-between; align-items:center; padding:18px 32px; border-bottom:1px solid var(--faint); position:sticky; top:0; background:rgba(237,234,229,.95); backdrop-filter:blur(10px); z-index:10; }
         nav a.brand { font-weight:700; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px; }
         nav .cta { background:var(--ink); color:#fff; padding:8px 16px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:600; }
+        .lang-toggle { background:none; border:1px solid var(--faint); color:var(--dim); padding:6px 10px; border-radius:999px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; cursor:pointer; transition: all .15s; }
+        .lang-toggle:hover { color:var(--ink); border-color:var(--ink); }
         main { max-width:780px; margin:0 auto; padding:48px 24px 80px; }
         .eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:16px; }
         h1 { font-size:clamp(32px, 5vw, 48px); font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:20px; }
@@ -168,25 +170,28 @@
         <svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
         Lupa Intelligence
     </a>
-    <a href="mailto:jeremy@lupaintel.com" class="cta">Request a Demo</a>
+    <div style="display:flex; align-items:center; gap:14px;">
+        <button class="lang-toggle" id="lang-btn">ES</button>
+        <a href="mailto:jeremy@lupaintel.com" class="cta" data-i18n="nav-cta">Request a Demo</a>
+    </div>
 </nav>
 
 <main>
-    <div class="breadcrumb"><a href="/">Home</a> &nbsp;/&nbsp; Homestead Exemption Audit</div>
-    <div class="eyebrow">Product · Available Now</div>
-    <h1>Lupa CrossCheck — Homestead Exemption Audit &amp; Cross-Jurisdiction Detection</h1>
-    <p class="lede">Cross-jurisdiction parcel intelligence that identifies owners simultaneously claiming primary-residence property tax benefits in more than one jurisdiction. Built for county property appraisers, state revenue agencies, and municipal assessors — entirely on public records.</p>
+    <div class="breadcrumb"><a href="/" data-i18n="bc-home">Home</a> &nbsp;/&nbsp; <span data-i18n="bc-page">Homestead Exemption Audit</span></div>
+    <div class="eyebrow" data-i18n="eyebrow">Product · Available Now</div>
+    <h1 data-i18n="h1">Lupa CrossCheck — Homestead Exemption Audit &amp; Cross-Jurisdiction Detection</h1>
+    <p class="lede" data-i18n="lede">Cross-jurisdiction parcel intelligence that identifies owners simultaneously claiming primary-residence property tax benefits in more than one jurisdiction. Built for county property appraisers, state revenue agencies, and municipal assessors — entirely on public records.</p>
 
     <div class="stat-grid">
-        <div class="stat"><div class="stat-n">570+</div><div class="stat-l">Confirmed dual-claim cases</div></div>
-        <div class="stat"><div class="stat-n">1M+</div><div class="stat-l">Parcels analyzed</div></div>
-        <div class="stat"><div class="stat-n">12</div><div class="stat-l">States with active coverage</div></div>
-        <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Public records, no paid data</div></div>
+        <div class="stat"><div class="stat-n">570+</div><div class="stat-l" data-i18n="stat-1">Confirmed dual-claim cases</div></div>
+        <div class="stat"><div class="stat-n">1M+</div><div class="stat-l" data-i18n="stat-2">Parcels analyzed</div></div>
+        <div class="stat"><div class="stat-n">12</div><div class="stat-l" data-i18n="stat-3">States with active coverage</div></div>
+        <div class="stat"><div class="stat-n">100%</div><div class="stat-l" data-i18n="stat-4">Public records, no paid data</div></div>
     </div>
 
     <section class="coverage" aria-labelledby="coverage-h">
-        <h2 id="coverage-h">Where Lupa connects</h2>
-        <p>Coverage today spans <strong>12 states</strong> — 5 with full statewide rolls, 7 with active county-level adapters covering the highest-population centers in each. Cross-state JOIN refreshes monthly.</p>
+        <h2 id="coverage-h" data-i18n="cov-h">Where Lupa connects</h2>
+        <p data-i18n="cov-intro">Coverage today spans <strong>12 states</strong> — 5 with full statewide rolls, 7 with active county-level adapters covering the highest-population centers in each. Cross-state JOIN refreshes monthly.</p>
 
         <div class="us-grid" role="img" aria-label="Map of United States showing Lupa's connector coverage across states">
             <!-- COVERAGE-MAP-START tile_class=tile -->
@@ -245,87 +250,238 @@
         </div>
 
         <div class="legend">
-            <span class="dot state"></span> Statewide roll <span class="legend-meta">(5 states)</span>
-            <span class="dot county"></span> Active county adapters <span class="legend-meta">(7 states)</span>
-            <span class="dot none"></span> Coming soon
+            <span class="dot state"></span> <span data-i18n="leg-state">Statewide roll</span> <span class="legend-meta" data-i18n="leg-state-meta">(5 states)</span>
+            <span class="dot county"></span> <span data-i18n="leg-county">Active county adapters</span> <span class="legend-meta" data-i18n="leg-county-meta">(7 states)</span>
+            <span class="dot none"></span> <span data-i18n="leg-none">Coming soon</span>
         </div>
 
         <div class="coverage-detail">
-            <div><strong>Statewide rolls:</strong> Florida (FDOR) · New York (ORPS) · Maryland (SDAT) · New Jersey (MOD-IV) · Indiana (DLGF)</div>
-            <div style="margin-top:8px;"><strong>County adapters:</strong> Cook IL · DuPage IL · Lake IL · Los Angeles CA · San Diego CA · Riverside CA · Maricopa AZ · Hennepin MN (Minneapolis) · King WA (Seattle) · Wayne MI (Detroit) · plus 10 Ohio counties (Franklin, Cuyahoga, Hamilton, Mahoning, Medina, Stark, Warren, Lucas, Montgomery, Butler, Clermont) via the Tyler Eagle template</div>
-            <div style="margin-top:10px; color:var(--dim); font-size:13px;">New states added quarterly. Coverage list updates live from the connector registry.</div>
+            <div data-i18n="cov-detail-1"><strong>Statewide rolls:</strong> Florida (FDOR) · New York (ORPS) · Maryland (SDAT) · New Jersey (MOD-IV) · Indiana (DLGF)</div>
+            <div style="margin-top:8px;" data-i18n="cov-detail-2"><strong>County adapters:</strong> Cook IL · DuPage IL · Lake IL · Los Angeles CA · San Diego CA · Riverside CA · Maricopa AZ · Hennepin MN (Minneapolis) · King WA (Seattle) · Wayne MI (Detroit) · plus 10 Ohio counties (Franklin, Cuyahoga, Hamilton, Mahoning, Medina, Stark, Warren, Lucas, Montgomery, Butler, Clermont) via the Tyler Eagle template</div>
+            <div style="margin-top:10px; color:var(--dim); font-size:13px;" data-i18n="cov-detail-3">New states added quarterly. Coverage list updates live from the connector registry.</div>
         </div>
     </section>
 
-    <h2>What Lupa detects</h2>
+    <h2 data-i18n="h2-detects">What Lupa detects</h2>
     <ul>
-        <li><strong>Dual homestead claims</strong> — same owner, primary-residence exemption active in two or more jurisdictions simultaneously.</li>
-        <li><strong>Exemption stacking</strong> — owners receiving stacked benefits (homestead, senior, veteran, agricultural) where statute prohibits.</li>
-        <li><strong>Post-sale carryover</strong> — exemption flag still active after the qualifying owner sold or transferred title.</li>
-        <li><strong>Residency mismatches</strong> — primary-residence claim against an address with rental, commercial, or non-occupancy signals.</li>
-        <li><strong>Cross-state stacking</strong> — Florida claimants also receiving primary-residence benefits in Indiana, Illinois, Ohio, or New York.</li>
+        <li data-i18n="det-1"><strong>Dual homestead claims</strong> — same owner, primary-residence exemption active in two or more jurisdictions simultaneously.</li>
+        <li data-i18n="det-2"><strong>Exemption stacking</strong> — owners receiving stacked benefits (homestead, senior, veteran, agricultural) where statute prohibits.</li>
+        <li data-i18n="det-3"><strong>Post-sale carryover</strong> — exemption flag still active after the qualifying owner sold or transferred title.</li>
+        <li data-i18n="det-4"><strong>Residency mismatches</strong> — primary-residence claim against an address with rental, commercial, or non-occupancy signals.</li>
+        <li data-i18n="det-5"><strong>Cross-state stacking</strong> — Florida claimants also receiving primary-residence benefits in Indiana, Illinois, Ohio, or New York.</li>
     </ul>
 
-    <h2>How it works</h2>
-    <h3>1. Ingest</h3>
-    <p>Lupa pulls public parcel and exemption records from county property appraiser portals, state cadastral databases (FDOR, etc.), recorder offices, and business registries. Owner names are normalized across formatting differences (LAST FIRST vs. FIRST LAST, suffix variants, comma conventions) so cross-jurisdiction matches don't get missed.</p>
+    <h2 data-i18n="h2-how">How it works</h2>
+    <h3 data-i18n="step-1-h">1. Ingest</h3>
+    <p data-i18n="step-1-p">Lupa pulls public parcel and exemption records from county property appraiser portals, state cadastral databases (FDOR, etc.), recorder offices, and business registries. Owner names are normalized across formatting differences (LAST FIRST vs. FIRST LAST, suffix variants, comma conventions) so cross-jurisdiction matches don't get missed.</p>
 
-    <h3>2. Cross-reference</h3>
-    <p>Owner records are matched across jurisdictions using a longest-token + suffix-strip keying strategy validated against Florida, Cook County IL, Cuyahoga OH, and Franklin OH naming conventions. Matches surface where the same individual holds active primary-residence exemptions in more than one place.</p>
+    <h3 data-i18n="step-2-h">2. Cross-reference</h3>
+    <p data-i18n="step-2-p">Owner records are matched across jurisdictions using a longest-token + suffix-strip keying strategy validated against Florida, Cook County IL, Cuyahoga OH, and Franklin OH naming conventions. Matches surface where the same individual holds active primary-residence exemptions in more than one place.</p>
 
-    <h3>3. Deliver</h3>
-    <p>Findings arrive as a ranked list of investigative leads — each with parcel IDs, exemption flags, and direct citation links to the source public records in both jurisdictions. Your audit team verifies independently before issuing any notice.</p>
+    <h3 data-i18n="step-3-h">3. Deliver</h3>
+    <p data-i18n="step-3-p">Findings arrive as a ranked list of investigative leads — each with parcel IDs, exemption flags, and direct citation links to the source public records in both jurisdictions. Your audit team verifies independently before issuing any notice.</p>
 
-    <h2>Who this is built for</h2>
+    <h2 data-i18n="h2-who">Who this is built for</h2>
     <ul>
-        <li><strong>County property appraisers</strong> running annual homestead and exemption compliance reviews without adding staff.</li>
-        <li><strong>State revenue agencies</strong> coordinating cross-county audit programs and tracking statewide stacking patterns.</li>
-        <li><strong>Municipal assessors</strong> looking for assessment gap recovery in jurisdictions with high seasonal or out-of-state ownership.</li>
+        <li data-i18n="who-1"><strong>County property appraisers</strong> running annual homestead and exemption compliance reviews without adding staff.</li>
+        <li data-i18n="who-2"><strong>State revenue agencies</strong> coordinating cross-county audit programs and tracking statewide stacking patterns.</li>
+        <li data-i18n="who-3"><strong>Municipal assessors</strong> looking for assessment gap recovery in jurisdictions with high seasonal or out-of-state ownership.</li>
     </ul>
 
-    <h2>Frequently asked questions</h2>
+    <h2 data-i18n="h2-faq">Frequently asked questions</h2>
     <div class="faq">
         <details>
-            <summary>What is a homestead exemption audit?</summary>
-            <p>A homestead exemption audit reviews parcel ownership records to confirm that owners claiming a primary-residence property tax exemption qualify for it under state law. It typically focuses on detecting dual claims, residency mismatches, and post-sale exemption carryover.</p>
+            <summary data-i18n="faq-1-q">What is a homestead exemption audit?</summary>
+            <p data-i18n="faq-1-a">A homestead exemption audit reviews parcel ownership records to confirm that owners claiming a primary-residence property tax exemption qualify for it under state law. It typically focuses on detecting dual claims, residency mismatches, and post-sale exemption carryover.</p>
         </details>
         <details>
-            <summary>How does Lupa detect dual homestead claims across counties?</summary>
-            <p>Lupa ingests public parcel records from county assessors and state cadastral databases, normalizes owner names across jurisdictional formatting differences, and cross-references exemption flags. Every flagged case includes citations linking to both source records so the audit team can independently verify before issuing a notice.</p>
+            <summary data-i18n="faq-2-q">How does Lupa detect dual homestead claims across counties?</summary>
+            <p data-i18n="faq-2-a">Lupa ingests public parcel records from county assessors and state cadastral databases, normalizes owner names across jurisdictional formatting differences, and cross-references exemption flags. Every flagged case includes citations linking to both source records so the audit team can independently verify before issuing a notice.</p>
         </details>
         <details>
-            <summary>Does Lupa use paid data sources?</summary>
-            <p>No. Lupa builds entirely on public records — county property appraiser portals, state cadastral databases (FDOR and similar), and recorder offices. There is no dependency on Regrid, ATTOM, PropStream, or other paid aggregators.</p>
+            <summary data-i18n="faq-3-q">Does Lupa use paid data sources?</summary>
+            <p data-i18n="faq-3-a">No. Lupa builds entirely on public records — county property appraiser portals, state cadastral databases (FDOR and similar), and recorder offices. There is no dependency on Regrid, ATTOM, PropStream, or other paid aggregators.</p>
         </details>
         <details>
-            <summary>Which states does Lupa cover for homestead stacking?</summary>
-            <p>Florida is the most mature coverage area, with cross-county and cross-state checks against Indiana, Illinois, Ohio, and New York. New York coverage note: the 2019 STAR program shift to a state credit means county roll data alone misses post-2019 recipients, so NY checks require the NYS state dataset.</p>
+            <summary data-i18n="faq-4-q">Which states does Lupa cover for homestead stacking?</summary>
+            <p data-i18n="faq-4-a">Florida is the most mature coverage area, with cross-county and cross-state checks against Indiana, Illinois, Ohio, and New York. New York coverage note: the 2019 STAR program shift to a state credit means county roll data alone misses post-2019 recipients, so NY checks require the NYS state dataset.</p>
         </details>
         <details>
-            <summary>What does a Lupa pilot look like?</summary>
-            <p>Lupa runs a no-obligation pilot scan of your jurisdiction and delivers ranked investigative leads with source citations. Your audit team verifies findings against public records before any owner outreach.</p>
+            <summary data-i18n="faq-5-q">What does a Lupa pilot look like?</summary>
+            <p data-i18n="faq-5-a">Lupa runs a no-obligation pilot scan of your jurisdiction and delivers ranked investigative leads with source citations. Your audit team verifies findings against public records before any owner outreach.</p>
         </details>
     </div>
 
     <div class="cta-block">
-        <h2>Run a pilot audit on your jurisdiction</h2>
-        <p>We scan your parcel base, cross-reference against the relevant out-of-jurisdiction datasets, and deliver a ranked lead list with citations. You decide what to act on.</p>
-        <a href="mailto:jeremy@lupaintel.com?subject=Homestead%20Audit%20Pilot%20Inquiry">Request a Demo →</a>
-        <a href="/portal-preview/" style="background:transparent; color:#fff; border:1px solid #fff; margin-left:8px;">Q3 2026 portal preview →</a>
+        <h2 data-i18n="cta-h">Run a pilot audit on your jurisdiction</h2>
+        <p data-i18n="cta-p">We scan your parcel base, cross-reference against the relevant out-of-jurisdiction datasets, and deliver a ranked lead list with citations. You decide what to act on.</p>
+        <a href="mailto:jeremy@lupaintel.com?subject=Homestead%20Audit%20Pilot%20Inquiry" data-i18n="cta-link-1">Request a Demo →</a>
+        <a href="/portal-preview/" style="background:transparent; color:#fff; border:1px solid #fff; margin-left:8px;" data-i18n="cta-link-2">Q3 2026 portal preview →</a>
     </div>
 
-    <p style="margin-top:24px"><a href="/pool-detection/">See also: Pool Detection →</a> &nbsp;·&nbsp; <a href="/methodology/">Read our methodology →</a></p>
+    <p style="margin-top:24px"><a href="/pool-detection/" data-i18n="see-1">See also: Pool Detection →</a> &nbsp;·&nbsp; <a href="/methodology/" data-i18n="see-2">Read our methodology →</a></p>
 </main>
 
 <footer>
-    <div>© 2026 Lupa Intelligence</div>
+    <div data-i18n="footer-copyright">© 2026 Lupa Intelligence</div>
     <div>
-        <a href="/">Home</a>
-        <a href="/homestead-exemption-audit/">Homestead Audit</a>
-        <a href="/pool-detection/">Pool Detection</a>
-        <a href="/methodology/">Methodology</a>
+        <a href="/" data-i18n="footer-home">Home</a>
+        <a href="/homestead-exemption-audit/" data-i18n="footer-homestead">Homestead Audit</a>
+        <a href="/pool-detection/" data-i18n="footer-pool">Pool Detection</a>
+        <a href="/methodology/" data-i18n="footer-methodology">Methodology</a>
     </div>
 </footer>
+
+<script>
+const T = {
+    en: {
+        'nav-cta': 'Request a Demo',
+        'bc-home': 'Home',
+        'bc-page': 'Homestead Exemption Audit',
+        'eyebrow': 'Product · Available Now',
+        'h1': 'Lupa CrossCheck — Homestead Exemption Audit &amp; Cross-Jurisdiction Detection',
+        'lede': 'Cross-jurisdiction parcel intelligence that identifies owners simultaneously claiming primary-residence property tax benefits in more than one jurisdiction. Built for county property appraisers, state revenue agencies, and municipal assessors — entirely on public records.',
+        'stat-1': 'Confirmed dual-claim cases',
+        'stat-2': 'Parcels analyzed',
+        'stat-3': 'States with active coverage',
+        'stat-4': 'Public records, no paid data',
+        'cov-h': 'Where Lupa connects',
+        'cov-intro': 'Coverage today spans <strong>12 states</strong> — 5 with full statewide rolls, 7 with active county-level adapters covering the highest-population centers in each. Cross-state JOIN refreshes monthly.',
+        'leg-state': 'Statewide roll',
+        'leg-state-meta': '(5 states)',
+        'leg-county': 'Active county adapters',
+        'leg-county-meta': '(7 states)',
+        'leg-none': 'Coming soon',
+        'cov-detail-1': '<strong>Statewide rolls:</strong> Florida (FDOR) · New York (ORPS) · Maryland (SDAT) · New Jersey (MOD-IV) · Indiana (DLGF)',
+        'cov-detail-2': '<strong>County adapters:</strong> Cook IL · DuPage IL · Lake IL · Los Angeles CA · San Diego CA · Riverside CA · Maricopa AZ · Hennepin MN (Minneapolis) · King WA (Seattle) · Wayne MI (Detroit) · plus 10 Ohio counties (Franklin, Cuyahoga, Hamilton, Mahoning, Medina, Stark, Warren, Lucas, Montgomery, Butler, Clermont) via the Tyler Eagle template',
+        'cov-detail-3': 'New states added quarterly. Coverage list updates live from the connector registry.',
+        'h2-detects': 'What Lupa detects',
+        'det-1': '<strong>Dual homestead claims</strong> — same owner, primary-residence exemption active in two or more jurisdictions simultaneously.',
+        'det-2': '<strong>Exemption stacking</strong> — owners receiving stacked benefits (homestead, senior, veteran, agricultural) where statute prohibits.',
+        'det-3': '<strong>Post-sale carryover</strong> — exemption flag still active after the qualifying owner sold or transferred title.',
+        'det-4': '<strong>Residency mismatches</strong> — primary-residence claim against an address with rental, commercial, or non-occupancy signals.',
+        'det-5': '<strong>Cross-state stacking</strong> — Florida claimants also receiving primary-residence benefits in Indiana, Illinois, Ohio, or New York.',
+        'h2-how': 'How it works',
+        'step-1-h': '1. Ingest',
+        'step-1-p': 'Lupa pulls public parcel and exemption records from county property appraiser portals, state cadastral databases (FDOR, etc.), recorder offices, and business registries. Owner names are normalized across formatting differences (LAST FIRST vs. FIRST LAST, suffix variants, comma conventions) so cross-jurisdiction matches don\'t get missed.',
+        'step-2-h': '2. Cross-reference',
+        'step-2-p': 'Owner records are matched across jurisdictions using a longest-token + suffix-strip keying strategy validated against Florida, Cook County IL, Cuyahoga OH, and Franklin OH naming conventions. Matches surface where the same individual holds active primary-residence exemptions in more than one place.',
+        'step-3-h': '3. Deliver',
+        'step-3-p': 'Findings arrive as a ranked list of investigative leads — each with parcel IDs, exemption flags, and direct citation links to the source public records in both jurisdictions. Your audit team verifies independently before issuing any notice.',
+        'h2-who': 'Who this is built for',
+        'who-1': '<strong>County property appraisers</strong> running annual homestead and exemption compliance reviews without adding staff.',
+        'who-2': '<strong>State revenue agencies</strong> coordinating cross-county audit programs and tracking statewide stacking patterns.',
+        'who-3': '<strong>Municipal assessors</strong> looking for assessment gap recovery in jurisdictions with high seasonal or out-of-state ownership.',
+        'h2-faq': 'Frequently asked questions',
+        'faq-1-q': 'What is a homestead exemption audit?',
+        'faq-1-a': 'A homestead exemption audit reviews parcel ownership records to confirm that owners claiming a primary-residence property tax exemption qualify for it under state law. It typically focuses on detecting dual claims, residency mismatches, and post-sale exemption carryover.',
+        'faq-2-q': 'How does Lupa detect dual homestead claims across counties?',
+        'faq-2-a': 'Lupa ingests public parcel records from county assessors and state cadastral databases, normalizes owner names across jurisdictional formatting differences, and cross-references exemption flags. Every flagged case includes citations linking to both source records so the audit team can independently verify before issuing a notice.',
+        'faq-3-q': 'Does Lupa use paid data sources?',
+        'faq-3-a': 'No. Lupa builds entirely on public records — county property appraiser portals, state cadastral databases (FDOR and similar), and recorder offices. There is no dependency on Regrid, ATTOM, PropStream, or other paid aggregators.',
+        'faq-4-q': 'Which states does Lupa cover for homestead stacking?',
+        'faq-4-a': 'Florida is the most mature coverage area, with cross-county and cross-state checks against Indiana, Illinois, Ohio, and New York. New York coverage note: the 2019 STAR program shift to a state credit means county roll data alone misses post-2019 recipients, so NY checks require the NYS state dataset.',
+        'faq-5-q': 'What does a Lupa pilot look like?',
+        'faq-5-a': 'Lupa runs a no-obligation pilot scan of your jurisdiction and delivers ranked investigative leads with source citations. Your audit team verifies findings against public records before any owner outreach.',
+        'cta-h': 'Run a pilot audit on your jurisdiction',
+        'cta-p': 'We scan your parcel base, cross-reference against the relevant out-of-jurisdiction datasets, and deliver a ranked lead list with citations. You decide what to act on.',
+        'cta-link-1': 'Request a Demo →',
+        'cta-link-2': 'Q3 2026 portal preview →',
+        'see-1': 'See also: Pool Detection →',
+        'see-2': 'Read our methodology →',
+        'footer-copyright': '© 2026 Lupa Intelligence',
+        'footer-home': 'Home',
+        'footer-homestead': 'Homestead Audit',
+        'footer-pool': 'Pool Detection',
+        'footer-methodology': 'Methodology',
+    },
+    es: {
+        'nav-cta': 'Solicitar una Demo',
+        'bc-home': 'Inicio',
+        'bc-page': 'Auditoría de Exención de Residencia Principal',
+        'eyebrow': 'Producto · Disponible Ahora',
+        'h1': 'Lupa CrossCheck — Auditoría de Exención de Residencia Principal y Detección Inter-Jurisdiccional',
+        'lede': 'Inteligencia predial inter-jurisdiccional que identifica propietarios reclamando simultáneamente beneficios fiscales de residencia principal en más de una jurisdicción. Construida para tasadores de condado, agencias estatales de rentas, y tasadores municipales — íntegramente sobre registros públicos.',
+        'stat-1': 'Casos de doble reclamo confirmados',
+        'stat-2': 'Parcelas analizadas',
+        'stat-3': 'Estados con cobertura activa',
+        'stat-4': 'Registros públicos, sin datos pagos',
+        'cov-h': 'Dónde se conecta Lupa',
+        'cov-intro': 'La cobertura actual abarca <strong>12 estados</strong> — 5 con padrones estatales completos, 7 con adaptadores activos a nivel condado cubriendo los centros de mayor población en cada uno. El cruce inter-estatal se actualiza mensualmente.',
+        'leg-state': 'Padrón estatal',
+        'leg-state-meta': '(5 estados)',
+        'leg-county': 'Adaptadores de condado activos',
+        'leg-county-meta': '(7 estados)',
+        'leg-none': 'Próximamente',
+        'cov-detail-1': '<strong>Padrones estatales:</strong> Florida (FDOR) · Nueva York (ORPS) · Maryland (SDAT) · Nueva Jersey (MOD-IV) · Indiana (DLGF)',
+        'cov-detail-2': '<strong>Adaptadores de condado:</strong> Cook IL · DuPage IL · Lake IL · Los Angeles CA · San Diego CA · Riverside CA · Maricopa AZ · Hennepin MN (Minneapolis) · King WA (Seattle) · Wayne MI (Detroit) · más 10 condados de Ohio (Franklin, Cuyahoga, Hamilton, Mahoning, Medina, Stark, Warren, Lucas, Montgomery, Butler, Clermont) mediante la plantilla Tyler Eagle',
+        'cov-detail-3': 'Nuevos estados agregados trimestralmente. La lista de cobertura se actualiza en vivo desde el registro de adaptadores.',
+        'h2-detects': 'Qué detecta Lupa',
+        'det-1': '<strong>Reclamos dobles de residencia principal</strong> — mismo propietario, exención de residencia principal activa simultáneamente en dos o más jurisdicciones.',
+        'det-2': '<strong>Acumulación de exenciones</strong> — propietarios recibiendo beneficios acumulados (residencia principal, adulto mayor, veterano, agrícola) donde el estatuto lo prohíbe.',
+        'det-3': '<strong>Persistencia post-venta</strong> — indicador de exención aún activo después de que el propietario calificado vendió o transfirió el título.',
+        'det-4': '<strong>Inconsistencias de residencia</strong> — reclamo de residencia principal contra una dirección con señales de alquiler, uso comercial, o no-ocupación.',
+        'det-5': '<strong>Acumulación inter-estatal</strong> — reclamantes en Florida también recibiendo beneficios de residencia principal en Indiana, Illinois, Ohio, o Nueva York.',
+        'h2-how': 'Cómo funciona',
+        'step-1-h': '1. Ingesta',
+        'step-1-p': 'Lupa extrae registros públicos de parcelas y exenciones desde portales de tasadores de condado, bases catastrales estatales (FDOR, etc.), oficinas de registradores, y registros empresariales. Los nombres de propietarios se normalizan a través de diferencias de formato (APELLIDO NOMBRE vs. NOMBRE APELLIDO, variantes de sufijo, convenciones de coma) para que los cruces inter-jurisdiccionales no se pierdan.',
+        'step-2-h': '2. Cruce de datos',
+        'step-2-p': 'Los registros de propietarios se cruzan entre jurisdicciones usando una estrategia de clave de token-más-largo + remoción-de-sufijo validada contra las convenciones de nombres de Florida, Cook County IL, Cuyahoga OH, y Franklin OH. Los cruces aparecen donde el mismo individuo mantiene exenciones de residencia principal activas en más de un lugar.',
+        'step-3-h': '3. Entrega',
+        'step-3-p': 'Los hallazgos llegan como una lista priorizada de leads de investigación — cada uno con identificadores de parcela, indicadores de exención, y enlaces directos de citación a los registros públicos fuente en ambas jurisdicciones. Su equipo de auditoría verifica de forma independiente antes de emitir cualquier aviso.',
+        'h2-who': 'Para quién está construido',
+        'who-1': '<strong>Tasadores de condado</strong> ejecutando revisiones anuales de cumplimiento de exenciones sin aumentar el personal.',
+        'who-2': '<strong>Agencias estatales de rentas</strong> coordinando programas de auditoría inter-condado y rastreando patrones de acumulación a nivel estatal.',
+        'who-3': '<strong>Tasadores municipales</strong> buscando recuperación de brechas de tasación en jurisdicciones con alta propiedad estacional o fuera del estado.',
+        'h2-faq': 'Preguntas frecuentes',
+        'faq-1-q': '¿Qué es una auditoría de exención de residencia principal?',
+        'faq-1-a': 'Una auditoría de exención de residencia principal revisa los registros de propiedad de parcelas para confirmar que los propietarios que reclaman una exención de impuestos a la propiedad por residencia principal califican según la ley estatal. Típicamente se enfoca en detectar reclamos dobles, inconsistencias de residencia, y persistencia post-venta de la exención.',
+        'faq-2-q': '¿Cómo detecta Lupa los reclamos dobles entre condados?',
+        'faq-2-a': 'Lupa ingiere registros públicos de parcelas desde tasadores de condado y bases catastrales estatales, normaliza los nombres de propietarios a través de diferencias de formato jurisdiccionales, y cruza los indicadores de exención. Cada caso marcado incluye citas que enlazan a ambos registros fuente para que el equipo de auditoría pueda verificar de forma independiente antes de emitir un aviso.',
+        'faq-3-q': '¿Lupa utiliza fuentes de datos pagas?',
+        'faq-3-a': 'No. Lupa se construye íntegramente sobre registros públicos — portales de tasadores de condado, bases catastrales estatales (FDOR y similares), y oficinas de registradores. No hay dependencia de Regrid, ATTOM, PropStream, u otros agregadores pagos.',
+        'faq-4-q': '¿Qué estados cubre Lupa para acumulación de residencia principal?',
+        'faq-4-a': 'Florida es el área de cobertura más madura, con verificaciones inter-condado e inter-estatales contra Indiana, Illinois, Ohio, y Nueva York. Nota sobre cobertura de Nueva York: el cambio del programa STAR de 2019 a un crédito administrado por el estado significa que los datos de padrón de condado por sí solos omiten a los receptores post-2019, así que las verificaciones de NY requieren el conjunto de datos estatal de NYS.',
+        'faq-5-q': '¿Cómo es un piloto de Lupa?',
+        'faq-5-a': 'Lupa ejecuta un escaneo piloto sin compromiso de su jurisdicción y entrega leads de investigación priorizados con citas de fuentes. Su equipo de auditoría verifica los hallazgos contra registros públicos antes de cualquier contacto con el propietario.',
+        'cta-h': 'Ejecute una auditoría piloto en su jurisdicción',
+        'cta-p': 'Escaneamos su base predial, la cruzamos contra los conjuntos de datos relevantes fuera de la jurisdicción, y entregamos una lista priorizada de leads con citas. Usted decide sobre qué actuar.',
+        'cta-link-1': 'Solicitar una Demo →',
+        'cta-link-2': 'Vista previa del portal Q3 2026 →',
+        'see-1': 'Ver también: Detección de Piletas →',
+        'see-2': 'Lea nuestra metodología →',
+        'footer-copyright': '© 2026 Lupa Intelligence',
+        'footer-home': 'Inicio',
+        'footer-homestead': 'Auditoría de Exención',
+        'footer-pool': 'Detección de Piletas',
+        'footer-methodology': 'Metodología',
+    }
+};
+
+let lang = 'en';
+const langBtn = document.getElementById('lang-btn');
+
+function applyLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[l][key] !== undefined) el.innerHTML = T[l][key];
+    });
+    if (langBtn) langBtn.textContent = (l === 'en') ? 'ES' : 'EN';
+    try { localStorage.setItem('lupa_lang', l); } catch(e){}
+    try { if (window.umami) umami.track('lang_toggle', { to: l }); } catch(e){}
+}
+
+if (langBtn) {
+    langBtn.addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
+}
+
+try {
+    const saved = localStorage.getItem('lupa_lang');
+    if (saved === 'es') applyLang('es');
+} catch(e){}
+</script>
 
 </body>
 </html>
