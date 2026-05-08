@@ -68,17 +68,21 @@
       {"st": "NJ", "label": "NJ MOD-IV"},
       {"st": "IN", "label": "IN DLGF"}
     ],
+    "county_adapter_count": 28,
     "county_adapters_short": [
-      "Cook IL", "Los Angeles CA", "Maricopa AZ",
-      "Wayne MI", "Hennepin MN", "King WA",
-      "plus 10+ Ohio counties via the Tyler Eagle template"
+      "6 Florida county-direct (Lee, Charlotte, Sarasota, Marion, Pinellas, Collier)",
+      "11 Ohio via Tyler Eagle template (Franklin, Cuyahoga, Hamilton, Mahoning, Medina, Stark, Warren, Lucas, Montgomery, Butler, Clermont)",
+      "3 Illinois (Cook, DuPage, Lake)",
+      "3 California (Los Angeles, San Diego, Riverside)",
+      "Maricopa AZ · Wayne MI (Detroit) · Hennepin MN (Minneapolis) · King WA (Seattle) · Hamilton IN"
     ],
     "county_adapters_long": [
-      "Cook IL", "DuPage IL", "Lake IL",
-      "Los Angeles CA", "San Diego CA", "Riverside CA",
-      "Maricopa AZ", "Hennepin MN (Minneapolis)", "King WA (Seattle)",
-      "Wayne MI (Detroit)",
-      "plus 10 Ohio counties (Franklin, Cuyahoga, Hamilton, Mahoning, Medina, Stark, Warren, Lucas, Montgomery, Butler, Clermont) via the Tyler Eagle template"
+      "Florida county-direct: Lee · Charlotte · Sarasota · Marion · Pinellas · Collier (in addition to FDOR statewide)",
+      "Ohio (Tyler Eagle template): Franklin · Cuyahoga · Hamilton · Mahoning · Medina · Stark · Warren · Lucas · Montgomery · Butler · Clermont",
+      "Illinois: Cook · DuPage · Lake",
+      "California: Los Angeles · San Diego · Riverside",
+      "Indiana: Hamilton County (in addition to DLGF statewide)",
+      "Plus: Maricopa AZ · Wayne MI (Detroit) · Hennepin MN (Minneapolis) · King WA (Seattle)"
     ]
   }
 }
