@@ -91,6 +91,22 @@
         footer a { color:var(--dim); text-decoration:none; margin-right:14px; }
         .breadcrumb { font-size:12px; color:var(--dim); margin-bottom:8px; }
         .breadcrumb a { color:var(--dim); text-decoration:none; }
+        .coverage { margin: 40px 0 20px; padding: 28px; background: var(--surface); border: 1px solid var(--faint); border-radius: 12px; }
+        .coverage h2 { margin-top: 0; }
+        .us-grid { display: grid; grid-template-columns: repeat(13, 1fr); grid-auto-rows: 1fr; gap: 4px; margin: 22px 0 18px; max-width: 720px; aspect-ratio: 13 / 8; }
+        .tile { background: #f5f3ee; color: #999; border: 1px solid var(--faint); border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; transition: transform 0.1s; }
+        .tile:hover { transform: scale(1.08); z-index: 2; }
+        .tile[data-cov="state"] { background: var(--amber); color: #fff; border-color: var(--amber); }
+        .tile[data-cov="county"] { background: #f0d090; color: #5a3e08; border-color: #e8c890; }
+        .legend { display: flex; flex-wrap: wrap; gap: 16px 22px; align-items: center; font-size: 13px; color: #444; margin-top: 8px; }
+        .legend .dot { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 6px; vertical-align: middle; border: 1px solid var(--faint); }
+        .legend .dot.state { background: var(--amber); border-color: var(--amber); }
+        .legend .dot.county { background: #f0d090; border-color: #e8c890; }
+        .legend .dot.none { background: #f5f3ee; }
+        .legend-meta { color: var(--dim); font-size: 12px; margin-left: 4px; }
+        .coverage-detail { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--faint); font-size: 13.5px; line-height: 1.65; color: #333; }
+        .coverage-detail strong { color: var(--ink); }
+        @media (max-width: 700px) { .us-grid { max-width: 100%; } .tile { font-size: 8px; } }
     </style>
     <script type="application/ld+json">
     {
@@ -164,9 +180,88 @@
     <div class="stat-grid">
         <div class="stat"><div class="stat-n">570+</div><div class="stat-l">Confirmed dual-claim cases</div></div>
         <div class="stat"><div class="stat-n">1M+</div><div class="stat-l">Parcels analyzed</div></div>
-        <div class="stat"><div class="stat-n">5</div><div class="stat-l">States cross-referenced</div></div>
+        <div class="stat"><div class="stat-n">12</div><div class="stat-l">States with active coverage</div></div>
         <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Public records, no paid data</div></div>
     </div>
+
+    <section class="coverage" aria-labelledby="coverage-h">
+        <h2 id="coverage-h">Where Lupa connects</h2>
+        <p>Coverage today spans <strong>12 states</strong> — 5 with full statewide rolls, 7 with active county-level adapters covering the highest-population centers in each. Cross-state JOIN refreshes monthly.</p>
+
+        <div class="us-grid" role="img" aria-label="Map of United States showing Lupa's connector coverage across states">
+            <!-- Row 1 -->
+            <span class="tile" style="grid-area: 1 / 11;" data-st="ME">ME</span>
+            <!-- Row 2 -->
+            <span class="tile" style="grid-area: 2 / 10;" data-st="VT">VT</span>
+            <span class="tile" style="grid-area: 2 / 11;" data-st="NH">NH</span>
+            <!-- Row 3 -->
+            <span class="tile" style="grid-area: 3 / 2;" data-st="WA" data-cov="county">WA</span>
+            <span class="tile" style="grid-area: 3 / 3;" data-st="ID">ID</span>
+            <span class="tile" style="grid-area: 3 / 4;" data-st="MT">MT</span>
+            <span class="tile" style="grid-area: 3 / 5;" data-st="ND">ND</span>
+            <span class="tile" style="grid-area: 3 / 6;" data-st="MN" data-cov="county">MN</span>
+            <span class="tile" style="grid-area: 3 / 7;" data-st="WI">WI</span>
+            <span class="tile" style="grid-area: 3 / 8;" data-st="MI" data-cov="county">MI</span>
+            <span class="tile" style="grid-area: 3 / 10;" data-st="NY" data-cov="state">NY</span>
+            <span class="tile" style="grid-area: 3 / 11;" data-st="MA">MA</span>
+            <!-- Row 4 -->
+            <span class="tile" style="grid-area: 4 / 2;" data-st="OR">OR</span>
+            <span class="tile" style="grid-area: 4 / 3;" data-st="NV">NV</span>
+            <span class="tile" style="grid-area: 4 / 4;" data-st="WY">WY</span>
+            <span class="tile" style="grid-area: 4 / 5;" data-st="SD">SD</span>
+            <span class="tile" style="grid-area: 4 / 6;" data-st="IA">IA</span>
+            <span class="tile" style="grid-area: 4 / 7;" data-st="IL" data-cov="county">IL</span>
+            <span class="tile" style="grid-area: 4 / 8;" data-st="IN" data-cov="state">IN</span>
+            <span class="tile" style="grid-area: 4 / 9;" data-st="OH" data-cov="county">OH</span>
+            <span class="tile" style="grid-area: 4 / 10;" data-st="PA">PA</span>
+            <span class="tile" style="grid-area: 4 / 11;" data-st="NJ" data-cov="state">NJ</span>
+            <span class="tile" style="grid-area: 4 / 12;" data-st="CT">CT</span>
+            <span class="tile" style="grid-area: 4 / 13;" data-st="RI">RI</span>
+            <!-- Row 5 -->
+            <span class="tile" style="grid-area: 5 / 2;" data-st="CA" data-cov="county">CA</span>
+            <span class="tile" style="grid-area: 5 / 3;" data-st="UT">UT</span>
+            <span class="tile" style="grid-area: 5 / 4;" data-st="CO">CO</span>
+            <span class="tile" style="grid-area: 5 / 5;" data-st="NE">NE</span>
+            <span class="tile" style="grid-area: 5 / 6;" data-st="MO">MO</span>
+            <span class="tile" style="grid-area: 5 / 7;" data-st="KY">KY</span>
+            <span class="tile" style="grid-area: 5 / 8;" data-st="WV">WV</span>
+            <span class="tile" style="grid-area: 5 / 9;" data-st="VA">VA</span>
+            <span class="tile" style="grid-area: 5 / 10;" data-st="MD" data-cov="state">MD</span>
+            <span class="tile" style="grid-area: 5 / 11;" data-st="DE">DE</span>
+            <!-- Row 6 -->
+            <span class="tile" style="grid-area: 6 / 3;" data-st="AZ" data-cov="county">AZ</span>
+            <span class="tile" style="grid-area: 6 / 4;" data-st="NM">NM</span>
+            <span class="tile" style="grid-area: 6 / 5;" data-st="KS">KS</span>
+            <span class="tile" style="grid-area: 6 / 6;" data-st="AR">AR</span>
+            <span class="tile" style="grid-area: 6 / 7;" data-st="TN">TN</span>
+            <span class="tile" style="grid-area: 6 / 8;" data-st="NC">NC</span>
+            <span class="tile" style="grid-area: 6 / 9;" data-st="SC">SC</span>
+            <!-- Row 7 -->
+            <span class="tile" style="grid-area: 7 / 1;" data-st="AK">AK</span>
+            <span class="tile" style="grid-area: 7 / 5;" data-st="OK">OK</span>
+            <span class="tile" style="grid-area: 7 / 6;" data-st="LA">LA</span>
+            <span class="tile" style="grid-area: 7 / 7;" data-st="MS">MS</span>
+            <span class="tile" style="grid-area: 7 / 8;" data-st="AL">AL</span>
+            <span class="tile" style="grid-area: 7 / 9;" data-st="GA">GA</span>
+            <span class="tile" style="grid-area: 7 / 10;" data-st="DC">DC</span>
+            <!-- Row 8 -->
+            <span class="tile" style="grid-area: 8 / 1;" data-st="HI">HI</span>
+            <span class="tile" style="grid-area: 8 / 5;" data-st="TX">TX</span>
+            <span class="tile" style="grid-area: 8 / 9;" data-st="FL" data-cov="state">FL</span>
+        </div>
+
+        <div class="legend">
+            <span class="dot state"></span> Statewide roll <span class="legend-meta">(5 states)</span>
+            <span class="dot county"></span> Active county adapters <span class="legend-meta">(7 states)</span>
+            <span class="dot none"></span> Coming soon
+        </div>
+
+        <div class="coverage-detail">
+            <div><strong>Statewide rolls:</strong> Florida (FDOR) · New York (ORPS) · Maryland (SDAT) · New Jersey (MOD-IV) · Indiana (DLGF)</div>
+            <div style="margin-top:8px;"><strong>County adapters:</strong> Cook IL · DuPage IL · Lake IL · Los Angeles CA · San Diego CA · Riverside CA · Maricopa AZ · Hennepin MN (Minneapolis) · King WA (Seattle) · Wayne MI (Detroit) · plus 10 Ohio counties (Franklin, Cuyahoga, Hamilton, Mahoning, Medina, Stark, Warren, Lucas, Montgomery, Butler, Clermont) via the Tyler Eagle template</div>
+            <div style="margin-top:10px; color:var(--dim); font-size:13px;">New states added quarterly. Coverage list updates live from the connector registry.</div>
+        </div>
+    </section>
 
     <h2>What Lupa detects</h2>
     <ul>
@@ -229,7 +324,7 @@
 </main>
 
 <footer>
-    <div>© 2026 Lupa Intelligence · jeremy@lupaintel.com · 719-761-4236</div>
+    <div>© 2026 Lupa Intelligence</div>
     <div>
         <a href="/">Home</a>
         <a href="/homestead-exemption-audit/">Homestead Audit</a>
