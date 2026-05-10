@@ -197,13 +197,13 @@
     <div class="stat-grid">
         <div class="stat"><div class="stat-n">570+</div><div class="stat-l" data-i18n="stat-1">Confirmed dual-claim cases</div></div>
         <div class="stat"><div class="stat-n">1M+</div><div class="stat-l" data-i18n="stat-2">Parcels analyzed</div></div>
-        <div class="stat"><div class="stat-n">12</div><div class="stat-l" data-i18n="stat-3">States with active coverage</div></div>
+        <div class="stat"><div class="stat-n">14</div><div class="stat-l" data-i18n="stat-3">States with active coverage</div></div>
         <div class="stat"><div class="stat-n">100%</div><div class="stat-l" data-i18n="stat-4">Public records, no paid data</div></div>
     </div>
 
     <section class="coverage" aria-labelledby="coverage-h">
         <h2 id="coverage-h" data-i18n="cov-h">Where Lupa connects</h2>
-        <p data-i18n="cov-intro">Coverage today spans <strong>12 states</strong> — 5 with full statewide rolls, 7 with active county-level adapters covering the highest-population centers in each. Cross-state JOIN refreshes monthly.</p>
+        <p data-i18n="cov-intro">Coverage today spans <strong>14 states</strong> — 7 with full statewide rolls, 7 with active county-level adapters covering the highest-population centers in each. Cross-state JOIN refreshes monthly.</p>
 
         <div class="us-grid" role="img" aria-label="Map of United States showing Lupa's connector coverage across states">
             <!-- COVERAGE-MAP-START tile_class=tile -->
@@ -215,10 +215,10 @@
                     <span class="tile" style="grid-area: 3 / 4;">MT</span>
                     <span class="tile" style="grid-area: 3 / 5;">ND</span>
                     <span class="tile" style="grid-area: 3 / 6;" data-cov="county">MN</span>
-                    <span class="tile" style="grid-area: 3 / 7;">WI</span>
+                    <span class="tile" style="grid-area: 3 / 7;" data-cov="state">WI</span>
                     <span class="tile" style="grid-area: 3 / 8;" data-cov="county">MI</span>
                     <span class="tile" style="grid-area: 3 / 10;" data-cov="state">NY</span>
-                    <span class="tile" style="grid-area: 3 / 11;">MA</span>
+                    <span class="tile" style="grid-area: 3 / 11;" data-cov="state">MA</span>
                     <span class="tile" style="grid-area: 4 / 2;">OR</span>
                     <span class="tile" style="grid-area: 4 / 3;">NV</span>
                     <span class="tile" style="grid-area: 4 / 4;">WY</span>
@@ -262,13 +262,13 @@
         </div>
 
         <div class="legend">
-            <span class="dot state"></span> <span data-i18n="leg-state">Statewide roll</span> <span class="legend-meta" data-i18n="leg-state-meta">(5 states)</span>
-            <span class="dot county"></span> <span data-i18n="leg-county">Active county adapters</span> <span class="legend-meta" data-i18n="leg-county-meta">(7 states)</span>
+            <span class="dot state"></span> <span data-i18n="leg-state">Statewide roll</span> <span class="legend-meta" data-i18n="leg-state-meta">(7 states)</span>
+            <span class="dot county"></span> <span data-i18n="leg-county">Active county adapters</span> <span class="legend-meta" data-i18n="leg-county-meta">(9 states)</span>
             <span class="dot none"></span> <span data-i18n="leg-none">Coming soon</span>
         </div>
 
         <div class="coverage-detail">
-            <div class="coverage-statewide-line" data-i18n="cov-statewide"><strong>5 statewide rolls</strong>Florida (FDOR) · New York (ORPS) · Maryland (SDAT) · New Jersey (MOD-IV) · Indiana (DLGF)</div>
+            <div class="coverage-statewide-line" data-i18n="cov-statewide"><strong>7 statewide rolls</strong>Florida (FDOR) · New York (ORPS) · Maryland (SDAT) · New Jersey (MOD-IV) · Indiana (DLGF) · Wisconsin (SCO V11) · Massachusetts (MassGIS L3)</div>
 
             <div class="coverage-county-header" data-i18n="cov-county-header"><span class="num">28 county-direct adapters</span> · 9 states</div>
 
@@ -399,13 +399,13 @@ const T = {
         'stat-3': 'States with active coverage',
         'stat-4': 'Public records, no paid data',
         'cov-h': 'Where Lupa connects',
-        'cov-intro': 'Coverage today spans <strong>12 states</strong> — 5 with full statewide rolls, 7 with active county-level adapters covering the highest-population centers in each. Cross-state JOIN refreshes monthly.',
+        'cov-intro': 'Coverage today spans <strong>14 states</strong> — 7 with full statewide rolls, 7 with active county-level adapters covering the highest-population centers in each. Cross-state JOIN refreshes monthly.',
         'leg-state': 'Statewide roll',
-        'leg-state-meta': '(5 states)',
+        'leg-state-meta': '(7 states)',
         'leg-county': 'Active county adapters',
-        'leg-county-meta': '(7 states)',
+        'leg-county-meta': '(9 states)',
         'leg-none': 'Coming soon',
-        'cov-statewide': '<strong>5 statewide rolls</strong>Florida (FDOR) · New York (ORPS) · Maryland (SDAT) · New Jersey (MOD-IV) · Indiana (DLGF)',
+        'cov-statewide': '<strong>7 statewide rolls</strong>Florida (FDOR) · New York (ORPS) · Maryland (SDAT) · New Jersey (MOD-IV) · Indiana (DLGF) · Wisconsin (SCO V11) · Massachusetts (MassGIS L3)',
         'cov-county-header': '<span class="num">28 county-direct adapters</span> · 9 states',
         'cov-fl-note': '+ FDOR statewide',
         'cov-oh-note': 'Tyler Eagle template',
@@ -463,13 +463,13 @@ const T = {
         'stat-3': 'Estados con cobertura activa',
         'stat-4': 'Registros públicos, sin datos pagos',
         'cov-h': 'Dónde se conecta Lupa',
-        'cov-intro': 'La cobertura actual abarca <strong>12 estados</strong> — 5 con padrones estatales completos, 7 con adaptadores activos a nivel condado cubriendo los centros de mayor población en cada uno. El cruce inter-estatal se actualiza mensualmente.',
+        'cov-intro': 'La cobertura actual abarca <strong>14 estados</strong> — 7 con padrones estatales completos, 7 con adaptadores activos a nivel condado cubriendo los centros de mayor población en cada uno. El cruce inter-estatal se actualiza mensualmente.',
         'leg-state': 'Padrón estatal',
-        'leg-state-meta': '(5 estados)',
+        'leg-state-meta': '(7 estados)',
         'leg-county': 'Adaptadores de condado activos',
-        'leg-county-meta': '(7 estados)',
+        'leg-county-meta': '(9 estados)',
         'leg-none': 'Próximamente',
-        'cov-statewide': '<strong>5 padrones estatales</strong>Florida (FDOR) · Nueva York (ORPS) · Maryland (SDAT) · Nueva Jersey (MOD-IV) · Indiana (DLGF)',
+        'cov-statewide': '<strong>7 padrones estatales</strong>Florida (FDOR) · Nueva York (ORPS) · Maryland (SDAT) · Nueva Jersey (MOD-IV) · Indiana (DLGF) · Wisconsin (SCO V11) · Massachusetts (MassGIS L3)',
         'cov-county-header': '<span class="num">28 adaptadores directos de condado</span> · 9 estados',
         'cov-fl-note': '+ FDOR estatal',
         'cov-oh-note': 'plantilla Tyler Eagle',

@@ -1,7 +1,7 @@
 {
   "_comment": "Single source of truth for the coverage map on lupaintel.com. Edit this file then run `python3 scripts/build_coverage.py` from the repo root to regenerate both index.html and homestead-exemption-audit/index.html. Tile grid layout is 13 cols x 8 rows; rows count from top (1) to bottom (8).",
   "schema_version": 1,
-  "last_updated": "2026-05-08",
+  "last_updated": "2026-05-09",
   "tiles": [
     {"st": "ME", "row": 1, "col": 11},
     {"st": "VT", "row": 2, "col": 10},
@@ -11,10 +11,10 @@
     {"st": "MT", "row": 3, "col": 4},
     {"st": "ND", "row": 3, "col": 5},
     {"st": "MN", "row": 3, "col": 6,  "cov": "county"},
-    {"st": "WI", "row": 3, "col": 7},
+    {"st": "WI", "row": 3, "col": 7,  "cov": "state"},
     {"st": "MI", "row": 3, "col": 8,  "cov": "county"},
     {"st": "NY", "row": 3, "col": 10, "cov": "state"},
-    {"st": "MA", "row": 3, "col": 11},
+    {"st": "MA", "row": 3, "col": 11, "cov": "state"},
     {"st": "OR", "row": 4, "col": 2},
     {"st": "NV", "row": 4, "col": 3},
     {"st": "WY", "row": 4, "col": 4},
@@ -56,17 +56,19 @@
     {"st": "FL", "row": 8, "col": 9,  "cov": "state"}
   ],
   "narrative": {
-    "headline_count": "12",
-    "statewide_count": 5,
+    "headline_count": "14",
+    "statewide_count": 7,
     "county_count": 7,
-    "parcels_analyzed": "6M+",
-    "population_reach": "~30%",
+    "parcels_analyzed": "12M+",
+    "population_reach": "~34%",
     "statewide_sources": [
       {"st": "FL", "label": "FDOR"},
       {"st": "NY", "label": "NY ORPS"},
       {"st": "MD", "label": "MD SDAT"},
       {"st": "NJ", "label": "NJ MOD-IV"},
-      {"st": "IN", "label": "IN DLGF"}
+      {"st": "IN", "label": "IN DLGF"},
+      {"st": "WI", "label": "WI SCO V11"},
+      {"st": "MA", "label": "MassGIS L3"}
     ],
     "county_adapter_count": 28,
     "county_adapters_short": [
