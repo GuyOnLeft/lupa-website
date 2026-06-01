@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 const mono = { fontFamily: "'IBM Plex Mono', monospace" } as const;
 
@@ -37,6 +38,7 @@ function AudienceCard({ a, i, visible }: { a: typeof AUDIENCES[0]; i: number; vi
 export default function WhoWeServe() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const isMobile = useIsMobile();
   useEffect(() => {
     const el = ref.current; if (!el) return;
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold: 0.2 });
@@ -44,11 +46,11 @@ export default function WhoWeServe() {
   }, []);
 
   return (
-    <section style={{ padding: "80px 0", background: "#0a0a0a" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
+    <section style={{ padding: isMobile ? "56px 0" : "80px 0", background: "#0a0a0a" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: isMobile ? "0 20px" : "0 32px" }}>
         <div style={{ fontSize: 10, color: "#555", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12, ...mono }}>// Who We Serve</div>
-        <h2 style={{ fontSize: 32, fontWeight: 700, color: "#fff", marginBottom: 48, fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>Built for the agencies that own parcel-level compliance.</h2>
-        <div ref={ref} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+        <h2 style={{ fontSize: isMobile ? 22 : 32, fontWeight: 700, color: "#fff", marginBottom: isMobile ? 32 : 48, fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>Built for the agencies that own parcel-level compliance.</h2>
+        <div ref={ref} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? 12 : 16 }}>
           {AUDIENCES.map((a, i) => <AudienceCard key={a.title} a={a} i={i} visible={visible} />)}
         </div>
       </div>

@@ -160,6 +160,24 @@ import WhoWeServe from '../components/WhoWeServe';
     footer a:hover { color: #aaa; }
     /* Bot trap */
     .bot-trap { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; height: 52px; gap: 8px; }
+      .nav-logo { font-size: 12px; letter-spacing: 0.03em; }
+      .nav-links { gap: 14px; }
+      .nav-links a[href="#products"], .nav-links a[href="/methodology/"] { display: none; }
+      .nav-cta { padding: 6px 12px; font-size: 10px !important; }
+      .hero { min-height: 88vh; }
+      .hero-content { padding: 0 20px; }
+      .hero-h1 { font-size: clamp(36px, 11vw, 52px); line-height: 1.05; }
+      .hero-sub { font-size: 13px; margin-bottom: 28px; }
+      .hero-cta { padding: 11px 22px; font-size: 11px; }
+      .scan-hud { right: 16px; bottom: 8%; font-size: 9px; }
+      .cta-section { padding: 56px 0; }
+      .cta-inner { padding: 0 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
+      .cta-h { font-size: 22px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 10px; font-size: 10px; }
+    }
   </style>
 </head>
 <body>
@@ -193,21 +211,21 @@ import WhoWeServe from '../components/WhoWeServe';
   </section>
 
   <!-- Stat Counters -->
-  <StatCounters client:visible />
+  <StatCounters client:load />
 
   <!-- How It Works -->
-  <HowItWorks client:visible />
+  <HowItWorks client:load />
 
   <!-- Products -->
   <div id="products">
-    <ProductCards client:visible />
+    <ProductCards client:load />
   </div>
 
   <!-- Coverage Map -->
-  <CoverageMap client:visible />
+  <CoverageMap client:load />
 
   <!-- Who We Serve -->
-  <WhoWeServe client:visible />
+  <WhoWeServe client:load />
 
   <!-- CTA -->
   <section class="cta-section">

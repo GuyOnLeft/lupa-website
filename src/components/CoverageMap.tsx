@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 const mono = { fontFamily: "'IBM Plex Mono', monospace" } as const;
 
@@ -12,15 +13,18 @@ const STATES: { abbr: string; name: string; coverage: Coverage }[] = [
   { abbr: "IN", name: "Indiana", coverage: "full" },
   { abbr: "WI", name: "Wisconsin", coverage: "full" },
   { abbr: "MA", name: "Massachusetts", coverage: "full" },
-  { abbr: "TX", name: "Texas", coverage: "county" },
-  { abbr: "PA", name: "Pennsylvania", coverage: "county" },
   { abbr: "OH", name: "Ohio", coverage: "county" },
   { abbr: "MI", name: "Michigan", coverage: "county" },
-  { abbr: "WA", name: "Washington", coverage: "none" },
+  { abbr: "CA", name: "California", coverage: "county" },
+  { abbr: "IL", name: "Illinois", coverage: "county" },
+  { abbr: "MN", name: "Minnesota", coverage: "county" },
+  { abbr: "VA", name: "Virginia", coverage: "county" },
+  { abbr: "WA", name: "Washington", coverage: "county" },
+  { abbr: "AZ", name: "Arizona", coverage: "county" },
+  { abbr: "TX", name: "Texas", coverage: "none" },
+  { abbr: "PA", name: "Pennsylvania", coverage: "none" },
   { abbr: "OR", name: "Oregon", coverage: "none" },
-  { abbr: "CA", name: "California", coverage: "none" },
   { abbr: "NV", name: "Nevada", coverage: "none" },
-  { abbr: "AZ", name: "Arizona", coverage: "none" },
   { abbr: "NM", name: "New Mexico", coverage: "none" },
   { abbr: "CO", name: "Colorado", coverage: "none" },
   { abbr: "UT", name: "Utah", coverage: "none" },
@@ -31,7 +35,6 @@ const STATES: { abbr: string; name: string; coverage: Coverage }[] = [
   { abbr: "SD", name: "South Dakota", coverage: "none" },
   { abbr: "NE", name: "Nebraska", coverage: "none" },
   { abbr: "KS", name: "Kansas", coverage: "none" },
-  { abbr: "MN", name: "Minnesota", coverage: "none" },
   { abbr: "IA", name: "Iowa", coverage: "none" },
   { abbr: "MO", name: "Missouri", coverage: "none" },
   { abbr: "AR", name: "Arkansas", coverage: "none" },
@@ -41,11 +44,9 @@ const STATES: { abbr: string; name: string; coverage: Coverage }[] = [
   { abbr: "GA", name: "Georgia", coverage: "none" },
   { abbr: "SC", name: "South Carolina", coverage: "none" },
   { abbr: "NC", name: "North Carolina", coverage: "none" },
-  { abbr: "VA", name: "Virginia", coverage: "none" },
   { abbr: "WV", name: "West Virginia", coverage: "none" },
   { abbr: "KY", name: "Kentucky", coverage: "none" },
   { abbr: "TN", name: "Tennessee", coverage: "none" },
-  { abbr: "IL", name: "Illinois", coverage: "none" },
   { abbr: "CT", name: "Connecticut", coverage: "none" },
   { abbr: "RI", name: "Rhode Island", coverage: "none" },
   { abbr: "VT", name: "Vermont", coverage: "none" },
@@ -71,15 +72,16 @@ const LABEL: Record<Coverage, string> = {
 
 export default function CoverageMap() {
   const [hovered, setHovered] = useState<(typeof STATES)[0] | null>(null);
+  const isMobile = useIsMobile();
 
   return (
-    <section style={{ padding: "80px 0", background: "#0a0a0a" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
+    <section style={{ padding: isMobile ? "56px 0" : "80px 0", background: "#0a0a0a" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: isMobile ? "0 20px" : "0 32px" }}>
         <div style={{ fontSize: 10, color: "#555", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12, ...mono }}>// Coverage</div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 260px", gap: 40, alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 260px", gap: isMobile ? 24 : 40, alignItems: "start" }}>
           <div>
-            <h2 style={{ fontSize: 28, fontWeight: 700, color: "#fff", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>Active in 14 states. Expanding quarterly.</h2>
-            <p style={{ fontSize: 12, color: "#555", lineHeight: 1.7, marginBottom: 28, ...mono }}>Seven states with full statewide rolls. Active county adapters in four more. Cross-state JOIN refreshes monthly.</p>
+            <h2 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 700, color: "#fff", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>Active in 15 states. Expanding quarterly.</h2>
+            <p style={{ fontSize: 12, color: "#555", lineHeight: 1.7, marginBottom: 28, ...mono }}>Seven states with full statewide rolls. Active county adapters in eight more. Cross-state JOIN refreshes monthly.</p>
 
             {/* State grid */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
@@ -92,7 +94,7 @@ export default function CoverageMap() {
                     onMouseEnter={() => setHovered(s)}
                     onMouseLeave={() => setHovered(null)}
                     style={{
-                      width: 38, height: 32, background: c.bg, color: c.text,
+                      width: isMobile ? 32 : 38, height: isMobile ? 28 : 32, background: c.bg, color: c.text,
                       border: `1px solid ${isHov ? "#FFB800" : c.border}`,
                       borderRadius: 3, display: "flex", alignItems: "center",
                       justifyContent: "center", fontSize: 9, fontWeight: 600,
@@ -131,14 +133,14 @@ export default function CoverageMap() {
           </div>
 
           {/* Stats sidebar */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ display: isMobile ? "grid" : "flex", gridTemplateColumns: isMobile ? "repeat(3, 1fr)" : undefined, flexDirection: "column", gap: 12 }}>
             {[
-              { n: "14", l: "States covered" },
-              { n: "15M+", l: "Parcels analyzed" },
-              { n: "~34%", l: "US population reach" },
+              { n: "15", l: "States covered" },
+              { n: "39", l: "Production adapters" },
+              { n: "30M+", l: "Parcels in coverage" },
             ].map(({ n, l }) => (
-              <div key={l} style={{ border: "1px solid #1a1a1a", borderRadius: 4, padding: "20px 20px 16px", background: "#0d0d0d" }}>
-                <div style={{ fontSize: 32, fontWeight: 700, color: "#FFB800", ...mono }}>{n}</div>
+              <div key={l} style={{ border: "1px solid #1a1a1a", borderRadius: 4, padding: isMobile ? "14px 12px" : "20px 20px 16px", background: "#0d0d0d" }}>
+                <div style={{ fontSize: isMobile ? 22 : 32, fontWeight: 700, color: "#FFB800", ...mono }}>{n}</div>
                 <div style={{ fontSize: 10, color: "#555", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4, ...mono }}>{l}</div>
               </div>
             ))}
