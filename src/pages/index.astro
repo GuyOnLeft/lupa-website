@@ -1,0 +1,513 @@
+---
+import StatCounters from '../components/StatCounters';
+import HowItWorks from '../components/HowItWorks';
+import CoverageMap from '../components/CoverageMap';
+import ProductCards from '../components/ProductCards';
+import WhoWeServe from '../components/WhoWeServe';
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cross-jurisdiction homestead exemption audit and unpermitted pool detection for county property appraisers, state revenue agencies, and municipal assessors. Built entirely on public records." />
+  <link rel="canonical" href="https://lupaintel.com/" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta property="og:title" content="Lupa CrossCheck & PoolFind — Parcel Compliance Products for County Governments" />
+  <meta property="og:description" content="Lupa Intelligence — productized parcel compliance for county property appraisers. CrossCheck (cross-jurisdiction homestead detection) and PoolFind (unpermitted pool detection). Built on public records." />
+  <meta property="og:url" content="https://lupaintel.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lupa Intelligence" />
+  <meta property="og:image" content="https://lupaintel.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Lupa Intelligence — productized parcel compliance for county governments" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Lupa Intelligence — Productized Parcel Compliance for County Governments" />
+  <meta name="twitter:description" content="Lupa CrossCheck (cross-jurisdiction homestead detection), Lupa PoolFind (unpermitted pool detection). Public records only." />
+  <meta name="twitter:image" content="https://lupaintel.com/og-image.png" />
+  <title>Lupa CrossCheck & PoolFind — Parcel Compliance for County Governments | Lupa Intelligence</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Lupa Intelligence",
+    "url": "https://lupaintel.com/",
+    "email": "jeremy@lupaintel.com",
+    "telephone": "+1-719-761-4236",
+    "foundingDate": "2026",
+    "description": "Cross-jurisdiction parcel intelligence for county property appraisers, state revenue agencies, and municipal assessors. Homestead exemption audits and unpermitted pool detection built entirely on public records.",
+    "areaServed": [
+      {"@type": "AdministrativeArea", "name": "Florida"},
+      {"@type": "AdministrativeArea", "name": "Indiana"},
+      {"@type": "AdministrativeArea", "name": "Illinois"},
+      {"@type": "AdministrativeArea", "name": "Ohio"},
+      {"@type": "AdministrativeArea", "name": "New York"}
+    ],
+    "knowsAbout": [
+      "Homestead exemption audit",
+      "Dual homestead claim detection",
+      "Exemption stacking",
+      "Unpermitted pool detection",
+      "Property tax compliance",
+      "Parcel data intelligence",
+      "Assessment gap recovery"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Lupa Intelligence",
+    "url": "https://lupaintel.com/",
+    "publisher": {"@type": "Organization", "name": "Lupa Intelligence"}
+  }
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/favicon-192.png" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8890VE29T1"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8890VE29T1');
+  </script>
+
+  <!-- Umami -->
+  <script defer src="https://umami-production-026b.up.railway.app/script.js" data-website-id="7dd8458d-6be9-4c5f-9cad-1c3661edce59"></script>
+
+  <!-- Engagement tracking -->
+  <script is:inline>
+  (function(){
+    function track(name, data){
+      try { if (window.gtag) gtag('event', name, data || {}); } catch(e){}
+      try { if (window.umami) umami.track(name, data || {}); } catch(e){}
+    }
+    var fired = {};
+    function fireOnce(name, data){ if(!fired[name]){ fired[name]=1; track(name, data); } }
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = Math.round((h.scrollTop + window.innerHeight) / h.scrollHeight * 100);
+      if (pct >= 25) fireOnce('scroll_25');
+      if (pct >= 50) fireOnce('scroll_50');
+      if (pct >= 75) fireOnce('scroll_75');
+      if (pct >= 90) fireOnce('scroll_90');
+    }, { passive: true });
+    setTimeout(function(){ fireOnce('engaged_30s'); }, 30000);
+    setTimeout(function(){ fireOnce('engaged_60s'); }, 60000);
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (a.classList && a.classList.contains('bot-trap')) {
+        e.preventDefault();
+        track('bot_trap_click', { href: href, ua: navigator.userAgent });
+        return;
+      }
+      if (href.indexOf('mailto:') === 0) track('mailto_click', { href: href });
+      else if (/^https?:\/\//.test(href) && a.host !== location.host) track('outbound_click', { href: href });
+    });
+  })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0a; color: #e8e8e8; font-family: 'IBM Plex Mono', monospace; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    /* Nav */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #1a1a1a; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { font-size: 14px; font-weight: 600; color: #fff; text-decoration: none; letter-spacing: 0.05em; font-family: 'IBM Plex Mono', monospace; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 12px; color: #666; text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; font-family: 'IBM Plex Mono', monospace; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { background: #FFB800; color: #000 !important; padding: 7px 16px; border-radius: 3px; font-weight: 600; font-size: 11px !important; }
+    .lang-toggle { background: none; border: none; cursor: pointer; font-size: 11px; color: #555; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; padding: 0; transition: color 0.2s; }
+    .lang-toggle:hover { color: #fff; }
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: #000; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(255,184,0,0.05) 0%, transparent 70%); pointer-events: none; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .hero-eyebrow { font-size: 10px; color: #555; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; font-family: 'IBM Plex Mono', monospace; }
+    .hero-h1 { font-size: clamp(48px, 7vw, 80px); font-weight: 800; color: #fff; line-height: 1.05; letter-spacing: -0.03em; font-family: 'Inter', sans-serif; margin-bottom: 24px; }
+    .hero-h1 em { color: #FFB800; font-style: normal; }
+    .hero-sub { font-size: 14px; color: #666; max-width: 480px; line-height: 1.7; margin-bottom: 36px; font-family: 'IBM Plex Mono', monospace; }
+    .hero-cta { display: inline-block; background: #FFB800; color: #000; padding: 13px 28px; font-size: 12px; font-weight: 700; border-radius: 3px; text-decoration: none; letter-spacing: 0.05em; font-family: 'IBM Plex Mono', monospace; transition: background 0.15s; }
+    .hero-cta:hover { background: #ffc933; }
+    /* Globe canvas */
+    #scan-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .scan-hud { position: absolute; right: 10%; bottom: 20%; font-size: 10px; color: #222; letter-spacing: 0.1em; font-family: 'IBM Plex Mono', monospace; line-height: 1.8; text-align: right; }
+    /* CTA section */
+    .cta-section { padding: 80px 0; background: #000; border-top: 1px solid #1a1a1a; }
+    .cta-inner { max-width: 1100px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+    .cta-h { font-size: 28px; font-weight: 700; color: #fff; max-width: 500px; font-family: 'Inter', sans-serif; letter-spacing: -0.01em; }
+    .cta-sub { font-size: 12px; color: #555; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; }
+    /* Footer */
+    footer { background: #000; border-top: 1px solid #111; padding: 32px 40px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #444; font-family: 'IBM Plex Mono', monospace; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { color: #aaa; }
+    /* Bot trap */
+    .bot-trap { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="/" class="nav-logo">Lupa Intelligence</a>
+    <div class="nav-links">
+      <a href="#products" data-i18n="nav-products">Products</a>
+      <a href="/methodology/" data-i18n="nav-methodology">Methodology</a>
+      <button class="lang-toggle" id="lang-btn">ES</button>
+      <a href="mailto:jeremy@lupaintel.com" class="nav-cta" data-i18n="nav-cta">Request a Demo</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <canvas id="scan-canvas"></canvas>
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow" data-i18n="hero-sys">// Parcel intelligence · active</div>
+      <h1 class="hero-h1" data-i18n="hero-headline">We see what<br /><em>others don't.</em></h1>
+      <p class="hero-sub" data-i18n="hero-sub">Cross-jurisdiction parcel data intelligence for county governments — built entirely on public records.</p>
+      <a href="mailto:jeremy@lupaintel.com" class="hero-cta" data-i18n="hero-cta">Request a Demo →</a>
+    </div>
+    <div class="scan-hud" id="scan-coords">
+      37.7749°N&nbsp;&nbsp;122.4194°W<br />
+      SCANNING... SFO
+    </div>
+  </section>
+
+  <!-- Stat Counters -->
+  <StatCounters client:visible />
+
+  <!-- How It Works -->
+  <HowItWorks client:visible />
+
+  <!-- Products -->
+  <div id="products">
+    <ProductCards client:visible />
+  </div>
+
+  <!-- Coverage Map -->
+  <CoverageMap client:visible />
+
+  <!-- Who We Serve -->
+  <WhoWeServe client:visible />
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div>
+        <h2 class="cta-h" data-i18n="cta-headline">Ready to see what your records already know?</h2>
+        <p class="cta-sub" data-i18n="cta-sub">We run a pilot audit of your jurisdiction. You see what we find.</p>
+      </div>
+      <a href="mailto:jeremy@lupaintel.com" class="hero-cta" data-i18n="cta-link">Request a Demo →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span>Lupa Intelligence · <span data-i18n="footer-tagline">Parcel Intelligence Platform</span></span>
+    <span>
+      <a href="/homestead-exemption-audit/">Homestead Audit</a> ·
+      <a href="/pool-detection/">Pool Detection</a> ·
+      <a href="/methodology/">Methodology</a> ·
+      © 2026 Lupa Intelligence
+    </span>
+  </footer>
+
+  <!-- Bot trap -->
+  <a href="mailto:noreply@lupaintel.com" class="bot-trap" tabindex="-1" aria-hidden="true">contact</a>
+
+  <!-- Three.js importmap -->
+  <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+
+  <!-- Globe + i18n -->
+  <script type="module">
+import * as THREE from 'three';
+
+// ── Translations ──────────────────────────────────────────────────
+const T = {
+  en: {
+    'nav-cta':        'Request a Demo',
+    'nav-products':   'Products',
+    'nav-methodology':'Methodology',
+    'hero-sys':       '// Parcel intelligence · active',
+    'hero-headline':  'We see what<br><em>others don\'t.</em>',
+    'hero-sub':       'Cross-jurisdiction parcel data intelligence for county governments — built entirely on public records.',
+    'hero-cta':       'Request a Demo →',
+    'cta-headline':   'Ready to see what your records already know?',
+    'cta-sub':        'We run a pilot audit of your jurisdiction. You see what we find.',
+    'cta-link':       'Request a Demo →',
+    'footer-tagline': 'Parcel Intelligence Platform',
+  },
+  es: {
+    'nav-cta':        'Solicitar una Demo',
+    'nav-products':   'Productos',
+    'nav-methodology':'Metodología',
+    'hero-sys':       '// Inteligencia predial · activo',
+    'hero-headline':  'Vemos lo que<br><em>otros no ven.</em>',
+    'hero-sub':       'Inteligencia de datos prediales entre jurisdicciones para gobiernos locales — construida íntegramente sobre registros públicos.',
+    'hero-cta':       'Solicitar una Demo →',
+    'cta-headline':   '¿Listo para ver lo que sus registros ya saben?',
+    'cta-sub':        'Realizamos una auditoría piloto de su jurisdicción. Usted ve lo que encontramos.',
+    'cta-link':       'Solicitar una Demo →',
+    'footer-tagline': 'Plataforma de Inteligencia Predial',
+  }
+};
+
+// ── Language toggle ───────────────────────────────────────────────
+let lang = 'en';
+const langBtn = document.getElementById('lang-btn');
+
+function applyLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[l][key] !== undefined) el.innerHTML = T[l][key];
+  });
+  langBtn.textContent = l === 'en' ? 'ES' : 'EN';
+}
+
+langBtn.addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
+
+// ── Globe (Three.js) ──────────────────────────────────────────────
+const canvas = document.getElementById('scan-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 0);
+
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+camera.position.z = 3;
+
+function resize() {
+  const w = window.innerWidth, h = window.innerHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+
+function applyLayout() {
+  const mobile = window.innerWidth < 900;
+  earth.position.x    = mobile ? 0   : 1.1;
+  atmoMesh.position.x = mobile ? 0   : 1.1;
+  haloMesh.position.x = mobile ? 0   : 1.1;
+  camera.position.z   = mobile ? 2.6 : 3;
+}
+
+resize();
+window.addEventListener('resize', () => { resize(); applyLayout(); });
+
+// Earth sphere
+const earthGeo = new THREE.SphereGeometry(1, 64, 64);
+const earthMat = new THREE.MeshPhongMaterial({ specular: new THREE.Color(0x112233), shininess: 14 });
+const earth    = new THREE.Mesh(earthGeo, earthMat);
+earth.position.x = 1.1;
+scene.add(earth);
+
+// Atmosphere shell
+const atmoMesh = new THREE.Mesh(
+  new THREE.SphereGeometry(1.04, 64, 64),
+  new THREE.MeshPhongMaterial({ color: 0x4499cc, transparent: true, opacity: 0.05, depthWrite: false })
+);
+atmoMesh.position.x = 1.1;
+scene.add(atmoMesh);
+
+// Outer glow
+const haloMesh = new THREE.Mesh(
+  new THREE.SphereGeometry(1.18, 64, 64),
+  new THREE.MeshBasicMaterial({
+    color: 0x1a4466, transparent: true, opacity: 0.1,
+    side: THREE.BackSide, blending: THREE.AdditiveBlending, depthWrite: false
+  })
+);
+haloMesh.position.x = 1.1;
+scene.add(haloMesh);
+
+applyLayout();
+
+// Lighting
+const sun = new THREE.DirectionalLight(0xfff8f0, 1.6);
+sun.position.set(4, 2, 5);
+scene.add(sun);
+scene.add(new THREE.AmbientLight(0x223344, 0.75));
+
+// Texture — try NASA via threejs.org, fall back to procedural
+function buildFallbackTexture() {
+  const W = 2048, H = 1024;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const c = cv.getContext('2d');
+  const og = c.createLinearGradient(0, 0, 0, H);
+  og.addColorStop(0, '#0b2e4e'); og.addColorStop(.5, '#0f3d62'); og.addColorStop(1, '#0b2e4e');
+  c.fillStyle = og; c.fillRect(0, 0, W, H);
+  function poly(pts, fill) {
+    c.beginPath();
+    pts.forEach(([lo, la], i) => {
+      const x = (lo + 180) / 360 * W, y = (90 - la) / 180 * H;
+      i === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
+    });
+    c.closePath(); c.fillStyle = fill; c.fill();
+  }
+  const land = '#3d6b2a', dry = '#7a7040', trop = '#2d6020', ice = '#d4e8f0';
+  poly([[-168,72],[-130,70],[-100,68],[-85,50],[-83,46],[-70,44],[-67,47],[-56,47],[-60,46],[-64,44],[-70,42],[-75,38],[-77,35],[-80,32],[-81,25],[-90,16],[-87,14],[-83,10],[-77,8],[-65,10],[-58,12],[-62,10],[-53,4],[-70,12],[-86,16],[-90,18],[-105,20],[-110,24],[-118,32],[-120,34],[-124,38],[-124,48],[-130,55],[-140,60],[-150,61],[-160,60],[-170,63],[-168,72]], land);
+  poly([[-44,84],[-20,77],[-18,64],[-44,60],[-52,62],[-56,70],[-44,84]], '#4a7a3a');
+  poly([[-81,8],[-77,8],[-65,10],[-53,4],[-50,2],[-36,-4],[-35,-10],[-38,-18],[-42,-22],[-52,-32],[-68,-54],[-74,-52],[-80,-40],[-80,-20],[-78,-2],[-80,2],[-81,8]], trop);
+  poly([[-10,36],[0,37],[8,37],[14,37],[20,37],[26,38],[32,40],[34,42],[30,46],[28,48],[20,48],[16,48],[14,50],[10,54],[8,58],[4,58],[-2,54],[-4,48],[-8,44],[-10,36]], land);
+  poly([[10,54],[14,54],[18,56],[20,58],[16,60],[12,58],[10,54]], land);
+  poly([[16,56],[18,58],[22,64],[24,68],[28,72],[30,70],[26,64],[22,58],[18,56]], land);
+  poly([[-5,50],[-2,50],[2,52],[-1,54],[-4,56],[-2,58],[-4,60],[-6,58],[-5,52],[-5,50]], land);
+  poly([[-18,16],[-17,14],[-15,10],[-8,4],[-2,4],[2,4],[8,2],[14,-2],[18,-18],[22,-34],[28,-36],[34,-26],[38,-12],[40,0],[42,10],[44,12],[42,14],[38,18],[34,22],[32,32],[28,34],[22,36],[16,38],[8,36],[2,36],[-2,36],[-6,32],[-10,28],[-16,22],[-18,16]], land);
+  poly([[32,32],[38,30],[50,28],[58,22],[58,12],[48,12],[44,12],[42,14],[38,18],[34,22],[32,32]], dry);
+  poly([[28,70],[40,72],[60,74],[80,72],[80,52],[60,50],[50,44],[40,42],[36,42],[28,48],[28,58],[28,70]], land);
+  poly([[80,72],[100,74],[120,72],[140,70],[160,64],[170,60],[166,54],[156,52],[140,46],[130,44],[120,50],[100,52],[80,52],[80,72]], land);
+  poly([[50,44],[60,50],[80,52],[80,44],[72,38],[62,36],[50,38],[50,44]], dry);
+  poly([[66,24],[68,28],[72,34],[76,36],[80,28],[78,20],[76,10],[72,8],[68,8],[66,14],[66,24]], land);
+  poly([[100,22],[106,24],[110,22],[116,24],[118,20],[114,4],[106,2],[102,4],[100,8],[100,22]], trop);
+  poly([[76,38],[82,28],[88,28],[92,28],[96,26],[100,22],[106,24],[110,22],[118,26],[120,32],[122,38],[120,44],[114,42],[110,38],[106,36],[100,36],[94,38],[86,34],[80,28],[76,38]], land);
+  poly([[120,32],[126,34],[130,36],[132,40],[128,40],[124,36],[120,32]], land);
+  poly([[130,32],[132,34],[138,40],[142,42],[144,40],[140,36],[136,34],[130,32]], land);
+  poly([[114,-22],[118,-20],[126,-14],[132,-12],[136,-12],[140,-14],[142,-16],[148,-20],[152,-24],[152,-30],[148,-38],[140,-38],[130,-36],[118,-34],[114,-26],[114,-22]], '#7a8038');
+  c.fillStyle = ice; c.fillRect(0, H * .86, W, H * .14);
+  const ag = c.createLinearGradient(0, 0, 0, H * .08);
+  ag.addColorStop(0, 'rgba(210,230,245,0.85)'); ag.addColorStop(1, 'rgba(210,230,245,0)');
+  c.fillStyle = ag; c.fillRect(0, 0, W, H * .08);
+  return new THREE.CanvasTexture(cv);
+}
+
+const texLoader = new THREE.TextureLoader();
+texLoader.crossOrigin = 'anonymous';
+texLoader.load(
+  'https://threejs.org/examples/textures/land_ocean_ice_cloud_2048.jpg',
+  tex  => { earthMat.map = tex; earthMat.needsUpdate = true; },
+  undefined,
+  _err => { earthMat.map = buildFallbackTexture(); earthMat.needsUpdate = true; }
+);
+
+function makeRingTex(size = 128) {
+  const cv = document.createElement('canvas'); cv.width = cv.height = size;
+  const c = cv.getContext('2d'), m = size / 2;
+  c.strokeStyle = '#F0B500'; c.lineWidth = size * 0.055;
+  c.shadowColor = '#F0B500'; c.shadowBlur  = size * 0.15;
+  c.beginPath(); c.arc(m, m, m * 0.62, 0, Math.PI * 2); c.stroke();
+  return new THREE.CanvasTexture(cv);
+}
+function makeDotTex(size = 64) {
+  const cv = document.createElement('canvas'); cv.width = cv.height = size;
+  const c = cv.getContext('2d'), m = size / 2;
+  c.fillStyle = '#F0B500'; c.shadowColor = '#F0B500'; c.shadowBlur = size * 0.4;
+  c.beginPath(); c.arc(m, m, m * 0.38, 0, Math.PI * 2); c.fill();
+  return new THREE.CanvasTexture(cv);
+}
+const ringTex = makeRingTex();
+const dotTex  = makeDotTex();
+
+function latLonTo3D(lat, lon, r = 1) {
+  const phi   = (90 - lat)  * (Math.PI / 180);
+  const theta = (lon + 180) * (Math.PI / 180);
+  return new THREE.Vector3(
+    -r * Math.sin(phi) * Math.cos(theta),
+     r * Math.cos(phi),
+     r * Math.sin(phi) * Math.sin(theta)
+  );
+}
+
+const INITIAL_ROT = -90 * (Math.PI / 180);
+
+const SITES = [
+  { lat:  40.71, lon:  -74.0,  label: 'NYC',        coords: ['40.7128°N', '74.0060°W']  },
+  { lat:  37.78, lon: -122.4,  label: 'SFO',        coords: ['37.7749°N', '122.4194°W'] },
+  { lat:  41.88, lon:  -87.6,  label: 'CHICAGO',    coords: ['41.8781°N', '87.6298°W']  },
+  { lat:  29.76, lon:  -95.4,  label: 'HOUSTON',    coords: ['29.7604°N', '95.3698°W']  },
+  { lat:  26.64, lon:  -81.87, label: 'LEE COUNTY', coords: ['26.6406°N', '81.8723°W']  },
+  { lat:  51.50, lon:   -0.12, label: 'LONDON',     coords: ['51.5074°N', '0.1278°W']   },
+  { lat:  35.68, lon:  139.7,  label: 'TOKYO',      coords: ['35.6762°N', '139.6503°E'] },
+  { lat:  33.75, lon:  -84.4,  label: 'ATLANTA',    coords: ['33.7490°N', '84.3880°W']  },
+];
+
+const SURF_R = 1.05;
+
+const siteObjs = SITES.map(site => {
+  const pos = latLonTo3D(site.lat, site.lon, SURF_R);
+
+  const dot = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: dotTex, transparent: true, opacity: 0.95,
+    depthTest: true, depthWrite: false,
+  }));
+  dot.position.copy(pos);
+  dot.scale.setScalar(0.06);
+  dot.renderOrder = 2;
+  earth.add(dot);
+
+  const rings = [0, 0.5].map(offset => {
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: ringTex, transparent: true, opacity: 0,
+      depthTest: true, depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    }));
+    sp.position.copy(pos);
+    sp.userData.phase = offset;
+    sp.renderOrder = 2;
+    earth.add(sp);
+    return sp;
+  });
+
+  return { site, dot, rings };
+});
+
+let coordIdx = 0;
+setInterval(() => {
+  coordIdx = (coordIdx + 1) % SITES.length;
+  const s = SITES[coordIdx];
+  document.getElementById('scan-coords').innerHTML =
+    `${s.coords[0]}&nbsp;&nbsp;${s.coords[1]}<br>SCANNING... ${s.label}`;
+}, 2500);
+
+const camDir    = new THREE.Vector3();
+const earthWPos = new THREE.Vector3();
+const siteWPos  = new THREE.Vector3();
+let   globeT    = 0;
+
+function draw() {
+  requestAnimationFrame(draw);
+  globeT++;
+  earth.rotation.y = INITIAL_ROT + globeT * 0.0015;
+  camera.getWorldDirection(camDir);
+  earth.getWorldPosition(earthWPos);
+  siteObjs.forEach(({ dot, rings }) => {
+    dot.getWorldPosition(siteWPos);
+    const toSite  = siteWPos.clone().sub(earthWPos).normalize();
+    const facing  = toSite.dot(camDir.clone().negate());
+    const vis     = Math.max(0, Math.min(1, (facing - 0.05) / 0.2));
+    dot.material.opacity = 0.95 * vis;
+    rings.forEach(ring => {
+      const p = (globeT * 0.007 + ring.userData.phase) % 1;
+      ring.scale.setScalar(0.06 + p * 0.22);
+      ring.material.opacity = Math.pow(1 - p, 2) * 0.85 * vis;
+    });
+  });
+  renderer.render(scene, camera);
+}
+
+draw();
+  </script>
+
+</body>
+</html>
