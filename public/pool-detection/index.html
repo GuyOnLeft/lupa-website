@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unpermitted Pool Detection from Satellite Imagery | Lupa Intelligence</title>
+    <meta name="description" content="Satellite-based detection of unpermitted and unrecorded swimming pools, cross-referenced against permit history and tax roll records. Built for county property appraisers and municipal assessors recovering assessment gaps.">
+    <link rel="canonical" href="https://lupaintel.com/pool-detection/">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta property="og:title" content="Unpermitted Pool Detection from Satellite Imagery | Lupa Intelligence">
+    <meta property="og:description" content="Detect unpermitted swimming pools from public aerial imagery and cross-reference against permits and tax rolls. For county property appraisers and municipal assessors.">
+    <meta property="og:url" content="https://lupaintel.com/pool-detection/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://lupaintel.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://lupaintel.com/og-image.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="apple-touch-icon" href="/favicon-192.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8890VE29T1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8890VE29T1');
+    </script>
+    <script defer src="https://umami-production-026b.up.railway.app/script.js" data-website-id="7dd8458d-6be9-4c5f-9cad-1c3661edce59"></script>
+    <script>
+    (function(){
+      function track(name, data){
+        try { if (window.gtag) gtag('event', name, data || {}); } catch(e){}
+        try { if (window.umami) umami.track(name, data || {}); } catch(e){}
+      }
+      var fired = {};
+      function fireOnce(name, data){ if(!fired[name]){ fired[name]=1; track(name, data); } }
+      window.addEventListener('scroll', function(){
+        var h = document.documentElement;
+        var pct = Math.round((h.scrollTop + window.innerHeight) / h.scrollHeight * 100);
+        if (pct >= 25) fireOnce('scroll_25');
+        if (pct >= 50) fireOnce('scroll_50');
+        if (pct >= 75) fireOnce('scroll_75');
+        if (pct >= 90) fireOnce('scroll_90');
+      }, { passive: true });
+      setTimeout(function(){ fireOnce('engaged_30s'); }, 30000);
+      setTimeout(function(){ fireOnce('engaged_60s'); }, 60000);
+      document.addEventListener('click', function(e){
+        var a = e.target.closest && e.target.closest('a');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('mailto:') === 0) track('mailto_click', { href: href });
+        else if (/^https?:\/\//.test(href) && a.host !== location.host) track('outbound_click', { href: href });
+      });
+    })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#edeae5; --ink:#1a1a1a; --dim:#666; --faint:#d4d0ca; --amber:#c47f17; --surface:#fff; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--bg); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.65; }
+        a { color:var(--amber); }
+        nav { display:flex; justify-content:space-between; align-items:center; padding:18px 32px; border-bottom:1px solid var(--faint); position:sticky; top:0; background:rgba(237,234,229,.95); backdrop-filter:blur(10px); z-index:10; }
+        nav a.brand { font-weight:700; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px; }
+        nav .cta { background:var(--ink); color:#fff; padding:8px 16px; border-radius:999px; text-decoration:none; font-size:13px; font-weight:600; }
+        .lang-toggle { background:none; border:1px solid var(--faint); color:var(--dim); padding:6px 10px; border-radius:999px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; cursor:pointer; transition: all .15s; }
+        .lang-toggle:hover { color:var(--ink); border-color:var(--ink); }
+        main { max-width:780px; margin:0 auto; padding:48px 24px 80px; }
+        .eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:16px; }
+        h1 { font-size:clamp(32px, 5vw, 48px); font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:20px; }
+        .lede { font-size:19px; color:#333; margin-bottom:36px; }
+        h2 { font-size:24px; font-weight:700; margin:40px 0 14px; letter-spacing:-.01em; }
+        h3 { font-size:17px; font-weight:600; margin:24px 0 8px; }
+        p { margin-bottom:14px; }
+        ul { margin:8px 0 18px 22px; }
+        li { margin-bottom:6px; }
+        .cta-block { margin:48px 0 16px; padding:28px; background:var(--ink); color:#fff; border-radius:12px; }
+        .cta-block h2 { color:#fff; margin-top:0; }
+        .cta-block a { display:inline-block; background:var(--amber); color:#fff; padding:12px 24px; border-radius:999px; font-weight:600; text-decoration:none; margin-top:8px; }
+        .faq details { border-bottom:1px solid var(--faint); padding:14px 0; }
+        .faq summary { cursor:pointer; font-weight:600; font-size:16px; }
+        .faq p { margin-top:10px; color:#333; }
+        footer { border-top:1px solid var(--faint); padding:24px 32px; font-size:13px; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+        footer a { color:var(--dim); text-decoration:none; margin-right:14px; }
+        .breadcrumb { font-size:12px; color:var(--dim); margin-bottom:8px; }
+        .breadcrumb a { color:var(--dim); text-decoration:none; }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Unpermitted Pool Detection",
+      "serviceType": "Property tax compliance and assessment gap recovery",
+      "provider": {"@type": "Organization", "name": "Lupa Intelligence", "url": "https://lupaintel.com/"},
+      "url": "https://lupaintel.com/pool-detection/",
+      "description": "Satellite-based detection of unrecorded swimming pool installations cross-referenced against permit history and tax roll records. Built for county property appraisers and municipal assessors.",
+      "audience": {"@type": "GovernmentOrganization", "name": "County property appraisers and municipal assessors"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "How does satellite pool detection work?", "acceptedAnswer": {"@type": "Answer", "text": "Public aerial imagery (NAIP and equivalent county-flown sources) is processed parcel-by-parcel to identify swimming pool footprints. Each detection is cross-referenced against the parcel's permit history and tax roll record to flag pools that were never permitted or never added to the assessment."}},
+        {"@type": "Question", "name": "What's the difference between pool detection and a permit audit?", "acceptedAnswer": {"@type": "Answer", "text": "A permit audit only sees pools that someone applied for. Pool detection sees pools that physically exist on the parcel — including ones built without a permit, built before current records, or completed but never assessed. The combination is what surfaces assessment gaps."}},
+        {"@type": "Question", "name": "Does Lupa charge for imagery?", "acceptedAnswer": {"@type": "Answer", "text": "No. Lupa relies on publicly available aerial imagery (NAIP, county GIS programs, and similar). There is no per-image cost or commercial satellite subscription required."}},
+        {"@type": "Question", "name": "Florida-specific note: doesn't §193.092 cap revenue on permitted pools?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Florida statute §193.092 limits back-assessment of property where a permit was issued. Lupa's Florida pool workflow is designed to surface unpermitted detections specifically, where the §193.092 cap does not apply, and to flag permitted-but-unassessed cases separately so audit teams can prioritize accordingly."}}
+      ]
+    }
+    </script>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="brand">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#F0B500" stroke-width="1.5"/><line x1="10.25" y1="10.25" x2="14" y2="14" stroke="#F0B500" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Lupa Intelligence
+    </a>
+    <div style="display:flex; align-items:center; gap:14px;">
+        <button class="lang-toggle" id="lang-btn">ES</button>
+        <a href="mailto:jeremy@lupaintel.com" class="cta" data-i18n="nav-cta">Request a Demo</a>
+    </div>
+</nav>
+
+<main>
+    <div class="breadcrumb"><a href="/" data-i18n="bc-home">Home</a> &nbsp;/&nbsp; <span data-i18n="bc-page">Pool Detection</span></div>
+    <div class="eyebrow" data-i18n="eyebrow">Product · Available Now</div>
+    <h1 data-i18n="h1">Lupa PoolFind — Unpermitted Pool Detection from Public Aerial Imagery</h1>
+    <p class="lede" data-i18n="lede">Satellite-based detection of swimming pools that were never permitted or never added to the tax roll. Cross-referenced against permit history and assessment records, delivered as a ranked list of assessment-gap leads for your audit team.</p>
+
+    <h2 data-i18n="h2-detects">What Lupa detects</h2>
+    <ul>
+        <li data-i18n="det-1"><strong>Unpermitted pools</strong> — physical pool present on the parcel with no matching permit on file.</li>
+        <li data-i18n="det-2"><strong>Permitted but unassessed</strong> — permit was issued, but the pool never made it to the tax roll.</li>
+        <li data-i18n="det-3"><strong>Pool cages and screen enclosures</strong> — common in Florida, frequently missed in assessment.</li>
+        <li data-i18n="det-4"><strong>Above-ground vs. in-ground classification</strong> — important for jurisdictions that assess them differently or exempt above-ground units.</li>
+    </ul>
+
+    <h2 data-i18n="h2-how">How it works</h2>
+    <h3 data-i18n="step-1-h">1. Aerial scan</h3>
+    <p data-i18n="step-1-p">Lupa processes publicly available aerial imagery (NAIP and county-flown sources) to identify pool footprints across every parcel in scope. Each detection includes a confidence score, type classification, and parcel ID.</p>
+
+    <h3 data-i18n="step-2-h">2. Cross-reference</h3>
+    <p data-i18n="step-2-p">Each detection is matched against the parcel's permit history and current tax roll record. The output separates: detected + permitted + assessed (no action), detected + permitted + unassessed (review), and detected + no permit (priority).</p>
+
+    <h3 data-i18n="step-3-h">3. Deliver</h3>
+    <p data-i18n="step-3-p">Findings arrive as a ranked lead list with parcel ID, owner name, detection confidence, permit status, and assessment status. Direct citation links let your audit team verify against the public source records before any outreach.</p>
+
+    <h2 data-i18n="h2-fl">Florida note: §193.092 and revenue caps</h2>
+    <p data-i18n="fl-p">Florida statute §193.092 limits back-assessment recovery on parcels where a permit was issued, which materially affects revenue projections on permitted-but-unassessed cases. Lupa surfaces unpermitted detections separately so your team can prioritize the cases where the §193.092 cap does not apply.</p>
+
+    <h2 data-i18n="h2-who">Who this is built for</h2>
+    <ul>
+        <li data-i18n="who-1"><strong>County property appraisers</strong> running periodic improvement audits across high-pool-density jurisdictions.</li>
+        <li data-i18n="who-2"><strong>Municipal assessors</strong> recovering assessment gaps in residential portfolios.</li>
+        <li data-i18n="who-3"><strong>State revenue agencies</strong> evaluating cross-county compliance program design.</li>
+    </ul>
+
+    <h2 data-i18n="h2-faq">Frequently asked questions</h2>
+    <div class="faq">
+        <details>
+            <summary data-i18n="faq-1-q">How does satellite pool detection work?</summary>
+            <p data-i18n="faq-1-a">Public aerial imagery (NAIP and equivalent county-flown sources) is processed parcel-by-parcel to identify swimming pool footprints. Each detection is cross-referenced against the parcel's permit history and tax roll record.</p>
+        </details>
+        <details>
+            <summary data-i18n="faq-2-q">What's the difference between pool detection and a permit audit?</summary>
+            <p data-i18n="faq-2-a">A permit audit only sees pools that someone applied for. Pool detection sees pools that physically exist on the parcel — including ones built without a permit. The combination is what surfaces assessment gaps.</p>
+        </details>
+        <details>
+            <summary data-i18n="faq-3-q">Does Lupa charge for imagery?</summary>
+            <p data-i18n="faq-3-a">No. Lupa relies on publicly available aerial imagery (NAIP, county GIS programs, and similar). No per-image cost or commercial satellite subscription required.</p>
+        </details>
+        <details>
+            <summary data-i18n="faq-4-q">How does Florida §193.092 affect this?</summary>
+            <p data-i18n="faq-4-a">It caps back-assessment recovery on permitted parcels. Lupa surfaces unpermitted detections separately so your team can focus on cases where the cap does not apply.</p>
+        </details>
+    </div>
+
+    <div class="cta-block">
+        <h2 data-i18n="cta-h">Run a pilot pool scan on your jurisdiction</h2>
+        <p data-i18n="cta-p">We scan a defined slice of your parcel base, cross-reference against your permit and tax roll records, and deliver a ranked list of assessment-gap leads.</p>
+        <a href="mailto:jeremy@lupaintel.com?subject=Pool%20Detection%20Pilot%20Inquiry" data-i18n="cta-link">Request a Demo →</a>
+    </div>
+
+    <p style="margin-top:24px"><a href="/homestead-exemption-audit/" data-i18n="see-1">See also: Homestead Exemption Audit →</a> &nbsp;·&nbsp; <a href="/methodology/" data-i18n="see-2">Read our methodology →</a></p>
+</main>
+
+<footer>
+    <div data-i18n="footer-copyright">© 2026 Lupa Intelligence</div>
+    <div>
+        <a href="/" data-i18n="footer-home">Home</a>
+        <a href="/homestead-exemption-audit/" data-i18n="footer-homestead">Homestead Audit</a>
+        <a href="/pool-detection/" data-i18n="footer-pool">Pool Detection</a>
+        <a href="/methodology/" data-i18n="footer-methodology">Methodology</a>
+    </div>
+</footer>
+
+<script>
+const T = {
+    en: {
+        'nav-cta': 'Request a Demo',
+        'bc-home': 'Home',
+        'bc-page': 'Pool Detection',
+        'eyebrow': 'Product · Available Now',
+        'h1': 'Lupa PoolFind — Unpermitted Pool Detection from Public Aerial Imagery',
+        'lede': 'Satellite-based detection of swimming pools that were never permitted or never added to the tax roll. Cross-referenced against permit history and assessment records, delivered as a ranked list of assessment-gap leads for your audit team.',
+        'h2-detects': 'What Lupa detects',
+        'det-1': '<strong>Unpermitted pools</strong> — physical pool present on the parcel with no matching permit on file.',
+        'det-2': '<strong>Permitted but unassessed</strong> — permit was issued, but the pool never made it to the tax roll.',
+        'det-3': '<strong>Pool cages and screen enclosures</strong> — common in Florida, frequently missed in assessment.',
+        'det-4': '<strong>Above-ground vs. in-ground classification</strong> — important for jurisdictions that assess them differently or exempt above-ground units.',
+        'h2-how': 'How it works',
+        'step-1-h': '1. Aerial scan',
+        'step-1-p': 'Lupa processes publicly available aerial imagery (NAIP and county-flown sources) to identify pool footprints across every parcel in scope. Each detection includes a confidence score, type classification, and parcel ID.',
+        'step-2-h': '2. Cross-reference',
+        'step-2-p': 'Each detection is matched against the parcel\'s permit history and current tax roll record. The output separates: detected + permitted + assessed (no action), detected + permitted + unassessed (review), and detected + no permit (priority).',
+        'step-3-h': '3. Deliver',
+        'step-3-p': 'Findings arrive as a ranked lead list with parcel ID, owner name, detection confidence, permit status, and assessment status. Direct citation links let your audit team verify against the public source records before any outreach.',
+        'h2-fl': 'Florida note: §193.092 and revenue caps',
+        'fl-p': 'Florida statute §193.092 limits back-assessment recovery on parcels where a permit was issued, which materially affects revenue projections on permitted-but-unassessed cases. Lupa surfaces unpermitted detections separately so your team can prioritize the cases where the §193.092 cap does not apply.',
+        'h2-who': 'Who this is built for',
+        'who-1': '<strong>County property appraisers</strong> running periodic improvement audits across high-pool-density jurisdictions.',
+        'who-2': '<strong>Municipal assessors</strong> recovering assessment gaps in residential portfolios.',
+        'who-3': '<strong>State revenue agencies</strong> evaluating cross-county compliance program design.',
+        'h2-faq': 'Frequently asked questions',
+        'faq-1-q': 'How does satellite pool detection work?',
+        'faq-1-a': 'Public aerial imagery (NAIP and equivalent county-flown sources) is processed parcel-by-parcel to identify swimming pool footprints. Each detection is cross-referenced against the parcel\'s permit history and tax roll record.',
+        'faq-2-q': 'What\'s the difference between pool detection and a permit audit?',
+        'faq-2-a': 'A permit audit only sees pools that someone applied for. Pool detection sees pools that physically exist on the parcel — including ones built without a permit. The combination is what surfaces assessment gaps.',
+        'faq-3-q': 'Does Lupa charge for imagery?',
+        'faq-3-a': 'No. Lupa relies on publicly available aerial imagery (NAIP, county GIS programs, and similar). No per-image cost or commercial satellite subscription required.',
+        'faq-4-q': 'How does Florida §193.092 affect this?',
+        'faq-4-a': 'It caps back-assessment recovery on permitted parcels. Lupa surfaces unpermitted detections separately so your team can focus on cases where the cap does not apply.',
+        'cta-h': 'Run a pilot pool scan on your jurisdiction',
+        'cta-p': 'We scan a defined slice of your parcel base, cross-reference against your permit and tax roll records, and deliver a ranked list of assessment-gap leads.',
+        'cta-link': 'Request a Demo →',
+        'see-1': 'See also: Homestead Exemption Audit →',
+        'see-2': 'Read our methodology →',
+        'footer-copyright': '© 2026 Lupa Intelligence',
+        'footer-home': 'Home',
+        'footer-homestead': 'Homestead Audit',
+        'footer-pool': 'Pool Detection',
+        'footer-methodology': 'Methodology',
+    },
+    es: {
+        'nav-cta': 'Solicitar una Demo',
+        'bc-home': 'Inicio',
+        'bc-page': 'Detección de Piletas',
+        'eyebrow': 'Producto · Disponible Ahora',
+        'h1': 'Lupa PoolFind — Detección de piletas sin permiso a partir de imágenes aéreas públicas',
+        'lede': 'Detección satelital de piletas que nunca obtuvieron permiso o nunca se incorporaron al padrón fiscal. Cruzadas contra el historial de permisos y los registros de tasación, entregadas como una lista priorizada de leads de brechas de tasación para su equipo de auditoría.',
+        'h2-detects': 'Qué detecta Lupa',
+        'det-1': '<strong>Piletas sin permiso</strong> — pileta físicamente presente en la parcela sin permiso correspondiente en el registro.',
+        'det-2': '<strong>Con permiso pero no tasada</strong> — se emitió el permiso, pero la pileta nunca llegó al padrón fiscal.',
+        'det-3': '<strong>Mallas y cerramientos de pileta</strong> — comunes en Florida, frecuentemente omitidos en la tasación.',
+        'det-4': '<strong>Clasificación elevada vs. enterrada</strong> — importante para jurisdicciones que las tasan de forma diferente o eximen las unidades elevadas.',
+        'h2-how': 'Cómo funciona',
+        'step-1-h': '1. Escaneo aéreo',
+        'step-1-p': 'Lupa procesa imágenes aéreas de disponibilidad pública (NAIP y fuentes de vuelos del condado) para identificar las huellas de piletas en cada parcela del alcance. Cada detección incluye un puntaje de confianza, clasificación de tipo, e identificador de parcela.',
+        'step-2-h': '2. Cruce de datos',
+        'step-2-p': 'Cada detección se cruza con el historial de permisos de la parcela y el registro actual del padrón fiscal. La salida separa: detectada + con permiso + tasada (sin acción), detectada + con permiso + no tasada (revisión), y detectada + sin permiso (prioridad).',
+        'step-3-h': '3. Entrega',
+        'step-3-p': 'Los hallazgos llegan como una lista priorizada de leads con identificador de parcela, nombre del propietario, confianza de detección, estado de permiso, y estado de tasación. Los enlaces directos de citas permiten a su equipo de auditoría verificar contra los registros públicos fuente antes de cualquier contacto.',
+        'h2-fl': 'Nota sobre Florida: §193.092 y límites de recaudación',
+        'fl-p': 'El estatuto §193.092 de Florida limita la recuperación de tasación retroactiva en parcelas donde se emitió un permiso, lo que afecta materialmente las proyecciones de recaudación en casos con permiso pero no tasados. Lupa identifica las detecciones sin permiso por separado para que su equipo pueda priorizar los casos donde el límite de §193.092 no aplica.',
+        'h2-who': 'Para quién está construido',
+        'who-1': '<strong>Tasadores de condado</strong> ejecutando auditorías periódicas de mejoras en jurisdicciones de alta densidad de piletas.',
+        'who-2': '<strong>Tasadores municipales</strong> recuperando brechas de tasación en portafolios residenciales.',
+        'who-3': '<strong>Agencias estatales de rentas</strong> evaluando el diseño de programas de cumplimiento entre condados.',
+        'h2-faq': 'Preguntas frecuentes',
+        'faq-1-q': '¿Cómo funciona la detección satelital de piletas?',
+        'faq-1-a': 'Las imágenes aéreas de disponibilidad pública (NAIP y fuentes equivalentes de vuelos del condado) se procesan parcela por parcela para identificar las huellas de piletas. Cada detección se cruza con el historial de permisos de la parcela y el registro del padrón fiscal.',
+        'faq-2-q': '¿Cuál es la diferencia entre la detección de piletas y una auditoría de permisos?',
+        'faq-2-a': 'Una auditoría de permisos solo ve las piletas para las que alguien solicitó permiso. La detección de piletas ve las piletas que físicamente existen en la parcela — incluidas las construidas sin permiso. La combinación es lo que revela las brechas de tasación.',
+        'faq-3-q': '¿Lupa cobra por las imágenes?',
+        'faq-3-a': 'No. Lupa se basa en imágenes aéreas de disponibilidad pública (NAIP, programas de GIS de condados, y similares). Sin costo por imagen ni suscripción satelital comercial requerida.',
+        'faq-4-q': '¿Cómo afecta esto el §193.092 de Florida?',
+        'faq-4-a': 'Limita la recuperación de tasación retroactiva en parcelas con permiso. Lupa identifica las detecciones sin permiso por separado para que su equipo pueda enfocarse en los casos donde el límite no aplica.',
+        'cta-h': 'Ejecute un escaneo piloto de piletas en su jurisdicción',
+        'cta-p': 'Escaneamos una porción definida de su base predial, la cruzamos con sus registros de permisos y padrón fiscal, y entregamos una lista priorizada de leads de brechas de tasación.',
+        'cta-link': 'Solicitar una Demo →',
+        'see-1': 'Ver también: Auditoría de Exención de Residencia Principal →',
+        'see-2': 'Lea nuestra metodología →',
+        'footer-copyright': '© 2026 Lupa Intelligence',
+        'footer-home': 'Inicio',
+        'footer-homestead': 'Auditoría de Exención',
+        'footer-pool': 'Detección de Piletas',
+        'footer-methodology': 'Metodología',
+    }
+};
+
+let lang = 'en';
+const langBtn = document.getElementById('lang-btn');
+
+function applyLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[l][key] !== undefined) el.innerHTML = T[l][key];
+    });
+    if (langBtn) langBtn.textContent = (l === 'en') ? 'ES' : 'EN';
+    try { localStorage.setItem('lupa_lang', l); } catch(e){}
+    try { if (window.umami) umami.track('lang_toggle', { to: l }); } catch(e){}
+}
+
+if (langBtn) {
+    langBtn.addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
+}
+
+try {
+    const saved = localStorage.getItem('lupa_lang');
+    if (saved === 'es') applyLang('es');
+} catch(e){}
+</script>
+
+</body>
+</html>

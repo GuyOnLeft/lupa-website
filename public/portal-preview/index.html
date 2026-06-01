@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<meta name="robots" content="noindex,nofollow">
+<title>Lupa Intelligence — Customer Portal Prototype</title>
+<style>
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #edeae5;
+  font-family: 'Inter', -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1a1a1a;
+  font-size: 13px;
+  line-height: 1.45;
+  min-height: 100vh;
+}
+button { font-family: inherit; cursor: pointer; }
+a { color: #c47f17; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.preview-banner {
+  background: repeating-linear-gradient(45deg, #f5f3ee, #f5f3ee 8px, #edeae5 8px, #edeae5 16px);
+  border-bottom: 1px dashed #c47f17;
+  color: #888;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  padding: 6px 0;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.preview-banner strong { color: #c47f17; }
+
+.app {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 14px 20px 40px;
+}
+
+/* === Top Nav === */
+.nav {
+  background: #ffffff;
+  border: 1px solid #d4d0ca;
+  border-radius: 10px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.nav-logo {
+  width: 36px; height: 36px;
+  background: #0A0908;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-logo svg { width: 22px; height: 22px; }
+.nav-wordmark {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+}
+.nav-wordmark .sub {
+  display: block;
+  font-size: 9px;
+  color: #888;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-top: -1px;
+}
+.nav-items {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  margin-left: 16px;
+}
+.nav-item {
+  font-size: 12.5px;
+  color: #555;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  transition: color 0.12s, border-color 0.12s;
+}
+.nav-item:hover { color: #1a1a1a; }
+.nav-item.active {
+  color: #1a1a1a;
+  border-bottom-color: #c47f17;
+}
+.nav-org {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.nav-org-name { text-align: right; }
+.nav-org-name .name { font-size: 12px; font-weight: 600; }
+.nav-org-name .role { font-size: 10.5px; color: #888; }
+.nav-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c47f17, #F0B500);
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === View switching === */
+.view { display: none; }
+.view.active { display: block; }
+
+/* === Hero stats === */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.stat {
+  background: #ffffff;
+  border: 1px solid #d4d0ca;
+  border-radius: 10px;
+  padding: 14px 16px;
+  position: relative;
+}
+.stat .label {
+  font-size: 10px;
+  color: #666;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.stat .num {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #1a1a1a;
+  line-height: 1;
+  font-family: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+}
+.stat .num .currency {
+  font-size: 18px;
+  color: #888;
+  font-weight: 500;
+  margin-right: 1px;
+}
+.stat .delta {
+  font-size: 11px;
+  color: #2e7d4f;
+  margin-top: 6px;
+  font-weight: 500;
+}
+.stat .delta.muted { color: #888; }
+.stat .delta.amber { color: #c47f17; }
+.stat .pip {
+  position: absolute;
+  top: 14px; right: 16px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.stat.flagged .pip { background: #c47f17; }
+.stat.invest .pip { background: #1f6fb8; }
+.stat.collected .pip { background: #2e7d4f; }
+.stat.pipeline .pip { background: #9c8038; }
+
+/* === Cards === */
+.cols {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.cols.even { grid-template-columns: 1fr 1fr; }
+.card {
+  background: #ffffff;
+  border: 1px solid #d4d0ca;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+.card-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+}
+.card-meta {
+  font-size: 10.5px;
+  color: #888;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.card-actions { display: flex; gap: 8px; }
+
+/* === Recovery chart === */
+.chart {
+  position: relative;
+  height: 160px;
+  margin: 8px 0 0;
+  padding: 0 4px 22px;
+  border-bottom: 1px solid #e2dfd9;
+}
+.chart.tall { height: 280px; }
+.chart-grid {
+  position: absolute;
+  inset: 0 0 22px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.chart-grid .line { border-top: 1px dashed #e2dfd9; }
+.chart svg { width: 100%; height: 100%; display: block; }
+.chart-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #888;
+  font-family: 'IBM Plex Mono', monospace;
+  padding-top: 6px;
+}
+
+/* === Activity feed === */
+.activity { list-style: none; margin: 0; padding: 0; }
+.activity li {
+  padding: 9px 0;
+  border-bottom: 1px solid #e2dfd9;
+  display: flex;
+  gap: 10px;
+}
+.activity li:last-child { border-bottom: none; }
+.activity .pip {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.activity .when {
+  font-size: 10.5px;
+  color: #888;
+  font-family: 'IBM Plex Mono', monospace;
+  flex-shrink: 0;
+  width: 90px;
+}
+.activity .what { font-size: 12px; color: #1a1a1a; flex: 1; }
+.activity .what strong.collected { color: #2e7d4f; }
+.activity .what strong.invest { color: #1f6fb8; }
+.activity .what strong.flag { color: #c47f17; }
+.activity code {
+  font-family: 'IBM Plex Mono', monospace;
+  background: #f5f3ee;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+
+/* === Cases table === */
+.cases { width: 100%; border-collapse: collapse; font-size: 12px; }
+.cases th {
+  text-align: left;
+  padding: 8px 8px;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #888;
+  border-bottom: 1px solid #d4d0ca;
+  background: #f5f3ee;
+  position: sticky;
+  top: 0;
+  cursor: pointer;
+  user-select: none;
+}
+.cases th:hover { color: #1a1a1a; }
+.cases th .sort-ind { color: #c47f17; margin-left: 4px; font-size: 9px; }
+.cases td {
+  padding: 9px 8px;
+  border-bottom: 1px solid #e2dfd9;
+  vertical-align: middle;
+}
+.cases tbody tr {
+  cursor: pointer;
+  transition: background 0.08s;
+}
+.cases tbody tr:hover { background: #faf8f3; }
+.cases tbody tr:last-child td { border-bottom: none; }
+.cases .id {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #555;
+}
+.cases .owner { font-weight: 600; font-size: 12px; }
+.cases .recovery {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+.cases .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.cases .status .pip { width: 7px; height: 7px; border-radius: 50%; }
+
+.flagged .pip { background: #c47f17; } .flagged.t { color: #c47f17; }
+.invest .pip  { background: #1f6fb8; } .invest.t  { color: #1f6fb8; }
+.billed .pip  { background: #9c8038; } .billed.t  { color: #9c8038; }
+.collected .pip { background: #2e7d4f; } .collected.t { color: #2e7d4f; }
+.disputed .pip { background: #b13838; } .disputed.t { color: #b13838; }
+
+/* === Filter chips === */
+.filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.chip {
+  font-size: 11px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  border: 1px solid #d4d0ca;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.12s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.chip:hover { border-color: #888; color: #1a1a1a; }
+.chip.active {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+.chip .count {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  opacity: 0.7;
+}
+.chip .pip {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+
+.search {
+  margin-left: auto;
+  position: relative;
+}
+.search input {
+  border: 1px solid #d4d0ca;
+  background: #fff;
+  border-radius: 20px;
+  padding: 6px 12px 6px 28px;
+  font-size: 12px;
+  font-family: inherit;
+  width: 220px;
+  outline: none;
+  color: #1a1a1a;
+}
+.search input:focus { border-color: #c47f17; }
+.search::before {
+  content: "";
+  position: absolute;
+  left: 10px; top: 50%;
+  transform: translateY(-50%);
+  width: 12px; height: 12px;
+  border: 1.5px solid #888;
+  border-radius: 50%;
+}
+.search::after {
+  content: "";
+  position: absolute;
+  left: 19px; top: 60%;
+  width: 6px; height: 1.5px;
+  background: #888;
+  transform: rotate(45deg);
+}
+
+/* === Coverage map === */
+.coverage { background: #ffffff; border: 1px solid #d4d0ca; border-radius: 10px; padding: 14px 16px; }
+.states {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.state-chip {
+  font-size: 11px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.state-chip.active { background: #c47f17; color: #fff; }
+.state-chip.coming {
+  background: #f5f3ee;
+  color: #888;
+  border: 1px dashed #d4d0ca;
+}
+.state-chip.coming::before { content: "Q3 "; color: #c47f17; }
+
+/* === Buttons === */
+.btn {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #d4d0ca;
+  background: #fff;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.1s;
+  letter-spacing: 0.2px;
+}
+.btn:hover { border-color: #888; }
+.btn.primary {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+.btn.primary:hover { background: #000; }
+.btn.amber {
+  background: #c47f17;
+  color: #fff;
+  border-color: #c47f17;
+}
+.btn.amber:hover { background: #a86a10; }
+.btn.ghost {
+  background: transparent;
+  border-color: transparent;
+  color: #888;
+}
+.btn.ghost:hover { color: #1a1a1a; }
+.btn.sm { padding: 4px 9px; font-size: 11px; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* === Drawer === */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s;
+  z-index: 50;
+}
+.drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed;
+  top: 0; right: 0;
+  width: 560px;
+  max-width: 92vw;
+  height: 100vh;
+  background: #fbfaf6;
+  border-left: 1px solid #d4d0ca;
+  box-shadow: -8px 0 32px rgba(0,0,0,0.08);
+  transform: translateX(100%);
+  transition: transform 0.22s cubic-bezier(0.2, 0.7, 0.3, 1);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+}
+.drawer.open { transform: translateX(0); }
+.drawer-head {
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid #e2dfd9;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff;
+}
+.drawer-head .case-id {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.drawer-head .case-owner {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.drawer-head .close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+.drawer-head .close:hover { color: #1a1a1a; }
+
+.drawer-body {
+  padding: 18px 22px 80px;
+  overflow-y: auto;
+  flex: 1;
+}
+.drawer-section { margin-bottom: 22px; }
+.drawer-section-title {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.props {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.prop-card {
+  background: #fff;
+  border: 1px solid #e2dfd9;
+  border-radius: 8px;
+  padding: 11px 13px;
+}
+.prop-card.local { border-left: 3px solid #1f6fb8; }
+.prop-card.remote { border-left: 3px solid #c47f17; }
+.prop-card .label {
+  font-size: 9.5px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #888;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.prop-card .addr {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+.prop-card .meta {
+  font-size: 10.5px;
+  color: #666;
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1.6;
+}
+.prop-card .meta a { font-family: inherit; }
+
+.kv {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 6px 14px;
+  font-size: 12px;
+}
+.kv .k { color: #888; }
+.kv .v { color: #1a1a1a; font-weight: 500; }
+.kv .v.mono { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
+
+.statute {
+  background: #fff;
+  border: 1px solid #e2dfd9;
+  border-left: 3px solid #c47f17;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: #444;
+}
+.statute strong { color: #1a1a1a; }
+.statute code {
+  font-family: 'IBM Plex Mono', monospace;
+  background: #f5f3ee;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 10.5px;
+}
+
+.timeline { list-style: none; padding: 0; margin: 0; }
+.timeline li {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #e2dfd9;
+  font-size: 11.5px;
+}
+.timeline li:last-child { border: none; }
+.timeline .t-when {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #888;
+  width: 84px;
+  flex-shrink: 0;
+}
+.timeline .t-what { color: #1a1a1a; flex: 1; }
+.timeline .t-what em { color: #888; font-style: normal; }
+
+.note-input {
+  width: 100%;
+  border: 1px solid #d4d0ca;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 12px;
+  background: #fff;
+  resize: vertical;
+  min-height: 48px;
+  outline: none;
+}
+.note-input:focus { border-color: #c47f17; }
+
+.drawer-foot {
+  padding: 14px 22px;
+  background: #fff;
+  border-top: 1px solid #e2dfd9;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.drawer-foot .spacer { flex: 1; }
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: #f5f3ee;
+  letter-spacing: 0.3px;
+}
+.status-tag .pip { width: 7px; height: 7px; border-radius: 50%; }
+.status-tag.flagged   { background: #fdf3e2; color: #c47f17; }
+.status-tag.invest    { background: #e8f1fa; color: #1f6fb8; }
+.status-tag.billed    { background: #f3eedf; color: #9c8038; }
+.status-tag.collected { background: #e3f2ea; color: #2e7d4f; }
+.status-tag.disputed  { background: #f8e3e3; color: #b13838; }
+
+/* === Reports list === */
+.reports {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.reports li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 4px;
+  border-bottom: 1px solid #e2dfd9;
+}
+.reports li:last-child { border-bottom: none; }
+.reports .icon {
+  width: 36px; height: 44px;
+  background: #f5f3ee;
+  border: 1px solid #d4d0ca;
+  border-radius: 4px;
+  position: relative;
+  flex-shrink: 0;
+}
+.reports .icon::before {
+  content: "PDF";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: #c47f17;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.reports .icon::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 6px; right: 6px;
+  height: 1px;
+  box-shadow: 0 4px 0 #d4d0ca, 0 8px 0 #d4d0ca, 0 12px 0 #d4d0ca;
+  background: #d4d0ca;
+}
+.reports .meta { flex: 1; }
+.reports .title { font-size: 13px; font-weight: 600; }
+.reports .sub {
+  font-size: 11px; color: #888;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 2px;
+}
+
+/* === Settings === */
+.setting-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e2dfd9;
+}
+.setting-row:last-child { border: none; }
+.setting-row .label {
+  font-size: 12px;
+  font-weight: 600;
+}
+.setting-row .label .desc {
+  display: block;
+  font-weight: 400;
+  color: #888;
+  font-size: 11px;
+  margin-top: 2px;
+  line-height: 1.5;
+}
+.setting-row .value { font-size: 12px; color: #1a1a1a; }
+.setting-row .value .mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #555;
+}
+
+.team {
+  display: grid;
+  gap: 8px;
+}
+.team-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid #e2dfd9;
+  border-radius: 8px;
+}
+.team-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1f6fb8, #5ba3df);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.team-avatar.alt { background: linear-gradient(135deg, #2e7d4f, #5fa67c); }
+.team-avatar.alt2 { background: linear-gradient(135deg, #9c8038, #c4a14a); }
+.team-info { flex: 1; }
+.team-info .nm { font-weight: 600; font-size: 12.5px; }
+.team-info .em { font-size: 11px; color: #888; }
+.team-role {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #888;
+  font-weight: 600;
+}
+
+/* === Toast === */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 22px;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast .pip { width: 7px; height: 7px; border-radius: 50%; background: #2e7d4f; }
+
+.attribution {
+  text-align: center;
+  font-size: 10px;
+  color: #888;
+  margin-top: 18px;
+  letter-spacing: 0.5px;
+}
+.attribution strong { color: #1a1a1a; }
+
+.empty {
+  text-align: center;
+  padding: 40px 0;
+  color: #888;
+  font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="preview-banner">
+  <strong>Roadmap Preview</strong> &nbsp; · &nbsp; Q3 2026 customer portal &nbsp; · &nbsp; Interactive prototype, dummy data
+</div>
+
+<div class="app">
+
+  <!-- Top Nav -->
+  <div class="nav">
+    <a href="/" class="nav-brand" style="text-decoration: none; color: inherit;" title="Back to lupaintel.com">
+      <span class="nav-logo">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="13" cy="13" r="6.5" stroke="#F0B500" stroke-width="2" fill="none"/>
+          <line x1="18.6" y1="18.6" x2="25" y2="25" stroke="#F0B500" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="nav-wordmark">
+        Lupa Intelligence
+        <span class="sub">Cross-state audit</span>
+      </span>
+    </a>
+    <div class="nav-items" id="nav-items">
+      <button class="nav-item active" data-view="dashboard">Dashboard</button>
+      <button class="nav-item" data-view="cases">Cases</button>
+      <button class="nav-item" data-view="recovery">Recovery</button>
+      <button class="nav-item" data-view="reports">Reports</button>
+      <button class="nav-item" data-view="settings">Settings</button>
+    </div>
+    <div class="nav-org">
+      <div class="nav-org-name">
+        <div class="name">Sample County Auditor's Office</div>
+        <div class="role">Jane Smith · Auditor</div>
+      </div>
+      <div class="nav-avatar">JS</div>
+    </div>
+  </div>
+
+  <!-- ============== DASHBOARD VIEW ============== -->
+  <section class="view active" data-view="dashboard">
+
+    <div class="stats" id="stats">
+      <!-- rendered by JS -->
+    </div>
+
+    <div class="cols">
+      <!-- Recovery chart -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Recovery Progress · Last 6 Months</span>
+          <span class="card-meta">USD · monthly cumulative</span>
+        </div>
+        <div class="chart">
+          <div class="chart-grid">
+            <div class="line"></div><div class="line"></div><div class="line"></div>
+            <div class="line"></div><div class="line"></div>
+          </div>
+          <svg viewBox="0 0 600 138" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#c47f17" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#c47f17" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M 30 120 L 130 110 L 230 96 L 330 70 L 430 50 L 530 20 L 530 138 L 30 138 Z" fill="url(#grad)"/>
+            <polyline points="30,120 130,110 230,96 330,70 430,50 530,20"
+              fill="none" stroke="#c47f17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="30"  cy="120" r="3.5" fill="#c47f17"/>
+            <circle cx="130" cy="110" r="3.5" fill="#c47f17"/>
+            <circle cx="230" cy="96"  r="3.5" fill="#c47f17"/>
+            <circle cx="330" cy="70"  r="3.5" fill="#c47f17"/>
+            <circle cx="430" cy="50"  r="3.5" fill="#c47f17"/>
+            <circle cx="530" cy="20"  r="4"  fill="#c47f17" stroke="#fff" stroke-width="2"/>
+          </svg>
+          <div class="chart-axis">
+            <span>Dec</span><span>Jan</span><span>Feb</span>
+            <span>Mar</span><span>Apr</span><span>May</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top cases -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Top Cases by Recoverable</span>
+          <button class="btn ghost sm" data-goto="cases">View all →</button>
+        </div>
+        <table class="cases">
+          <thead>
+            <tr>
+              <th style="width: 80px;">Case ID</th>
+              <th>Owner · Cross-state</th>
+              <th>Status</th>
+              <th style="text-align:right;">Recovery</th>
+            </tr>
+          </thead>
+          <tbody id="dashboard-top-cases"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Recent Activity</span>
+          <span class="card-meta">last 14 days</span>
+        </div>
+        <ul class="activity" id="activity-feed"></ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Cross-State Coverage</span>
+          <span class="card-meta">5 active · 3 coming</span>
+        </div>
+        <div style="font-size: 11.5px; color: #555; margin-top: 4px;">
+          Your owner-occupancy roll is cross-referenced monthly against the primary-residence rolls of every state below. New states added quarterly — included in your subscription, no additional cost.
+        </div>
+        <div class="states">
+          <span class="state-chip active">OH</span>
+          <span class="state-chip active">IL</span>
+          <span class="state-chip active">FL</span>
+          <span class="state-chip active">AZ</span>
+          <span class="state-chip active">IN</span>
+          <span class="state-chip coming">NY</span>
+          <span class="state-chip coming">CA</span>
+          <span class="state-chip coming">TX</span>
+        </div>
+        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #e2dfd9; font-size: 10.5px; color: #888; font-family: 'IBM Plex Mono', monospace; line-height: 1.6;">
+          Last full refresh: 2026-05-04 · 03:18 EDT<br>
+          Next scheduled refresh: 2026-06-01 · 02:00 EDT<br>
+          Methodology version: <strong style="color:#1a1a1a;">v3.2</strong> · longest-token name normalization
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CASES VIEW ============== -->
+  <section class="view" data-view="cases">
+    <div class="card">
+      <div class="card-head">
+        <div class="filters" id="cases-filters">
+          <button class="chip active" data-filter="all">All <span class="count" id="count-all"></span></button>
+          <button class="chip" data-filter="flagged"><span class="pip" style="background:#c47f17;"></span> Flagged <span class="count" id="count-flagged"></span></button>
+          <button class="chip" data-filter="invest"><span class="pip" style="background:#1f6fb8;"></span> In Investigation <span class="count" id="count-invest"></span></button>
+          <button class="chip" data-filter="billed"><span class="pip" style="background:#9c8038;"></span> Billed <span class="count" id="count-billed"></span></button>
+          <button class="chip" data-filter="collected"><span class="pip" style="background:#2e7d4f;"></span> Collected <span class="count" id="count-collected"></span></button>
+          <button class="chip" data-filter="disputed"><span class="pip" style="background:#b13838;"></span> Disputed <span class="count" id="count-disputed"></span></button>
+          <div class="search"><input type="text" id="cases-search" placeholder="Search owner, case ID, FL county…"></div>
+        </div>
+      </div>
+
+      <table class="cases">
+        <thead>
+          <tr>
+            <th data-sort="id" style="width: 100px;">Case ID <span class="sort-ind"></span></th>
+            <th data-sort="owner">Owner <span class="sort-ind"></span></th>
+            <th data-sort="cross">Cross-state property <span class="sort-ind"></span></th>
+            <th data-sort="status" style="width: 130px;">Status <span class="sort-ind"></span></th>
+            <th data-sort="opened" style="width: 100px;">Opened <span class="sort-ind"></span></th>
+            <th data-sort="recovery" style="width: 110px; text-align:right;">Est. recovery <span class="sort-ind">↓</span></th>
+          </tr>
+        </thead>
+        <tbody id="cases-table-body"></tbody>
+      </table>
+      <div class="empty" id="cases-empty" style="display:none;">No cases match the current filter.</div>
+    </div>
+  </section>
+
+  <!-- ============== RECOVERY VIEW ============== -->
+  <section class="view" data-view="recovery">
+    <div class="stats">
+      <div class="stat collected">
+        <span class="pip"></span>
+        <div class="label">Recovered YTD</div>
+        <div class="num"><span class="currency">$</span>47,800</div>
+        <div class="delta">↑ $14,300 this quarter</div>
+      </div>
+      <div class="stat pipeline">
+        <span class="pip"></span>
+        <div class="label">Pipeline (open)</div>
+        <div class="num"><span class="currency">$</span>54,200</div>
+        <div class="delta muted">across 25 cases</div>
+      </div>
+      <div class="stat invest">
+        <span class="pip"></span>
+        <div class="label">Avg recovery / case</div>
+        <div class="num"><span class="currency">$</span>1,820</div>
+        <div class="delta muted">3-yr lookback + penalty</div>
+      </div>
+      <div class="stat flagged">
+        <span class="pip"></span>
+        <div class="label">Yield rate</div>
+        <div class="num">86%</div>
+        <div class="delta amber">flag → recovery conversion</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 14px;">
+      <div class="card-head">
+        <span class="card-title">Monthly Recovery — Last 12 Months</span>
+        <span class="card-meta">USD · billed vs collected</span>
+      </div>
+      <div class="chart tall">
+        <div class="chart-grid">
+          <div class="line"></div><div class="line"></div><div class="line"></div>
+          <div class="line"></div><div class="line"></div>
+        </div>
+        <svg viewBox="0 0 1200 260" preserveAspectRatio="none">
+          <!-- Bars: alternating billed (amber muted) + collected (green) -->
+          <g id="recovery-bars"></g>
+        </svg>
+        <div class="chart-axis" id="recovery-axis"></div>
+      </div>
+      <div style="display:flex; gap:18px; margin-top:14px; font-size:11.5px; color:#666;">
+        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;background:#9c8038;border-radius:2px;"></span> Billed</div>
+        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;background:#2e7d4f;border-radius:2px;"></span> Collected</div>
+      </div>
+    </div>
+
+    <div class="cols even">
+      <div class="card">
+        <div class="card-head"><span class="card-title">Recovery by Cross-State County</span></div>
+        <table class="cases" id="recovery-by-county">
+          <thead><tr><th>County</th><th>Cases</th><th style="text-align:right;">Recovered</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-title">Status Funnel</span></div>
+        <div id="funnel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== REPORTS VIEW ============== -->
+  <section class="view" data-view="reports">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Monthly Delta Reports</span>
+        <button class="btn primary sm" onclick="toast('Quarterly summary generated','#c47f17')">Generate quarterly summary</button>
+      </div>
+      <ul class="reports">
+        <li>
+          <div class="icon"></div>
+          <div class="meta">
+            <div class="title">May 2026 Delta Report</div>
+            <div class="sub">5 new flags · 2 resolved · $14,300 recovered · 2026-06-01</div>
+          </div>
+          <button class="btn sm" onclick="toast('Downloading report.pdf')">Download</button>
+          <button class="btn ghost sm" onclick="toast('Opening in viewer')">View</button>
+        </li>
+        <li>
+          <div class="icon"></div>
+          <div class="meta">
+            <div class="title">April 2026 Delta Report</div>
+            <div class="sub">7 new flags · 4 resolved · $9,250 recovered · 2026-05-01</div>
+          </div>
+          <button class="btn sm" onclick="toast('Downloading report.pdf')">Download</button>
+          <button class="btn ghost sm" onclick="toast('Opening in viewer')">View</button>
+        </li>
+        <li>
+          <div class="icon"></div>
+          <div class="meta">
+            <div class="title">March 2026 Delta Report</div>
+            <div class="sub">9 new flags · 3 resolved · $11,100 recovered · 2026-04-01</div>
+          </div>
+          <button class="btn sm" onclick="toast('Downloading report.pdf')">Download</button>
+          <button class="btn ghost sm" onclick="toast('Opening in viewer')">View</button>
+        </li>
+        <li>
+          <div class="icon"></div>
+          <div class="meta">
+            <div class="title">February 2026 Delta Report</div>
+            <div class="sub">4 new flags · 1 resolved · $4,200 recovered · 2026-03-01</div>
+          </div>
+          <button class="btn sm" onclick="toast('Downloading report.pdf')">Download</button>
+          <button class="btn ghost sm" onclick="toast('Opening in viewer')">View</button>
+        </li>
+        <li>
+          <div class="icon"></div>
+          <div class="meta">
+            <div class="title">Q1 2026 Quarterly Summary</div>
+            <div class="sub">20 flags · 8 resolved · $24,550 recovered · 2026-04-05</div>
+          </div>
+          <button class="btn sm" onclick="toast('Downloading report.pdf')">Download</button>
+          <button class="btn ghost sm" onclick="toast('Opening in viewer')">View</button>
+        </li>
+        <li>
+          <div class="icon"></div>
+          <div class="meta">
+            <div class="title">2025 Annual Recovery Report</div>
+            <div class="sub">52 flags · 41 resolved · $76,200 recovered · 2026-01-15</div>
+          </div>
+          <button class="btn sm" onclick="toast('Downloading report.pdf')">Download</button>
+          <button class="btn ghost sm" onclick="toast('Opening in viewer')">View</button>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============== SETTINGS VIEW ============== -->
+  <section class="view" data-view="settings">
+    <div class="cols even">
+      <div class="card">
+        <div class="card-head"><span class="card-title">Account</span></div>
+        <div class="setting-row">
+          <div class="label">Organization
+            <span class="desc">Verified entity on Lupa Intelligence</span>
+          </div>
+          <div class="value">Sample County Auditor's Office<br><span class="mono">FEIN ending 0000 · State</span></div>
+        </div>
+        <div class="setting-row">
+          <div class="label">Subscription
+            <span class="desc">Active tier and renewal</span>
+          </div>
+          <div class="value">Lupa CrossCheck — <strong>Premium</strong> ($6,500/mo)<br><span class="mono">Renews 2026-09-01 · Net-30 invoicing</span></div>
+        </div>
+        <div class="setting-row">
+          <div class="label">Methodology version
+            <span class="desc">Locked for case continuity</span>
+          </div>
+          <div class="value"><span class="mono">v3.2</span> — longest-token name normalization<br><a href="#" onclick="toast('Opening changelog'); return false;">View changelog →</a></div>
+        </div>
+        <div class="setting-row">
+          <div class="label">Refresh cadence
+            <span class="desc">When the cross-state JOIN re-runs</span>
+          </div>
+          <div class="value">Monthly on the 1st · 02:00 ET<br><a href="#" onclick="toast('Request submitted'); return false;">Request weekly refresh →</a></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Team Members</span>
+          <button class="btn sm" onclick="toast('Invite link copied','#c47f17')">+ Invite</button>
+        </div>
+        <div class="team">
+          <div class="team-row">
+            <div class="team-avatar">JS</div>
+            <div class="team-info">
+              <div class="nm">Jane Smith</div>
+              <div class="em">jsmith@samplecounty.gov</div>
+            </div>
+            <div class="team-role">Owner</div>
+          </div>
+          <div class="team-row">
+            <div class="team-avatar alt">AB</div>
+            <div class="team-info">
+              <div class="nm">Alex Brown</div>
+              <div class="em">abrown@samplecounty.gov</div>
+            </div>
+            <div class="team-role">Investigator</div>
+          </div>
+          <div class="team-row">
+            <div class="team-avatar alt">CD</div>
+            <div class="team-info">
+              <div class="nm">Casey Davis</div>
+              <div class="em">cdavis@samplecounty.gov</div>
+            </div>
+            <div class="team-role">Investigator</div>
+          </div>
+          <div class="team-row">
+            <div class="team-avatar alt2">JM</div>
+            <div class="team-info">
+              <div class="nm">Jordan Miller</div>
+              <div class="em">jmiller@samplecounty.gov</div>
+            </div>
+            <div class="team-role">Reviewer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cols even" style="margin-top:14px;">
+      <div class="card">
+        <div class="card-head"><span class="card-title">Notifications</span></div>
+        <div class="setting-row">
+          <div class="label">New Tier 1 flags
+            <span class="desc">Alert when new high-confidence flags arrive</span>
+          </div>
+          <div class="value"><label><input type="checkbox" checked> Email all team members</label></div>
+        </div>
+        <div class="setting-row">
+          <div class="label">Status changes
+            <span class="desc">When investigators update a case</span>
+          </div>
+          <div class="value"><label><input type="checkbox" checked> Email assignee + owner</label></div>
+        </div>
+        <div class="setting-row">
+          <div class="label">Monthly delta report
+            <span class="desc">Auto-email on the 1st</span>
+          </div>
+          <div class="value"><label><input type="checkbox" checked> Send to owner + reviewer</label></div>
+        </div>
+        <div class="setting-row">
+          <div class="label">State expansion
+            <span class="desc">When new cross-state coverage activates</span>
+          </div>
+          <div class="value"><label><input type="checkbox" checked> Email owner</label></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="card-title">Data Export</span></div>
+        <div style="font-size: 12px; color: #555; margin-bottom: 14px;">
+          Export your full case history any time. Lupa retains nothing post-cancellation; you own all flagged data outright per the MSA.
+        </div>
+        <div style="display:grid; gap:8px;">
+          <button class="btn" onclick="toast('Generating cases.csv')">⤓ Export all cases (CSV)</button>
+          <button class="btn" onclick="toast('Generating recovery_log.csv')">⤓ Export recovery log (CSV)</button>
+          <button class="btn" onclick="toast('Generating evidence_bundle.zip')">⤓ Export evidence bundle (ZIP)</button>
+          <button class="btn" onclick="toast('Generating audit_log.csv')">⤓ Export audit log (CSV)</button>
+        </div>
+        <div style="margin-top:14px; padding-top:12px; border-top:1px solid #e2dfd9; font-size:10.5px; color:#888;">
+          MSA §7.4 — data ownership · <a href="#" onclick="toast('Opening MSA'); return false;">View agreement</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="attribution">
+    <strong>Lupa Intelligence</strong> · Service-Disabled Veteran-Owned Small Business · lupaintel.com
+  </div>
+
+</div>
+
+<!-- ============== CASE DRAWER ============== -->
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div>
+      <div class="case-id" id="d-case-id">CASE-2026-0001</div>
+      <div class="case-owner" id="d-owner">—</div>
+      <div style="margin-top:8px;" id="d-status-tag"></div>
+    </div>
+    <button class="close" onclick="closeDrawer()" aria-label="Close">×</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-section">
+      <div class="drawer-section-title">Properties</div>
+      <div class="props">
+        <div class="prop-card local">
+          <div class="label">Owner-occupancy claim · Local</div>
+          <div class="addr" id="d-local-addr">—</div>
+          <div class="meta" id="d-local-meta">—</div>
+        </div>
+        <div class="prop-card remote">
+          <div class="label">Cross-state primary residence</div>
+          <div class="addr" id="d-remote-addr">—</div>
+          <div class="meta" id="d-remote-meta">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Recovery</div>
+      <div class="kv">
+        <div class="k">Estimated recovery</div><div class="v mono" id="d-recovery">—</div>
+        <div class="k">Lookback period</div><div class="v">3 years (per local statute)</div>
+        <div class="k">Penalty</div><div class="v">10% per local code</div>
+        <div class="k">Confidence</div><div class="v" id="d-confidence">—</div>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Statutory Basis</div>
+      <div class="statute">
+        <strong>Local owner-occupancy statute</strong> — credit limited to <em>principal place of residence</em>. Cross-state homestead/exemption laws require permanent residency in their respective states, creating mutually exclusive claims. Lupa cross-references both jurisdictions' rolls for the same tax year(s), surfacing simultaneous claims for recovery under local clawback authority.
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Activity</div>
+      <ul class="timeline" id="d-timeline"></ul>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Add Note</div>
+      <textarea class="note-input" id="d-note-input" placeholder="Add an internal note (visible to your team only)…"></textarea>
+      <div style="margin-top:8px; text-align:right;">
+        <button class="btn primary sm" onclick="addNote()">Save note</button>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn sm" onclick="setStatus('invest')">→ In investigation</button>
+    <button class="btn sm" onclick="setStatus('billed')">→ Billed</button>
+    <button class="btn amber sm" onclick="setStatus('collected')">→ Collected</button>
+    <button class="btn sm" onclick="setStatus('disputed')" style="color:#b13838; border-color:#e8c8c8;">→ Disputed</button>
+    <span class="spacer"></span>
+    <button class="btn ghost sm" onclick="toast('Evidence bundle downloaded')">⤓ Evidence</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="pip"></span><span id="toast-msg">Saved</span></div>
+
+<script>
+// =================================================================
+// STATE
+// =================================================================
+const STATE = {
+  view: 'dashboard',
+  filter: 'all',
+  search: '',
+  sortKey: 'recovery',
+  sortDir: 'desc',
+  selectedCase: null,
+  cases: [],
+};
+
+const STATUS_LABELS = {
+  flagged: 'Flagged',
+  invest: 'In investigation',
+  billed: 'Billed',
+  collected: 'Collected',
+  disputed: 'Disputed',
+};
+
+// 33 dummy cases — generic placeholder data
+const SEED_CASES = [
+  ['CASE-2026-0001','SMITH JOHN A.','Bayview','Coastal FL','invest',1830,'2026-04-12','SAMPLE-0001-A','LOCAL-100001','high'],
+  ['CASE-2026-0002','JOHNSON MARY R.','Sandpoint','Coastal FL','flagged',1810,'2026-04-22','SAMPLE-0002-A','LOCAL-100002','high'],
+  ['CASE-2026-0003','WILLIAMS ROBERT','Lakeshore','Coastal FL','flagged',1790,'2026-04-22','SAMPLE-0003-A','LOCAL-100003','medium'],
+  ['CASE-2026-0004','BROWN PATRICIA','Lakeshore','Coastal FL','invest',1820,'2026-04-15','SAMPLE-0004-A','LOCAL-100004','high'],
+  ['CASE-2026-0005','JONES MICHAEL','Lakeshore','Coastal FL','billed',1780,'2026-03-28','SAMPLE-0005-A','LOCAL-100005','high'],
+  ['CASE-2026-0006','GARCIA LINDA','Lakeshore','Coastal FL','collected',1830,'2026-03-01','SAMPLE-0006-A','LOCAL-100006','high'],
+  ['CASE-2026-0007','MILLER JAMES','Riverbend','Coastal FL','collected',2150,'2026-02-22','SAMPLE-0007-A','LOCAL-100007','high'],
+  ['CASE-2026-0008','DAVIS BARBARA','Pine Grove','Inland FL','flagged',1920,'2026-04-25','SAMPLE-0008-B','LOCAL-100008','medium'],
+  ['CASE-2026-0009','WILSON RICHARD','Cedar Springs','Bayside FL','flagged',1740,'2026-04-25','SAMPLE-0009-C','LOCAL-100009','high'],
+  ['CASE-2026-0010','MOORE SUSAN','Oak Harbor','Central FL','invest',1980,'2026-04-08','SAMPLE-0010-D','LOCAL-100010','high'],
+  ['CASE-2026-0011','TAYLOR JOSEPH','Oak Harbor','Central FL','invest',1860,'2026-04-08','SAMPLE-0011-D','LOCAL-100011','high'],
+  ['CASE-2026-0012','ANDERSON JESSICA','Maple Cove','Northern FL','flagged',1670,'2026-04-29','SAMPLE-0012-E','LOCAL-100012','medium'],
+  ['CASE-2026-0013','THOMAS DAVID','Cedar Springs','Bayside FL','flagged',1830,'2026-04-29','SAMPLE-0013-C','LOCAL-100013','medium'],
+  ['CASE-2026-0014','JACKSON LISA','Pine Grove','Inland FL','billed',1870,'2026-03-19','SAMPLE-0014-B','LOCAL-100014','high'],
+  ['CASE-2026-0015','WHITE PAUL','Brookhaven','Western FL','collected',1760,'2026-02-08','SAMPLE-0015-F','LOCAL-100015','high'],
+  ['CASE-2026-0016','HARRIS NANCY','Coastal Heights','Southern FL','flagged',1810,'2026-05-01','SAMPLE-0016-G','LOCAL-100016','high'],
+  ['CASE-2026-0017','MARTIN GEORGE','Coastal Heights','Southern FL','flagged',1830,'2026-05-01','SAMPLE-0017-G','LOCAL-100017','medium'],
+  ['CASE-2026-0018','THOMPSON KAREN','Coastal Heights','Southern FL','invest',1880,'2026-04-18','SAMPLE-0018-G','LOCAL-100018','high'],
+  ['CASE-2026-0019','CLARK STEVEN','Lakeshore','Coastal FL','disputed',1840,'2026-03-12','SAMPLE-0019-A','LOCAL-100019','medium'],
+  ['CASE-2026-0020','LEWIS BETTY','Riverbend','Coastal FL','flagged',1790,'2026-04-22','SAMPLE-0020-A','LOCAL-100020','medium'],
+  ['CASE-2026-0021','ROBINSON KENNETH','Bayview','Coastal FL','flagged',1850,'2026-04-22','SAMPLE-0021-A','LOCAL-100021','high'],
+  ['CASE-2026-0022','WALKER HELEN','Cedar Springs','Bayside FL','collected',1750,'2026-02-15','SAMPLE-0022-C','LOCAL-100022','high'],
+  ['CASE-2026-0023','YOUNG DONALD','Sandpoint','Coastal FL','billed',1820,'2026-03-21','SAMPLE-0023-A','LOCAL-100023','high'],
+  ['CASE-2026-0024','ALLEN SANDRA','Oak Harbor','Central FL','flagged',1770,'2026-04-30','SAMPLE-0024-D','LOCAL-100024','medium'],
+  ['CASE-2026-0025','KING DONNA','Oak Harbor','Central FL','flagged',1830,'2026-04-30','SAMPLE-0025-D','LOCAL-100025','high'],
+  ['CASE-2026-0026','WRIGHT MARK','Lakeshore','Coastal FL','invest',1860,'2026-04-15','SAMPLE-0026-A','LOCAL-100026','high'],
+  ['CASE-2026-0027','SCOTT DOROTHY','Riverbend','Coastal FL','collected',1880,'2026-01-30','SAMPLE-0027-A','LOCAL-100027','high'],
+  ['CASE-2026-0028','GREEN PAUL','Pine Grove','Inland FL','flagged',1900,'2026-04-25','SAMPLE-0028-B','LOCAL-100028','medium'],
+  ['CASE-2026-0029','BAKER RUTH','Maple Cove','Northern FL','flagged',1810,'2026-04-29','SAMPLE-0029-E','LOCAL-100029','medium'],
+  ['CASE-2026-0030','ADAMS ANTHONY','Lakeshore','Coastal FL','collected',1670,'2026-01-12','SAMPLE-0030-A','LOCAL-100030','high'],
+  ['CASE-2026-0031','NELSON SHARON','Lakeshore','Coastal FL','flagged',1820,'2026-04-22','SAMPLE-0031-A','LOCAL-100031','high'],
+  ['CASE-2026-0032','HILL DANIEL','Riverbend','Coastal FL','disputed',1750,'2026-03-04','SAMPLE-0032-A','LOCAL-100032','medium'],
+  ['CASE-2026-0033','CARTER MICHELLE','Pine Grove','Inland FL','flagged',1880,'2026-04-25','SAMPLE-0033-B','LOCAL-100033','high'],
+];
+
+STATE.cases = SEED_CASES.map(([id, owner, city, county, status, recovery, opened, folio, ohParcel, confidence]) => ({
+  id,
+  owner,
+  city,
+  county,
+  status,
+  recovery,
+  opened,
+  folio,
+  ohParcel,
+  confidence,
+  ohAddr: ohAddrFor(owner),
+  notes: [],
+  history: seedHistory(status, opened),
+}));
+
+function ohAddrFor(owner) {
+  const streets = ['Main St','Oak Ave','Maple Dr','Elm St','1st Ave','2nd St','Cedar Ln','Pine Rd','Walnut Way','Birch Blvd'];
+  const cities = ['Springfield','Lakewood','Hillside','Centerville','Riverdale','Brookfield','Greenwood','Fairview'];
+  let h = 0;
+  for (const c of owner) h = (h * 31 + c.charCodeAt(0)) % 9999;
+  const num = (h % 8000) + 1200;
+  const st = streets[h % streets.length];
+  const city = cities[(h * 7) % cities.length];
+  return `${num} ${st}, ${city} OH`;
+}
+
+function seedHistory(status, opened) {
+  const events = [
+    { when: opened, what: 'Case opened — cross-state match detected via methodology v3.2.' },
+  ];
+  const addDays = (d, n) => {
+    const dt = new Date(d);
+    dt.setDate(dt.getDate() + n);
+    return dt.toISOString().slice(0, 10);
+  };
+  if (['invest','billed','collected','disputed'].includes(status)) {
+    events.push({ when: addDays(opened, 6), what: 'Moved to In Investigation by review team.', tag: 'invest' });
+  }
+  if (['billed','collected'].includes(status)) {
+    events.push({ when: addDays(opened, 21), what: 'Owner served notice — billed for 3-yr lookback + 10% penalty.', tag: 'billed' });
+  }
+  if (status === 'collected') {
+    events.push({ when: addDays(opened, 45), what: 'Payment received — case closed, full balance remitted.', tag: 'collected' });
+  }
+  if (status === 'disputed') {
+    events.push({ when: addDays(opened, 18), what: 'Owner submitted documentation contesting cross-state claim — under review.', tag: 'disputed' });
+  }
+  return events;
+}
+
+// =================================================================
+// RENDER
+// =================================================================
+function showView(name) {
+  STATE.view = name;
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.view === name);
+  });
+  document.querySelectorAll('.view').forEach(el => {
+    el.classList.toggle('active', el.dataset.view === name);
+  });
+  if (name === 'recovery') renderRecoveryView();
+  if (name === 'cases') renderCasesView();
+  if (name === 'dashboard') renderDashboard();
+}
+
+function renderDashboard() {
+  // stats
+  const flagged = STATE.cases.filter(c => c.status === 'flagged').length;
+  const invest = STATE.cases.filter(c => c.status === 'invest').length;
+  const collectedSum = STATE.cases.filter(c => c.status === 'collected').reduce((a,c) => a+c.recovery, 0);
+  const pipeSum = STATE.cases.filter(c => ['flagged','invest','billed'].includes(c.status)).reduce((a,c) => a+c.recovery, 0);
+  const openCount = STATE.cases.filter(c => c.status !== 'collected' && c.status !== 'disputed').length;
+
+  document.getElementById('stats').innerHTML = `
+    <div class="stat flagged">
+      <span class="pip"></span>
+      <div class="label">Active Tier 1 Flags</div>
+      <div class="num">${flagged}</div>
+      <div class="delta amber">↑ 5 new this month</div>
+    </div>
+    <div class="stat invest">
+      <span class="pip"></span>
+      <div class="label">In Investigation</div>
+      <div class="num">${invest}</div>
+      <div class="delta muted">your team is working these</div>
+    </div>
+    <div class="stat collected">
+      <span class="pip"></span>
+      <div class="label">Recovered YTD</div>
+      <div class="num"><span class="currency">$</span>${collectedSum.toLocaleString()}</div>
+      <div class="delta">↑ $14,300 this quarter</div>
+    </div>
+    <div class="stat pipeline">
+      <span class="pip"></span>
+      <div class="label">Pipeline Recovery</div>
+      <div class="num"><span class="currency">$</span>${pipeSum.toLocaleString()}</div>
+      <div class="delta muted">across ${openCount} open cases</div>
+    </div>
+  `;
+
+  // top cases (by recovery, open only)
+  const top = [...STATE.cases]
+    .filter(c => c.status !== 'collected')
+    .sort((a,b) => b.recovery - a.recovery)
+    .slice(0, 6);
+  document.getElementById('dashboard-top-cases').innerHTML = top.map(c => `
+    <tr onclick="openCase('${c.id}')">
+      <td class="id">${c.id}</td>
+      <td><span class="owner">${shortenOwner(c.owner)}</span><br><span style="color:#888; font-size:10.5px;">${c.city}, ${c.county}</span></td>
+      <td><span class="status ${c.status}"><span class="pip"></span><span class="${c.status} t">${STATUS_LABELS[c.status]}</span></span></td>
+      <td class="recovery">$${c.recovery.toLocaleString()}</td>
+    </tr>
+  `).join('');
+
+  // activity feed
+  const activity = buildActivityFeed();
+  document.getElementById('activity-feed').innerHTML = activity.map(a => `
+    <li>
+      <span class="pip" style="background:${a.color};"></span>
+      <span class="when">${a.when}</span>
+      <span class="what">${a.what}</span>
+    </li>
+  `).join('');
+}
+
+function shortenOwner(name) {
+  const parts = name.split(' ');
+  if (parts.length <= 2) return name;
+  return `${parts[0]} ${parts[1][0]}.`;
+}
+
+function buildActivityFeed() {
+  return [
+    { color:'#2e7d4f', when:'Today', what:`Case <code>CASE-2026-0006</code> marked <strong class="collected">Collected</strong> — $1,830 recovered, owner remitted full balance.` },
+    { color:'#c47f17', when:'2 days ago', what:`3 new <strong class="flag">Tier 1 flags</strong> added — cross-state match, multiple counties.` },
+    { color:'#1f6fb8', when:'3 days ago', what:`Case <code>CASE-2026-0001</code> moved to <strong class="invest">In Investigation</strong> by review team.` },
+    { color:'#888',    when:'5 days ago', what:`Monthly delta report available — May 2026 (<code>5 new flags · 2 resolved · $14,300 recovered</code>).` },
+    { color:'#9c8038', when:'1 week ago', what:`Case <code>CASE-2026-0004</code> — owner responded with documentation; pending team review.` },
+    { color:'#c47f17', when:'2 weeks ago', what:`Quarterly state expansion: <strong>new state coverage now active</strong>.` },
+  ];
+}
+
+// ============== Cases view ==============
+function renderCasesView() {
+  // counts
+  const counts = { all: STATE.cases.length, flagged:0, invest:0, billed:0, collected:0, disputed:0 };
+  STATE.cases.forEach(c => counts[c.status]++);
+  Object.entries(counts).forEach(([k,v]) => {
+    const el = document.getElementById('count-' + k);
+    if (el) el.textContent = v;
+  });
+
+  const term = STATE.search.trim().toLowerCase();
+  let rows = STATE.cases.filter(c => {
+    if (STATE.filter !== 'all' && c.status !== STATE.filter) return false;
+    if (!term) return true;
+    return c.owner.toLowerCase().includes(term)
+        || c.id.toLowerCase().includes(term)
+        || (c.city + ' ' + c.county).toLowerCase().includes(term);
+  });
+
+  // sort
+  const dir = STATE.sortDir === 'asc' ? 1 : -1;
+  rows.sort((a,b) => {
+    let av, bv;
+    switch (STATE.sortKey) {
+      case 'id':       av=a.id; bv=b.id; break;
+      case 'owner':    av=a.owner; bv=b.owner; break;
+      case 'cross':    av=a.county+a.city; bv=b.county+b.city; break;
+      case 'status':   av=a.status; bv=b.status; break;
+      case 'opened':   av=a.opened; bv=b.opened; break;
+      case 'recovery':
+      default:         av=a.recovery; bv=b.recovery;
+    }
+    if (av < bv) return -1*dir;
+    if (av > bv) return  1*dir;
+    return 0;
+  });
+
+  const tbody = document.getElementById('cases-table-body');
+  document.getElementById('cases-empty').style.display = rows.length === 0 ? 'block' : 'none';
+  tbody.innerHTML = rows.map(c => `
+    <tr onclick="openCase('${c.id}')">
+      <td class="id">${c.id}</td>
+      <td class="owner">${c.owner}</td>
+      <td><span style="font-weight:500;">${c.city}</span><br><span style="color:#888; font-size:10.5px; font-family:'IBM Plex Mono',monospace;">${c.county} · folio ${c.folio.slice(0,12)}…</span></td>
+      <td><span class="status ${c.status}"><span class="pip"></span><span class="${c.status} t">${STATUS_LABELS[c.status]}</span></span></td>
+      <td style="font-family:'IBM Plex Mono',monospace; color:#666; font-size:11px;">${c.opened}</td>
+      <td class="recovery">$${c.recovery.toLocaleString()}</td>
+    </tr>
+  `).join('');
+
+  // sort indicators
+  document.querySelectorAll('th[data-sort]').forEach(th => {
+    const ind = th.querySelector('.sort-ind');
+    ind.textContent = th.dataset.sort === STATE.sortKey ? (STATE.sortDir === 'asc' ? '↑' : '↓') : '';
+  });
+}
+
+// ============== Recovery view ==============
+function renderRecoveryView() {
+  // monthly bars
+  const months = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
+  const billed   = [3200, 4100, 5400, 4800, 6100, 7200, 8800, 6900, 5400, 11100, 9250, 14300];
+  const collected= [2400, 3500, 4900, 4200, 5600, 6800, 8100, 6400, 4900, 10200, 8400, 12300];
+  const max = Math.max(...billed) * 1.1;
+  const W = 1200, H = 240, pad = 30;
+  const barW = (W - pad*2) / months.length / 2.4;
+  let bars = '';
+  let axis = '';
+  months.forEach((m, i) => {
+    const x = pad + i * ((W - pad*2) / months.length);
+    const bH = (billed[i] / max) * H;
+    const cH = (collected[i] / max) * H;
+    bars += `<rect x="${x}" y="${H - bH}" width="${barW}" height="${bH}" fill="#9c8038" rx="2"/>`;
+    bars += `<rect x="${x + barW + 2}" y="${H - cH}" width="${barW}" height="${cH}" fill="#2e7d4f" rx="2"/>`;
+    axis += `<span>${m}</span>`;
+  });
+  document.getElementById('recovery-bars').innerHTML = bars;
+  document.getElementById('recovery-axis').innerHTML = axis;
+
+  // by-county
+  const byCounty = {};
+  STATE.cases.forEach(c => {
+    if (!byCounty[c.county]) byCounty[c.county] = { count:0, recovered:0 };
+    byCounty[c.county].count++;
+    if (c.status === 'collected') byCounty[c.county].recovered += c.recovery;
+  });
+  const rows = Object.entries(byCounty)
+    .sort(([,a],[,b]) => b.recovered - a.recovered)
+    .map(([county, v]) => `<tr><td style="font-weight:600;">${county}</td><td>${v.count}</td><td class="recovery">$${v.recovered.toLocaleString()}</td></tr>`)
+    .join('');
+  document.querySelector('#recovery-by-county tbody').innerHTML = rows;
+
+  // funnel
+  const total = STATE.cases.length;
+  const flagged   = STATE.cases.filter(c=>c.status==='flagged').length;
+  const invest    = STATE.cases.filter(c=>c.status==='invest').length;
+  const billed1   = STATE.cases.filter(c=>c.status==='billed').length;
+  const collected1= STATE.cases.filter(c=>c.status==='collected').length;
+  const disputed  = STATE.cases.filter(c=>c.status==='disputed').length;
+
+  function bar(label, n, color) {
+    const pct = (n / total) * 100;
+    return `
+      <div style="margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; font-size:11.5px; margin-bottom:5px;">
+          <span style="font-weight:600;">${label}</span>
+          <span style="font-family:'IBM Plex Mono',monospace; color:#666;">${n} cases · ${pct.toFixed(0)}%</span>
+        </div>
+        <div style="background:#f5f3ee; height:10px; border-radius:5px; overflow:hidden;">
+          <div style="background:${color}; height:100%; width:${pct}%; border-radius:5px;"></div>
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById('funnel').innerHTML =
+    bar('Flagged', flagged, '#c47f17') +
+    bar('In investigation', invest, '#1f6fb8') +
+    bar('Billed', billed1, '#9c8038') +
+    bar('Collected', collected1, '#2e7d4f') +
+    bar('Disputed', disputed, '#b13838');
+}
+
+// =================================================================
+// DRAWER
+// =================================================================
+function openCase(id) {
+  const c = STATE.cases.find(x => x.id === id);
+  if (!c) return;
+  STATE.selectedCase = id;
+
+  document.getElementById('d-case-id').textContent = c.id + ' · methodology v3.2';
+  document.getElementById('d-owner').textContent = c.owner;
+
+  document.getElementById('d-status-tag').innerHTML =
+    `<span class="status-tag ${c.status}"><span class="pip"></span>${STATUS_LABELS[c.status]}</span>
+     <span style="margin-left:8px; font-size:11px; color:#888;">Opened ${c.opened}</span>`;
+
+  document.getElementById('d-local-addr').textContent = c.ohAddr;
+  document.getElementById('d-local-meta').innerHTML = `
+    Parcel · ${c.ohParcel}<br>
+    Owner-occ credit claimed: 2023, 2024, 2025<br>
+    <a href="#" onclick="toast('Opening county GIS'); return false;">View on county GIS →</a>
+  `;
+  document.getElementById('d-remote-addr').textContent = `${c.city}, ${c.county}`;
+  document.getElementById('d-remote-meta').innerHTML = `
+    Folio · ${c.folio}<br>
+    Cross-state exemption active: 2023, 2024, 2025<br>
+    <a href="#" onclick="toast('Opening county property appraiser'); return false;">View on county PA →</a> ·
+    <a href="#" onclick="toast('Opening state record'); return false;">State record →</a>
+  `;
+
+  document.getElementById('d-recovery').textContent = `$${c.recovery.toLocaleString()} (3-yr est.)`;
+  document.getElementById('d-confidence').innerHTML = c.confidence === 'high'
+    ? `<span style="color:#2e7d4f; font-weight:600;">High</span> — exact name + address match`
+    : `<span style="color:#9c8038; font-weight:600;">Medium</span> — fuzzy name match, manual review recommended`;
+
+  // timeline
+  const tl = c.history.map(e => `
+    <li>
+      <div class="t-when">${e.when}</div>
+      <div class="t-what">${e.what}</div>
+    </li>
+  `).join('') + c.notes.map(n => `
+    <li>
+      <div class="t-when">${n.when}</div>
+      <div class="t-what"><em>Note · ${n.author}:</em> ${n.text}</div>
+    </li>
+  `).join('');
+  document.getElementById('d-timeline').innerHTML = tl;
+
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawer-backdrop').classList.add('open');
+}
+
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-backdrop').classList.remove('open');
+  STATE.selectedCase = null;
+}
+
+function setStatus(newStatus) {
+  if (!STATE.selectedCase) return;
+  const c = STATE.cases.find(x => x.id === STATE.selectedCase);
+  if (!c || c.status === newStatus) {
+    toast('Already ' + STATUS_LABELS[newStatus].toLowerCase());
+    return;
+  }
+  c.status = newStatus;
+  const today = new Date().toISOString().slice(0,10);
+  c.history.push({
+    when: today,
+    what: `Status changed to <strong class="${newStatus}">${STATUS_LABELS[newStatus]}</strong> by Jane Smith.`,
+    tag: newStatus,
+  });
+  toast(`Case marked ${STATUS_LABELS[newStatus]}`, statusColor(newStatus));
+  openCase(c.id); // re-render drawer
+  if (STATE.view === 'cases') renderCasesView();
+  if (STATE.view === 'dashboard') renderDashboard();
+  if (STATE.view === 'recovery') renderRecoveryView();
+}
+
+function statusColor(s) {
+  return ({flagged:'#c47f17', invest:'#1f6fb8', billed:'#9c8038', collected:'#2e7d4f', disputed:'#b13838'})[s] || '#2e7d4f';
+}
+
+function addNote() {
+  const input = document.getElementById('d-note-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const c = STATE.cases.find(x => x.id === STATE.selectedCase);
+  c.notes.push({ when: new Date().toISOString().slice(0,10), author: 'J. Smith', text });
+  input.value = '';
+  openCase(c.id);
+  toast('Note saved');
+}
+
+// =================================================================
+// TOAST
+// =================================================================
+let toastTimer;
+function toast(msg, color) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.querySelector('.pip').style.background = color || '#2e7d4f';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+// =================================================================
+// EVENTS
+// =================================================================
+document.getElementById('nav-items').addEventListener('click', (e) => {
+  const btn = e.target.closest('.nav-item');
+  if (btn) showView(btn.dataset.view);
+});
+
+document.addEventListener('click', (e) => {
+  const goto = e.target.closest('[data-goto]');
+  if (goto) showView(goto.dataset.goto);
+});
+
+document.getElementById('cases-filters').addEventListener('click', (e) => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('#cases-filters .chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  STATE.filter = chip.dataset.filter;
+  renderCasesView();
+});
+
+document.getElementById('cases-search').addEventListener('input', (e) => {
+  STATE.search = e.target.value;
+  renderCasesView();
+});
+
+document.querySelectorAll('th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    if (STATE.sortKey === th.dataset.sort) {
+      STATE.sortDir = STATE.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      STATE.sortKey = th.dataset.sort;
+      STATE.sortDir = 'desc';
+    }
+    renderCasesView();
+  });
+});
+
+document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDrawer();
+});
+
+// =================================================================
+// INIT
+// =================================================================
+renderDashboard();
+renderCasesView();
+</script>
+
+</body>
+</html>
