@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Airtable Sync | Lupa Intel LLC</title>
+<meta name="description" content="Privacy policy for Airtable Sync, a Shopify app by Lupa Intel LLC.">
+<link rel="canonical" href="https://lupaintel.com/privacy/">
+<style>
+  :root{--ink:#16202e;--muted:#5a6675;--line:#e3e7ec;--bg:#ffffff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
+  main{max-width:760px;margin:0 auto;padding:64px 24px 96px}
+  h1{font-size:2rem;line-height:1.2;margin:0 0 8px}
+  .updated{color:var(--muted);font-size:.9rem;margin:0 0 40px}
+  h2{font-size:1.15rem;margin:40px 0 10px;padding-top:20px;border-top:1px solid var(--line)}
+  h2:first-of-type{border-top:0;padding-top:0}
+  p,li{color:#26313f}
+  ul{padding-left:20px}
+  li{margin:6px 0}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.95rem}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-weight:600;background:#f7f9fb}
+  a{color:#1f5fd0}
+  footer{max-width:760px;margin:0 auto;padding:0 24px 64px;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>Privacy Policy — Airtable Sync</h1>
+  <p class="updated">Last updated 2 August 2026 · Airtable Sync is operated by Lupa Intel LLC.</p>
+
+  <p>Airtable Sync is a Shopify app that copies your store's product catalog into an Airtable
+  base that you own and control. This policy describes exactly what the app stores, what it
+  does not store, and how long it keeps it.</p>
+
+  <h2>The short version</h2>
+  <p><strong>The app does not collect, store, or process personal data about your customers.</strong>
+  It does not request access to orders, customers, checkouts, or any Shopify scope that would
+  expose customer information. It reads products, inventory, and locations, and writes them to
+  your Airtable base.</p>
+
+  <h2>What the app stores</h2>
+  <table>
+    <tr><th>Data</th><th>Why</th></tr>
+    <tr><td>Your Shopify store domain and an access token issued by Shopify</td><td>To read your catalog through Shopify's Admin API</td></tr>
+    <tr><td>Your Airtable API token, encrypted at rest (AES-256-GCM)</td><td>To write into your base. It is never displayed again after you enter it</td></tr>
+    <tr><td>Your Airtable base ID, table IDs, and field mappings</td><td>To know which Shopify field goes in which of your columns</td></tr>
+    <tr><td>A record of each sync: when it ran, how many records it covered, and which failed and why</td><td>To power the Sync Health page so you can see whether syncing is working</td></tr>
+  </table>
+
+  <h2>What the app does not store</h2>
+  <ul>
+    <li>No customer names, emails, addresses, phone numbers, or order data.</li>
+    <li>No payment information. Billing is handled entirely by Shopify.</li>
+    <li>No copies of your product content. Product, variant, collection, and inventory data is
+        read from Shopify and written to your Airtable base in the same operation. Sync records
+        keep only a Shopify product identifier and a status message, not product content.</li>
+  </ul>
+
+  <h2>Who the data is shared with</h2>
+  <p>Nobody. Data is exchanged only between Shopify, your Airtable base, and the app's own
+  servers. It is not sold, rented, or shared with third parties, and it is not used to train
+  machine-learning models. Infrastructure is provided by Render (United States), which stores
+  the data described above on the app's behalf.</p>
+
+  <h2>How long data is kept</h2>
+  <ul>
+    <li>Sync history and per-record results: <strong>90 days</strong>, then deleted automatically.</li>
+    <li>Completed background jobs: <strong>7 days</strong>, then deleted automatically.</li>
+    <li>Your connection settings and field mappings: for as long as the app is installed.</li>
+    <li><strong>When you uninstall, everything belonging to your store is deleted</strong>, via
+        Shopify's <code>shop/redact</code> request.</li>
+  </ul>
+
+  <h2>Security</h2>
+  <ul>
+    <li>Your Airtable token is encrypted before it is stored and is never shown again.</li>
+    <li>All connections use TLS, including between the app and its database, which refuses
+        unencrypted connections.</li>
+    <li>Requests from Shopify are verified cryptographically (HMAC); unverified requests are
+        rejected.</li>
+    <li>Error messages shown in the app are written by the app, so infrastructure details are
+        never exposed.</li>
+  </ul>
+
+  <h2>Your rights</h2>
+  <p>You can disconnect Airtable at any time from within the app, or uninstall the app to delete
+  all of your data. Shopify's privacy requests — data access, customer redaction, and shop
+  redaction — are all supported. Because the app holds no customer personal data, a customer
+  data request returns nothing to disclose.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes materially, the date at the top will be updated and the change
+  described in the app's listing.</p>
+
+  <h2>Contact</h2>
+  <p>Lupa Intel LLC — questions about this policy or your data can be sent to the support address
+  listed on the app's Shopify App Store page.</p>
+</main>
+<footer>© Lupa Intel LLC · <a href="/">lupaintel.com</a></footer>
+</body>
+</html>
