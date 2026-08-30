@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 interface Stat {
   value: number;
@@ -32,20 +33,20 @@ function useCountUp(target: number, active: boolean, duration = 1400) {
   return count;
 }
 
-function StatBox({ stat, active }: { stat: Stat; active: boolean }) {
+function StatBox({ stat, active, isMobile }: { stat: Stat; active: boolean; isMobile: boolean }) {
   const count = useCountUp(stat.value, active);
   return (
     <div style={{
-      padding: "32px 24px", textAlign: "center",
+      padding: isMobile ? "22px 14px" : "32px 24px", textAlign: "center",
       borderRight: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a",
       transition: "background 0.2s", cursor: "default",
     }}
       onMouseEnter={e => (e.currentTarget.style.background = "#111")}
       onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
     >
-      <div style={{ fontSize: 44, fontWeight: 700, color: "#FFB800", letterSpacing: "-0.02em", lineHeight: 1, display: "flex", alignItems: "baseline", justifyContent: "center", gap: 2, fontFamily: "'IBM Plex Mono', monospace" }}>
+      <div style={{ fontSize: isMobile ? 30 : 44, fontWeight: 700, color: "#FFB800", letterSpacing: "-0.02em", lineHeight: 1, display: "flex", alignItems: "baseline", justifyContent: "center", gap: 2, fontFamily: "'IBM Plex Mono', monospace" }}>
         <span>{count}</span>
-        {stat.suffix && <span style={{ fontSize: 28 }}>{stat.suffix}</span>}
+        {stat.suffix && <span style={{ fontSize: isMobile ? 18 : 28 }}>{stat.suffix}</span>}
       </div>
       <div style={{ fontSize: 10, color: "#555", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 10, fontFamily: "'IBM Plex Mono', monospace", lineHeight: 1.5 }}>
         {stat.label}
@@ -60,6 +61,7 @@ function StatBox({ stat, active }: { stat: Stat; active: boolean }) {
 export default function StatCounters() {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const el = ref.current;
@@ -73,8 +75,8 @@ export default function StatCounters() {
   }, []);
 
   return (
-    <div ref={ref} style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
-      {STATS.map((s) => <StatBox key={s.label} stat={s} active={active} />)}
+    <div ref={ref} style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)" }}>
+      {STATS.map((s) => <StatBox key={s.label} stat={s} active={active} isMobile={isMobile} />)}
     </div>
   );
 }
